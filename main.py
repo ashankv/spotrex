@@ -6,9 +6,9 @@ import urllib.parse as urlgen
 
 app = Flask(__name__)
 
-CLIENT_ID = ""
-CLIENT_SECRET = ""
-REDIRECT_URI = ""
+CLIENT_ID = "6f63cd77e5e643c1b48714c67348e2f3"
+CLIENT_SECRET = "929bccc2b1ef4747849b63b50a1d6bc2"
+REDIRECT_URI = "https://localhost:5000/callback"
 
 access_token = None
 
@@ -56,9 +56,16 @@ def callback():
 @app.route("/home")
 def home():
 
+    global access_token
+
+    print('TYPE: ', type(access_token))
+    if access_token == None:
+        return redirect(url_for("login"))
+
+    data = {'access_token': access_token}
     print('ACCESS TOKEN:', access_token)
 
-    return "<h1> HOME </h1>"
+    return render_template("home.html", data=data)
 
 
 def generate_random_string(length):

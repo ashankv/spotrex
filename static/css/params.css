@@ -1,0 +1,23 @@
+.abspos {
+    position: absolute;
+}
+
+.statpos {
+    position: static;
+}
+
+.fixpos {
+    position: fixed;
+}
+
+.relpos {
+    position: relative;
+}
+
+.zstackli {
+    z-index: 0;
+}
+
+.zstackchip {
+    z-index: -1;
+}

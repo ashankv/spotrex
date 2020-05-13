@@ -86,15 +86,18 @@ search.addEventListener('keyup', () => {
 
 $(document).ready(function() {
 
-    $('.list-group').on('click', '.list-group-item', () => {
+    $('.list-group').on('click', '.list-group-item', function() {
 
         var artistName = $(this).find("p").text();
+
+        if (selectedArtists.find(match => match.name === artistName)) {
+            return;
+        }
+
         var selectedArtist = matches.find(match => match.name == artistName);
 
         selectedArtists.push(selectedArtist);
         console.log(selectedArtists);
-        matches = []
-        outputSearchResultHtml(matches);
     });
 
     $('html').click((element) => {

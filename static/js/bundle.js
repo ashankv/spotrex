@@ -4,11 +4,16 @@ const request = require("request");
 const search = document.getElementById('search');
 const matchList = document.getElementById('match-list');
 
+var matches = []
+var selectedArtists = []
+
 // Fetch artists from Spotify
 const fetchArtists = async (searchText) => {
 
+    let newMatches = []
+
     if (searchText.length <= 0) {
-        var matches = [];
+        matches = newMatches;
         matchList.innerHTML = '';
         return;
     }
@@ -26,9 +31,8 @@ const fetchArtists = async (searchText) => {
 
     await request.get(getArtistOptions, function(error, response, body) {
         if (!error && response.statusCode === 200) {
-            var matches = body.artists.items.map(artist => {
 
-                console.log(artist.images);
+            newMatches = body.artists.items.map(artist => {
 
                 var image = null;
 
@@ -43,24 +47,30 @@ const fetchArtists = async (searchText) => {
 
                 return newArtist;
             });
-            outputHtml(matches);
+
+            matches = newMatches;
+
+            outputSearchResultHtml(matches);
         }
     });
 }
 
-function outputHtml(matches) {
+function outputSearchResultHtml(matches) {
+
+    var html = ``;
 
     if (matches.length > 0) {
-        
-        const html = matches.map(match => `
-            <a href="#" class="list-group-item list-group-item-warning d-flex justify-content-between mw-100 align-items-center">
-                <img src=${match.image} width="40" height="40"> </img>
-                <p> \n${match.name} </p>
-            </a>
-            `).join('');
 
-        matchList.innerHTML = html;
+        html = matches.map(match => {
+            // var id = "search-result-"+
+            return `<button class="list-group-item list-group-item-action d-flex" id="search-result">
+                        <img src=${match.image} width="40" height="40"> </img>
+                        <div class="pt-2 pl-2 text-left"> <p>${match.name}</p> </div>
+                    </button>`
+        }).join('');
     }
+
+    matchList.innerHTML = html;
 }
 
 let timeout = null;
@@ -71,7 +81,32 @@ search.addEventListener('keyup', () => {
 
     timeout = setTimeout(() => {
         fetchArtists(search.value);
-    }, 200);
+    }, 500);
+});
+
+$(document).ready(function() {
+
+    $('.list-group').on('click', '.list-group-item', () => {
+
+        var artistName = $(this).find("p").text();
+        var selectedArtist = matches.find(match => match.name == artistName);
+
+        selectedArtists.push(selectedArtist);
+        console.log(selectedArtists);
+        matches = []
+        outputSearchResultHtml(matches);
+    });
+
+    $('html').click((element) => {
+        if (element.target.id != "search" && !$("#match-list").is(":hidden")) {
+            console.log("hidden");
+            $("#match-list").hide();
+        }
+    });
+
+    $('#search').click(() => {
+        $("#match-list").show();
+    });
 });
 
 },{"request":106}],2:[function(require,module,exports){

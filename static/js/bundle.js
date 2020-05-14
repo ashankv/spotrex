@@ -3,9 +3,10 @@ const request = require("request");
 
 const search = document.getElementById('search');
 const matchList = document.getElementById('match-list');
+const tagList = document.getElementById('artist-tag-list');
 
-var matches = []
-var selectedArtists = []
+var matches = [];
+var selectedArtists = [];
 
 // Fetch artists from Spotify
 const fetchArtists = async (searchText) => {
@@ -60,9 +61,7 @@ function outputSearchResultHtml(matches) {
     var html = ``;
 
     if (matches.length > 0) {
-
         html = matches.map(match => {
-            // var id = "search-result-"+
             return `<button class="list-group-item list-group-item-action d-flex" id="search-result">
                         <img src=${match.image} width="40" height="40"> </img>
                         <div class="pt-2 pl-2 text-left"> <p>${match.name}</p> </div>
@@ -71,6 +70,24 @@ function outputSearchResultHtml(matches) {
     }
 
     matchList.innerHTML = html;
+}
+
+function outputArtistTagsHtml() {
+
+    var html = ``;
+
+    if (selectedArtists.length > 0) {
+        html = selectedArtists.map(selectedArtist => {
+            return `<div class="chip relpos zstackchip ml-1">
+                        <img src=${selectedArtist.image} width="96" height="96"> </img>
+                        ${selectedArtist.name}
+                        <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
+                    </div>`
+
+        }).join('');
+    }
+
+    tagList.innerHTML = html;
 }
 
 let timeout = null;
@@ -97,7 +114,13 @@ $(document).ready(function() {
         var selectedArtist = matches.find(match => match.name == artistName);
 
         selectedArtists.push(selectedArtist);
+
         console.log(selectedArtists);
+        outputArtistTagsHtml();
+
+        $('#search').val("");
+        matches = [];
+        matchList.innerHTML = ``;
     });
 
     $('html').click((element) => {

@@ -9,6 +9,10 @@
     background-color: #f1f1f1;
 }
 
+.chip p {
+    font-size: 14px;
+}
+
 .chip img {
     float: left;
     margin: 0 5px 0 -25px;

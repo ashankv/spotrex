@@ -55,6 +55,7 @@ const fetchArtists = async (searchText) => {
     });
 }
 
+// Output search results HTML
 function outputSearchResultHtml(matches) {
 
     var html = ``;
@@ -71,6 +72,7 @@ function outputSearchResultHtml(matches) {
     matchList.innerHTML = html;
 }
 
+// Output selected artist tags HTML
 function outputArtistTagsHtml() {
 
     var html = ``;
@@ -80,7 +82,7 @@ function outputArtistTagsHtml() {
             return `<div class="chip relpos zstackchip ml-1">
                         <img src=${selectedArtist.image} width="96" height="96"> </img>
                         ${selectedArtist.name}
-                        <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
+                        <span class="closebtn">&times;</span>
                     </div>`
 
         }).join('');
@@ -89,6 +91,7 @@ function outputArtistTagsHtml() {
     tagList.innerHTML = html;
 }
 
+// Add search listener query
 let timeout = null;
 
 search.addEventListener('keyup', () => {
@@ -100,8 +103,10 @@ search.addEventListener('keyup', () => {
     }, 500);
 });
 
+// JQuery
 $(document).ready(function() {
 
+    // Clicked Search Result
     $('.list-group').on('click', '.list-group-item', function() {
 
         var artistName = $(this).find("p").text();
@@ -113,15 +118,28 @@ $(document).ready(function() {
         var selectedArtist = matches.find(match => match.name == artistName);
 
         selectedArtists.push(selectedArtist);
-
-        console.log(selectedArtists);
         outputArtistTagsHtml();
 
+        console.log(selectedArtists);
+
+        // Remove current matches
         $('#search').val("");
         matches = [];
         matchList.innerHTML = ``;
     });
 
+    // Clicked Close Btn on Tag
+    $('body').on('click', '.closebtn', function() {
+        var artistClicked = $(this).parent().text().replace('×', '').trim();
+        console.log(artistClicked + " removed");
+
+        selectedArtists = selectedArtists.filter((artist) => artist.name !== artistClicked);
+        outputArtistTagsHtml();
+
+        console.log(selectedArtists);
+    });
+
+    // Clicked outside of the search bar
     $('html').click((element) => {
         if (element.target.id != "search" && !$("#match-list").is(":hidden")) {
             console.log("hidden");
@@ -129,6 +147,7 @@ $(document).ready(function() {
         }
     });
 
+    // Clicked on search bar
     $('#search').click(() => {
         $("#match-list").show();
     });

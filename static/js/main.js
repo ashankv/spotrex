@@ -126,6 +126,11 @@ $(document).ready(function() {
         $('#search').val("");
         matches = [];
         matchList.innerHTML = ``;
+
+        if (selectedArtists.length == 5) {
+            $('#search').prop("disabled", true);
+            $('#search').attr("placeholder", "Maximum selected artists reached");
+        }
     });
 
     // Clicked Close Btn on Tag
@@ -135,6 +140,11 @@ $(document).ready(function() {
 
         selectedArtists = selectedArtists.filter((artist) => artist.name !== artistClicked);
         outputArtistTagsHtml();
+
+        if (selectedArtists.length < 5) {
+            $('#search').prop("disabled", false);
+            $('#search').attr("placeholder", "Search for artists");
+        }
 
         console.log(selectedArtists);
     });

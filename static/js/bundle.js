@@ -162,6 +162,16 @@ $(document).ready(function() {
     $('#search').click(() => {
         $("#match-list").show();
     });
+
+    // Sliders
+
+    var fill = $(".bar .fill");
+
+    $("#number-track-slider").on("input", () => {
+        $(".bar .fill").css("width", $("#number-track-slider").val() + "%");
+    });
+
+
 });
 
 },{"request":106}],2:[function(require,module,exports){

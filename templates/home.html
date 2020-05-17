@@ -18,9 +18,9 @@
         <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2">
             <button class="btn btn-outline-success btn-lg" type="submit">Go</button>
         </div>
-
     </div>
 
+    <!-- Search Results -->
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div>
@@ -29,30 +29,55 @@
         </div>
     </div>
 
+    <!-- Tags -->
+    <div class="row">
+        <div class="pt-3 col-lg-12 col-md-12 col-sm-12 col-xs-12" id="artist-tag-list"></div>
+    </div>
 
     <div class="row">
+        <div class="mt-3 col-lg-4">
+            <div class="card" style="width: 20rem;">
+                <div class="card-body">
+                        <h6 class="card-title">Playlist Name</h6>
+                        <form class="mt-1">
+                            <input class="form-control form-control-sm" type="text" value="SpotRex Generated Playlist">
+                        </form>
 
-        <div class="pt-3 col-lg-12 col-md-12 col-sm-12 col-xs-12" id="artist-tag-list">
-
-            <!-- <div class="chip relpos zstackchip">
-                <img src="https://i.scdn.co/image/fec51156ed94b7ee30fbd4c7fd29b4a840e7daec" alt="Person" width="96" height="96"> </img>
-                Travis Scott
-                <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
+                        <button type="button" class="mt-3 btn btn-primary btn-sm btn-block">Create Playlist</button>
+                </div>
             </div>
 
-            <div class="chip relpos zstackchip">
-                <img src="https://i.scdn.co/image/fec51156ed94b7ee30fbd4c7fd29b4a840e7daec" alt="Person" width="96" height="96"> </img>
-                TRAVIS Scott
-                <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
-            </div>
+            <ul class="list-group mt-3" style="width: 20rem;">
 
-            <div class="chip relpos zstackchip">
-                <img src="https://i.scdn.co/image/fec51156ed94b7ee30fbd4c7fd29b4a840e7daec" alt="Person" width="96" height="96"> </img>
-                TRAVIS Scott
-                <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
-            </div> -->
+                <li class="list-group-item">
+                    <b>Playlist Settings</b>
+                </li>
+
+                <li class="list-group-item">
+                    <div class="text-muted">Number of Tracks</div>
+                    <div class="slider-container">
+                        <span class="bar"> <span class="fill"> </span> </span>
+                        <input id="number-track-slider" class="slider" type="range" min="0" max="100" value="50" </input>
+                    </div>
+                </li>
+
+                <li class="list-group-item">
+                    <div class="multi-range-slider">
+                        <input type="range" id="input-left-energy" min="0" max="100" value="25"
+                        <input type="range" id="input-right-energy" min="0" max="100" value="75">
+
+                        <div class="multi-slider">
+                            <div class="track"></div>
+                            <div class="range"></div>
+                            <div class="thumb left"></div>
+                            <div class="thumb right"></div>
+                        </div>
+                    </div>
+
+                </li>
+
+            </div>
         </div>
-
     </div>
 
 </div>

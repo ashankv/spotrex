@@ -112,7 +112,8 @@ $(document).ready(function() {
     // Clicked Search Result
     $('.list-group').on('click', '.list-group-item', function() {
 
-        if ($(this).attr("id") !== 'match-list') {
+        if ($(this).attr("id") !== 'search-result') {
+            console.log($(this).attr("id"));
             return;
         }
 
@@ -182,13 +183,63 @@ $(document).ready(function() {
 
 var numberSlider = document.getElementById("number-slider");
 nouislider.create(numberSlider, {
-    start: [5],
+    start: [30],
     connect: 'lower',
     step: 5,
     tooltips: [wnumb({ decimals: 0 })],
     range: {
         'min': 5,
         'max': 55
+    }
+});
+
+var popularitySlider = document.getElementById("popularity-slider");
+nouislider.create(popularitySlider, {
+    start: [15, 85],
+    connect: true,
+    range: {
+        'min': 0,
+        'max': 100
+    }
+});
+
+var moodSlider = document.getElementById("mood-slider");
+nouislider.create(moodSlider, {
+    start: [25, 75],
+    connect: true,
+    range: {
+        'min': 0,
+        'max': 100
+    }
+});
+
+var energySlider = document.getElementById("energy-slider");
+nouislider.create(energySlider, {
+    start: [40, 90],
+    connect: true,
+    range: {
+        'min': 0,
+        'max': 100
+    }
+});
+
+var tempoSlider = document.getElementById("tempo-slider");
+nouislider.create(tempoSlider, {
+    start: [50, 100],
+    connect: true,
+    range: {
+        'min': 0,
+        'max': 100
+    }
+});
+
+var vocalSlider = document.getElementById("vocal-slider");
+nouislider.create(vocalSlider, {
+    start: [75, 100],
+    connect: true,
+    range: {
+        'min': 0,
+        'max': 100
     }
 });
 

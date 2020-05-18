@@ -9,6 +9,7 @@ const tagList = document.getElementById('artist-tag-list');
 
 var matches = [];
 var selectedArtists = [];
+var trackRecQueryParams = {};
 
 // Fetch artists from Spotify
 const fetchArtists = async (searchText) => {
@@ -45,7 +46,8 @@ const fetchArtists = async (searchText) => {
 
                 var newArtist = {
                     name: artist.name,
-                    image: image
+                    image: image,
+                    id: artist.id
                 }
 
                 return newArtist;
@@ -113,7 +115,6 @@ $(document).ready(function() {
     $('.list-group').on('click', '.list-group-item', function() {
 
         if ($(this).attr("id") !== 'search-result') {
-            console.log($(this).attr("id"));
             return;
         }
 
@@ -127,6 +128,9 @@ $(document).ready(function() {
 
         selectedArtists.push(selectedArtist);
         outputArtistTagsHtml();
+
+        trackRecQueryParams['seed_artists'] = selectedArtists.map(artist => artist.id).join();
+        console.log(trackRecQueryParams);
 
         console.log(selectedArtists);
 
@@ -195,7 +199,7 @@ nouislider.create(numberSlider, {
 
 var popularitySlider = document.getElementById("popularity-slider");
 nouislider.create(popularitySlider, {
-    start: [15, 85],
+    start: [0, 100],
     connect: true,
     range: {
         'min': 0,
@@ -205,43 +209,113 @@ nouislider.create(popularitySlider, {
 
 var moodSlider = document.getElementById("mood-slider");
 nouislider.create(moodSlider, {
-    start: [25, 75],
+    start: [0, 1],
     connect: true,
     range: {
         'min': 0,
-        'max': 100
+        'max': 1
     }
 });
 
 var energySlider = document.getElementById("energy-slider");
 nouislider.create(energySlider, {
-    start: [40, 90],
+    start: [0, 1],
     connect: true,
     range: {
         'min': 0,
-        'max': 100
+        'max': 1
     }
 });
 
 var tempoSlider = document.getElementById("tempo-slider");
 nouislider.create(tempoSlider, {
-    start: [50, 100],
+    start: [50, 150],
     connect: true,
     range: {
-        'min': 0,
-        'max': 100
+        'min': 50,
+        'max': 150
     }
 });
 
 var vocalSlider = document.getElementById("vocal-slider");
 nouislider.create(vocalSlider, {
-    start: [75, 100],
+    start: [0, 1],
     connect: true,
     range: {
         'min': 0,
-        'max': 100
+        'max': 1
     }
 });
+
+const fetchPlaylistRecommendation = async () => {
+
+    var getRecsOptions = {
+        uri: 'https://api.spotify.com/v1/recommendations',
+        qs: trackRecQueryParams,
+        headers: {'Authorization': 'Bearer ' + accessToken },
+        json: true
+    }
+
+    await request.get(getRecsOptions, function(error, response, body) {
+        console.log(body);
+    });
+}
+
+numberSlider.noUiSlider.on('change', (values) => {
+    trackRecQueryParams['limit'] = parseInt(values[0]);
+    console.log(trackRecQueryParams);
+    fetchPlaylistRecommendation();
+});
+
+popularitySlider.noUiSlider.on('change', (values) => {
+    trackRecQueryParams['min_popularity'] = parseInt(values[0]);
+    trackRecQueryParams['max_popularity'] = parseInt(values[1]);
+    console.log(trackRecQueryParams);
+    fetchPlaylistRecommendation();
+});
+
+moodSlider.noUiSlider.on('change', (values) => {
+    trackRecQueryParams['min_valence'] = values[0];
+    trackRecQueryParams['max_valence'] = values[1];
+    console.log(trackRecQueryParams);
+    fetchPlaylistRecommendation();
+});
+
+energySlider.noUiSlider.on('change', (values) => {
+    trackRecQueryParams['min_energy'] = values[0];
+    trackRecQueryParams['max_energy'] = values[1];
+    console.log(trackRecQueryParams);
+    fetchPlaylistRecommendation();
+});
+
+tempoSlider.noUiSlider.on('change', (values) => {
+    trackRecQueryParams['min_tempo'] = parseInt(values[0]);
+    trackRecQueryParams['max_tempo'] = parseInt(values[1]);
+    console.log(trackRecQueryParams);
+    fetchPlaylistRecommendation();
+});
+
+vocalSlider.noUiSlider.on('change', (values) => {
+    trackRecQueryParams['min_speechiness'] = values[0];
+    trackRecQueryParams['max_speechiness'] = values[1];
+    console.log(trackRecQueryParams);
+    fetchPlaylistRecommendation();
+});
+
+trackRecQueryParams = {
+    'limit':           parseInt(numberSlider.noUiSlider.get()),
+    'seed_artists':    selectedArtists.map(artist => artist.id).join(),
+    'min_popularity':  parseInt(popularitySlider.noUiSlider.get()[0]),
+    'max_popularity':  parseInt(popularitySlider.noUiSlider.get()[1]),
+    'min_valence':     moodSlider.noUiSlider.get()[0],
+    'max_valence':     moodSlider.noUiSlider.get()[1],
+    'min_energy':      energySlider.noUiSlider.get()[0],
+    'max_energy':      energySlider.noUiSlider.get()[1],
+    'min_tempo':       parseInt(tempoSlider.noUiSlider.get()[0]),
+    'max_tempo':       parseInt(tempoSlider.noUiSlider.get()[1]),
+    'min_speechiness': vocalSlider.noUiSlider.get()[0],
+    'max_speechiness': vocalSlider.noUiSlider.get()[1],
+};
 
 },{"nouislider":102,"request":107,"wnumb":169}],2:[function(require,module,exports){
 'use strict';

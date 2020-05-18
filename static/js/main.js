@@ -1,5 +1,7 @@
-const request = require("request");
 
+const nouislider = require('nouislider');
+const wnumb = require('wnumb');
+const request = require("request");
 const search = document.getElementById('search');
 const matchList = document.getElementById('match-list');
 const tagList = document.getElementById('artist-tag-list');
@@ -103,14 +105,15 @@ search.addEventListener('keyup', () => {
     }, 500);
 });
 
-var inputLeft = document.getElementById("input-left-energy");
-
-
 // JQuery
 $(document).ready(function() {
 
     // Clicked Search Result
     $('.list-group').on('click', '.list-group-item', function() {
+
+        if ($(this).attr("id") !== 'match-list') {
+            return;
+        }
 
         var artistName = $(this).find("p").text();
 
@@ -174,4 +177,16 @@ $(document).ready(function() {
     });
 
 
+});
+
+var numberSlider = document.getElementById("number-slider");
+nouislider.create(numberSlider, {
+    start: [5],
+    connect: 'lower',
+    step: 5,
+    tooltips: [wnumb({ decimals: 0 })],
+    range: {
+        'min': 5,
+        'max': 55
+    }
 });

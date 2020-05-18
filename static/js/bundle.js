@@ -1,6 +1,8 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-const request = require("request");
 
+const nouislider = require('nouislider');
+const wnumb = require('wnumb');
+const request = require("request");
 const search = document.getElementById('search');
 const matchList = document.getElementById('match-list');
 const tagList = document.getElementById('artist-tag-list');
@@ -110,6 +112,10 @@ $(document).ready(function() {
     // Clicked Search Result
     $('.list-group').on('click', '.list-group-item', function() {
 
+        if ($(this).attr("id") !== 'match-list') {
+            return;
+        }
+
         var artistName = $(this).find("p").text();
 
         if (selectedArtists.find(match => match.name === artistName)) {
@@ -174,7 +180,19 @@ $(document).ready(function() {
 
 });
 
-},{"request":106}],2:[function(require,module,exports){
+var numberSlider = document.getElementById("number-slider");
+nouislider.create(numberSlider, {
+    start: [5],
+    connect: 'lower',
+    step: 5,
+    tooltips: [wnumb({ decimals: 0 })],
+    range: {
+        'min': 5,
+        'max': 55
+    }
+});
+
+},{"nouislider":102,"request":107,"wnumb":169}],2:[function(require,module,exports){
 'use strict';
 
 var compileSchema = require('./compile')
@@ -1643,7 +1661,7 @@ function resolveIds(schema) {
   return localRefs;
 }
 
-},{"./schema_obj":10,"./util":12,"fast-deep-equal":65,"json-schema-traverse":98,"uri-js":163}],9:[function(require,module,exports){
+},{"./schema_obj":10,"./util":12,"fast-deep-equal":65,"json-schema-traverse":98,"uri-js":164}],9:[function(require,module,exports){
 'use strict';
 
 var ruleModules = require('../dotjs')
@@ -6210,7 +6228,7 @@ Reader.prototype._readTag = function (tag) {
 
 module.exports = Reader;
 
-},{"./errors":45,"./types":48,"assert":184,"safer-buffer":128}],48:[function(require,module,exports){
+},{"./errors":45,"./types":48,"assert":186,"safer-buffer":129}],48:[function(require,module,exports){
 // Copyright 2011 Mark Cavage <mcavage@gmail.com> All rights reserved.
 
 
@@ -6567,7 +6585,7 @@ Writer.prototype._ensure = function (len) {
 
 module.exports = Writer;
 
-},{"./errors":45,"./types":48,"assert":184,"safer-buffer":128}],50:[function(require,module,exports){
+},{"./errors":45,"./types":48,"assert":186,"safer-buffer":129}],50:[function(require,module,exports){
 // Copyright 2011 Mark Cavage <mcavage@gmail.com> All rights reserved.
 
 // If you have no idea what ASN.1 or BER is, see this:
@@ -6804,7 +6822,7 @@ function _setExports(ndebug) {
 module.exports = _setExports(process.env.NODE_NDEBUG);
 
 }).call(this,{"isBuffer":require("../../../../usr/local/lib/node_modules/browserify/node_modules/is-buffer/index.js")},require('_process'))
-},{"../../../../usr/local/lib/node_modules/browserify/node_modules/is-buffer/index.js":311,"_process":342,"assert":184,"stream":381,"util":408}],52:[function(require,module,exports){
+},{"../../../../usr/local/lib/node_modules/browserify/node_modules/is-buffer/index.js":313,"_process":344,"assert":186,"stream":383,"util":410}],52:[function(require,module,exports){
 
 /*!
  *  Copyright 2010 LearnBoost <dev@learnboost.com>
@@ -7018,7 +7036,7 @@ function canonicalizeResource (resource) {
 }
 module.exports.canonicalizeResource = canonicalizeResource
 
-},{"crypto":248,"url":403}],53:[function(require,module,exports){
+},{"crypto":250,"url":405}],53:[function(require,module,exports){
 (function (process,Buffer){
 var aws4 = exports,
     url = require('url'),
@@ -7367,7 +7385,7 @@ aws4.sign = function(request, credentials) {
 }
 
 }).call(this,require('_process'),require("buffer").Buffer)
-},{"./lru":54,"_process":342,"buffer":238,"crypto":248,"querystring":353,"url":403}],54:[function(require,module,exports){
+},{"./lru":54,"_process":344,"buffer":240,"crypto":250,"querystring":355,"url":405}],54:[function(require,module,exports){
 module.exports = function(size) {
   return new LruCache(size)
 }
@@ -8023,7 +8041,7 @@ module.exports = {
       pbkdf: bcrypt_pbkdf
 };
 
-},{"tweetnacl":162}],56:[function(require,module,exports){
+},{"tweetnacl":163}],56:[function(require,module,exports){
 function Caseless (dict) {
   this.dict = dict || {}
 }
@@ -8304,7 +8322,7 @@ CombinedStream.prototype._emitError = function(err) {
 };
 
 }).call(this,{"isBuffer":require("../../../../../usr/local/lib/node_modules/browserify/node_modules/is-buffer/index.js")})
-},{"../../../../../usr/local/lib/node_modules/browserify/node_modules/is-buffer/index.js":311,"delayed-stream":59,"stream":381,"util":408}],58:[function(require,module,exports){
+},{"../../../../../usr/local/lib/node_modules/browserify/node_modules/is-buffer/index.js":313,"delayed-stream":59,"stream":383,"util":410}],58:[function(require,module,exports){
 (function (Buffer){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -8415,7 +8433,7 @@ function objectToString(o) {
 }
 
 }).call(this,{"isBuffer":require("../../../../../usr/local/lib/node_modules/browserify/node_modules/is-buffer/index.js")})
-},{"../../../../../usr/local/lib/node_modules/browserify/node_modules/is-buffer/index.js":311}],59:[function(require,module,exports){
+},{"../../../../../usr/local/lib/node_modules/browserify/node_modules/is-buffer/index.js":313}],59:[function(require,module,exports){
 var Stream = require('stream').Stream;
 var util = require('util');
 
@@ -8524,7 +8542,7 @@ DelayedStream.prototype._checkIfMaxDataSizeExceeded = function() {
   this.emit('error', new Error(message));
 };
 
-},{"stream":381,"util":408}],60:[function(require,module,exports){
+},{"stream":383,"util":410}],60:[function(require,module,exports){
 var crypto = require("crypto");
 var BigInteger = require("jsbn").BigInteger;
 var ECPointFp = require("./lib/ec.js").ECPointFp;
@@ -8584,7 +8602,7 @@ exports.ECKey = function(curve, key, isPublic)
 }
 
 
-},{"./lib/ec.js":61,"./lib/sec.js":62,"crypto":248,"jsbn":97,"safer-buffer":128}],61:[function(require,module,exports){
+},{"./lib/ec.js":61,"./lib/sec.js":62,"crypto":250,"jsbn":97,"safer-buffer":129}],61:[function(require,module,exports){
 // Basic Javascript Elliptic Curve implementation
 // Ported loosely from BouncyCastle's Java EC code
 // Only Fp curves implemented for now
@@ -9625,7 +9643,7 @@ function dumpException(ex)
 }
 
 }).call(this,require('_process'))
-},{"_process":342,"assert":184,"util":408}],65:[function(require,module,exports){
+},{"_process":344,"assert":186,"util":410}],65:[function(require,module,exports){
 'use strict';
 
 // do not edit .js files directly - edit src/index.jst
@@ -9874,7 +9892,7 @@ function createConnectionSSL (port, host, options) {
   return tls.connect(options);
 }
 
-},{"http":382,"https":308,"net":168,"tls":168,"util":408}],68:[function(require,module,exports){
+},{"http":384,"https":310,"net":170,"tls":170,"util":410}],68:[function(require,module,exports){
 /* eslint-env browser */
 module.exports = typeof self == 'object' ? self.FormData : window.FormData;
 
@@ -10983,7 +11001,7 @@ module.exports = {
 
 };
 
-},{"./utils":93,"assert-plus":51,"util":408}],92:[function(require,module,exports){
+},{"./utils":93,"assert-plus":51,"util":410}],92:[function(require,module,exports){
 (function (Buffer){
 // Copyright 2012 Joyent, Inc.  All rights reserved.
 
@@ -11388,7 +11406,7 @@ module.exports = {
 };
 
 }).call(this,{"isBuffer":require("../../../../../usr/local/lib/node_modules/browserify/node_modules/is-buffer/index.js")})
-},{"../../../../../usr/local/lib/node_modules/browserify/node_modules/is-buffer/index.js":311,"./utils":93,"assert-plus":51,"crypto":248,"http":382,"jsprim":101,"sshpk":148,"util":408}],93:[function(require,module,exports){
+},{"../../../../../usr/local/lib/node_modules/browserify/node_modules/is-buffer/index.js":313,"./utils":93,"assert-plus":51,"crypto":250,"http":384,"jsprim":101,"sshpk":149,"util":410}],93:[function(require,module,exports){
 // Copyright 2012 Joyent, Inc.  All rights reserved.
 
 var assert = require('assert-plus');
@@ -11502,7 +11520,7 @@ module.exports = {
   }
 };
 
-},{"assert-plus":51,"sshpk":148,"util":408}],94:[function(require,module,exports){
+},{"assert-plus":51,"sshpk":149,"util":410}],94:[function(require,module,exports){
 (function (Buffer){
 // Copyright 2015 Joyent, Inc.
 
@@ -11594,7 +11612,7 @@ module.exports = {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"./utils":93,"assert-plus":51,"buffer":238,"crypto":248,"sshpk":148}],95:[function(require,module,exports){
+},{"./utils":93,"assert-plus":51,"buffer":240,"crypto":250,"sshpk":149}],95:[function(require,module,exports){
 module.exports      = isTypedArray
 isTypedArray.strict = isStrictTypedArray
 isTypedArray.loose  = isLooseTypedArray
@@ -11666,7 +11684,7 @@ module.exports.isReadable = isReadable
 module.exports.isWritable = isWritable
 module.exports.isDuplex   = isDuplex
 
-},{"stream":381}],97:[function(require,module,exports){
+},{"stream":383}],97:[function(require,module,exports){
 (function(){
 
     // Copyright (c) 2005  Tom Wu
@@ -14157,7 +14175,2646 @@ function mergeObjects(provided, overrides, defaults)
 	return (rv);
 }
 
-},{"assert-plus":51,"extsprintf":64,"json-schema":99,"util":408,"verror":167}],102:[function(require,module,exports){
+},{"assert-plus":51,"extsprintf":64,"json-schema":99,"util":410,"verror":168}],102:[function(require,module,exports){
+/*! nouislider - 14.5.0 - 5/11/2020 */
+(function(factory) {
+    if (typeof define === "function" && define.amd) {
+        // AMD. Register as an anonymous module.
+        define([], factory);
+    } else if (typeof exports === "object") {
+        // Node/CommonJS
+        module.exports = factory();
+    } else {
+        // Browser globals
+        window.noUiSlider = factory();
+    }
+})(function() {
+    "use strict";
+
+    var VERSION = "14.5.0";
+
+    //region Helper Methods
+
+    function isValidFormatter(entry) {
+        return typeof entry === "object" && typeof entry.to === "function" && typeof entry.from === "function";
+    }
+
+    function removeElement(el) {
+        el.parentElement.removeChild(el);
+    }
+
+    function isSet(value) {
+        return value !== null && value !== undefined;
+    }
+
+    // Bindable version
+    function preventDefault(e) {
+        e.preventDefault();
+    }
+
+    // Removes duplicates from an array.
+    function unique(array) {
+        return array.filter(function(a) {
+            return !this[a] ? (this[a] = true) : false;
+        }, {});
+    }
+
+    // Round a value to the closest 'to'.
+    function closest(value, to) {
+        return Math.round(value / to) * to;
+    }
+
+    // Current position of an element relative to the document.
+    function offset(elem, orientation) {
+        var rect = elem.getBoundingClientRect();
+        var doc = elem.ownerDocument;
+        var docElem = doc.documentElement;
+        var pageOffset = getPageOffset(doc);
+
+        // getBoundingClientRect contains left scroll in Chrome on Android.
+        // I haven't found a feature detection that proves this. Worst case
+        // scenario on mis-match: the 'tap' feature on horizontal sliders breaks.
+        if (/webkit.*Chrome.*Mobile/i.test(navigator.userAgent)) {
+            pageOffset.x = 0;
+        }
+
+        return orientation
+            ? rect.top + pageOffset.y - docElem.clientTop
+            : rect.left + pageOffset.x - docElem.clientLeft;
+    }
+
+    // Checks whether a value is numerical.
+    function isNumeric(a) {
+        return typeof a === "number" && !isNaN(a) && isFinite(a);
+    }
+
+    // Sets a class and removes it after [duration] ms.
+    function addClassFor(element, className, duration) {
+        if (duration > 0) {
+            addClass(element, className);
+            setTimeout(function() {
+                removeClass(element, className);
+            }, duration);
+        }
+    }
+
+    // Limits a value to 0 - 100
+    function limit(a) {
+        return Math.max(Math.min(a, 100), 0);
+    }
+
+    // Wraps a variable as an array, if it isn't one yet.
+    // Note that an input array is returned by reference!
+    function asArray(a) {
+        return Array.isArray(a) ? a : [a];
+    }
+
+    // Counts decimals
+    function countDecimals(numStr) {
+        numStr = String(numStr);
+        var pieces = numStr.split(".");
+        return pieces.length > 1 ? pieces[1].length : 0;
+    }
+
+    // http://youmightnotneedjquery.com/#add_class
+    function addClass(el, className) {
+        if (el.classList && !/\s/.test(className)) {
+            el.classList.add(className);
+        } else {
+            el.className += " " + className;
+        }
+    }
+
+    // http://youmightnotneedjquery.com/#remove_class
+    function removeClass(el, className) {
+        if (el.classList && !/\s/.test(className)) {
+            el.classList.remove(className);
+        } else {
+            el.className = el.className.replace(
+                new RegExp("(^|\\b)" + className.split(" ").join("|") + "(\\b|$)", "gi"),
+                " "
+            );
+        }
+    }
+
+    // https://plainjs.com/javascript/attributes/adding-removing-and-testing-for-classes-9/
+    function hasClass(el, className) {
+        return el.classList
+            ? el.classList.contains(className)
+            : new RegExp("\\b" + className + "\\b").test(el.className);
+    }
+
+    // https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollY#Notes
+    function getPageOffset(doc) {
+        var supportPageOffset = window.pageXOffset !== undefined;
+        var isCSS1Compat = (doc.compatMode || "") === "CSS1Compat";
+        var x = supportPageOffset
+            ? window.pageXOffset
+            : isCSS1Compat
+                ? doc.documentElement.scrollLeft
+                : doc.body.scrollLeft;
+        var y = supportPageOffset
+            ? window.pageYOffset
+            : isCSS1Compat
+                ? doc.documentElement.scrollTop
+                : doc.body.scrollTop;
+
+        return {
+            x: x,
+            y: y
+        };
+    }
+
+    // we provide a function to compute constants instead
+    // of accessing window.* as soon as the module needs it
+    // so that we do not compute anything if not needed
+    function getActions() {
+        // Determine the events to bind. IE11 implements pointerEvents without
+        // a prefix, which breaks compatibility with the IE10 implementation.
+        return window.navigator.pointerEnabled
+            ? {
+                  start: "pointerdown",
+                  move: "pointermove",
+                  end: "pointerup"
+              }
+            : window.navigator.msPointerEnabled
+                ? {
+                      start: "MSPointerDown",
+                      move: "MSPointerMove",
+                      end: "MSPointerUp"
+                  }
+                : {
+                      start: "mousedown touchstart",
+                      move: "mousemove touchmove",
+                      end: "mouseup touchend"
+                  };
+    }
+
+    // https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md
+    // Issue #785
+    function getSupportsPassive() {
+        var supportsPassive = false;
+
+        /* eslint-disable */
+        try {
+            var opts = Object.defineProperty({}, "passive", {
+                get: function() {
+                    supportsPassive = true;
+                }
+            });
+
+            window.addEventListener("test", null, opts);
+        } catch (e) {}
+        /* eslint-enable */
+
+        return supportsPassive;
+    }
+
+    function getSupportsTouchActionNone() {
+        return window.CSS && CSS.supports && CSS.supports("touch-action", "none");
+    }
+
+    //endregion
+
+    //region Range Calculation
+
+    // Determine the size of a sub-range in relation to a full range.
+    function subRangeRatio(pa, pb) {
+        return 100 / (pb - pa);
+    }
+
+    // (percentage) How many percent is this value of this range?
+    function fromPercentage(range, value, startRange) {
+        return (value * 100) / (range[startRange + 1] - range[startRange]);
+    }
+
+    // (percentage) Where is this value on this range?
+    function toPercentage(range, value) {
+        return fromPercentage(range, range[0] < 0 ? value + Math.abs(range[0]) : value - range[0], 0);
+    }
+
+    // (value) How much is this percentage on this range?
+    function isPercentage(range, value) {
+        return (value * (range[1] - range[0])) / 100 + range[0];
+    }
+
+    function getJ(value, arr) {
+        var j = 1;
+
+        while (value >= arr[j]) {
+            j += 1;
+        }
+
+        return j;
+    }
+
+    // (percentage) Input a value, find where, on a scale of 0-100, it applies.
+    function toStepping(xVal, xPct, value) {
+        if (value >= xVal.slice(-1)[0]) {
+            return 100;
+        }
+
+        var j = getJ(value, xVal);
+        var va = xVal[j - 1];
+        var vb = xVal[j];
+        var pa = xPct[j - 1];
+        var pb = xPct[j];
+
+        return pa + toPercentage([va, vb], value) / subRangeRatio(pa, pb);
+    }
+
+    // (value) Input a percentage, find where it is on the specified range.
+    function fromStepping(xVal, xPct, value) {
+        // There is no range group that fits 100
+        if (value >= 100) {
+            return xVal.slice(-1)[0];
+        }
+
+        var j = getJ(value, xPct);
+        var va = xVal[j - 1];
+        var vb = xVal[j];
+        var pa = xPct[j - 1];
+        var pb = xPct[j];
+
+        return isPercentage([va, vb], (value - pa) * subRangeRatio(pa, pb));
+    }
+
+    // (percentage) Get the step that applies at a certain value.
+    function getStep(xPct, xSteps, snap, value) {
+        if (value === 100) {
+            return value;
+        }
+
+        var j = getJ(value, xPct);
+        var a = xPct[j - 1];
+        var b = xPct[j];
+
+        // If 'snap' is set, steps are used as fixed points on the slider.
+        if (snap) {
+            // Find the closest position, a or b.
+            if (value - a > (b - a) / 2) {
+                return b;
+            }
+
+            return a;
+        }
+
+        if (!xSteps[j - 1]) {
+            return value;
+        }
+
+        return xPct[j - 1] + closest(value - xPct[j - 1], xSteps[j - 1]);
+    }
+
+    function handleEntryPoint(index, value, that) {
+        var percentage;
+
+        // Wrap numerical input in an array.
+        if (typeof value === "number") {
+            value = [value];
+        }
+
+        // Reject any invalid input, by testing whether value is an array.
+        if (!Array.isArray(value)) {
+            throw new Error("noUiSlider (" + VERSION + "): 'range' contains invalid value.");
+        }
+
+        // Covert min/max syntax to 0 and 100.
+        if (index === "min") {
+            percentage = 0;
+        } else if (index === "max") {
+            percentage = 100;
+        } else {
+            percentage = parseFloat(index);
+        }
+
+        // Check for correct input.
+        if (!isNumeric(percentage) || !isNumeric(value[0])) {
+            throw new Error("noUiSlider (" + VERSION + "): 'range' value isn't numeric.");
+        }
+
+        // Store values.
+        that.xPct.push(percentage);
+        that.xVal.push(value[0]);
+
+        // NaN will evaluate to false too, but to keep
+        // logging clear, set step explicitly. Make sure
+        // not to override the 'step' setting with false.
+        if (!percentage) {
+            if (!isNaN(value[1])) {
+                that.xSteps[0] = value[1];
+            }
+        } else {
+            that.xSteps.push(isNaN(value[1]) ? false : value[1]);
+        }
+
+        that.xHighestCompleteStep.push(0);
+    }
+
+    function handleStepPoint(i, n, that) {
+        // Ignore 'false' stepping.
+        if (!n) {
+            return;
+        }
+
+        // Step over zero-length ranges (#948);
+        if (that.xVal[i] === that.xVal[i + 1]) {
+            that.xSteps[i] = that.xHighestCompleteStep[i] = that.xVal[i];
+
+            return;
+        }
+
+        // Factor to range ratio
+        that.xSteps[i] =
+            fromPercentage([that.xVal[i], that.xVal[i + 1]], n, 0) / subRangeRatio(that.xPct[i], that.xPct[i + 1]);
+
+        var totalSteps = (that.xVal[i + 1] - that.xVal[i]) / that.xNumSteps[i];
+        var highestStep = Math.ceil(Number(totalSteps.toFixed(3)) - 1);
+        var step = that.xVal[i] + that.xNumSteps[i] * highestStep;
+
+        that.xHighestCompleteStep[i] = step;
+    }
+
+    //endregion
+
+    //region Spectrum
+
+    function Spectrum(entry, snap, singleStep) {
+        this.xPct = [];
+        this.xVal = [];
+        this.xSteps = [singleStep || false];
+        this.xNumSteps = [false];
+        this.xHighestCompleteStep = [];
+
+        this.snap = snap;
+
+        var index;
+        var ordered = []; // [0, 'min'], [1, '50%'], [2, 'max']
+
+        // Map the object keys to an array.
+        for (index in entry) {
+            if (entry.hasOwnProperty(index)) {
+                ordered.push([entry[index], index]);
+            }
+        }
+
+        // Sort all entries by value (numeric sort).
+        if (ordered.length && typeof ordered[0][0] === "object") {
+            ordered.sort(function(a, b) {
+                return a[0][0] - b[0][0];
+            });
+        } else {
+            ordered.sort(function(a, b) {
+                return a[0] - b[0];
+            });
+        }
+
+        // Convert all entries to subranges.
+        for (index = 0; index < ordered.length; index++) {
+            handleEntryPoint(ordered[index][1], ordered[index][0], this);
+        }
+
+        // Store the actual step values.
+        // xSteps is sorted in the same order as xPct and xVal.
+        this.xNumSteps = this.xSteps.slice(0);
+
+        // Convert all numeric steps to the percentage of the subrange they represent.
+        for (index = 0; index < this.xNumSteps.length; index++) {
+            handleStepPoint(index, this.xNumSteps[index], this);
+        }
+    }
+
+    Spectrum.prototype.getDistance = function(value) {
+        var index;
+        var distances = [];
+
+        for (index = 0; index < this.xNumSteps.length - 1; index++) {
+            // last "range" can't contain step size as it is purely an endpoint.
+            var step = this.xNumSteps[index];
+
+            if (step && (value / step) % 1 !== 0) {
+                throw new Error(
+                    "noUiSlider (" +
+                        VERSION +
+                        "): 'limit', 'margin' and 'padding' of " +
+                        this.xPct[index] +
+                        "% range must be divisible by step."
+                );
+            }
+
+            // Calculate percentual distance in current range of limit, margin or padding
+            distances[index] = fromPercentage(this.xVal, value, index);
+        }
+
+        return distances;
+    };
+
+    // Calculate the percentual distance over the whole scale of ranges.
+    // direction: 0 = backwards / 1 = forwards
+    Spectrum.prototype.getAbsoluteDistance = function(value, distances, direction) {
+        var xPct_index = 0;
+
+        // Calculate range where to start calculation
+        if (value < this.xPct[this.xPct.length - 1]) {
+            while (value > this.xPct[xPct_index + 1]) {
+                xPct_index++;
+            }
+        } else if (value === this.xPct[this.xPct.length - 1]) {
+            xPct_index = this.xPct.length - 2;
+        }
+
+        // If looking backwards and the value is exactly at a range separator then look one range further
+        if (!direction && value === this.xPct[xPct_index + 1]) {
+            xPct_index++;
+        }
+
+        var start_factor;
+        var rest_factor = 1;
+
+        var rest_rel_distance = distances[xPct_index];
+
+        var range_pct = 0;
+
+        var rel_range_distance = 0;
+        var abs_distance_counter = 0;
+        var range_counter = 0;
+
+        // Calculate what part of the start range the value is
+        if (direction) {
+            start_factor = (value - this.xPct[xPct_index]) / (this.xPct[xPct_index + 1] - this.xPct[xPct_index]);
+        } else {
+            start_factor = (this.xPct[xPct_index + 1] - value) / (this.xPct[xPct_index + 1] - this.xPct[xPct_index]);
+        }
+
+        // Do until the complete distance across ranges is calculated
+        while (rest_rel_distance > 0) {
+            // Calculate the percentage of total range
+            range_pct = this.xPct[xPct_index + 1 + range_counter] - this.xPct[xPct_index + range_counter];
+
+            // Detect if the margin, padding or limit is larger then the current range and calculate
+            if (distances[xPct_index + range_counter] * rest_factor + 100 - start_factor * 100 > 100) {
+                // If larger then take the percentual distance of the whole range
+                rel_range_distance = range_pct * start_factor;
+                // Rest factor of relative percentual distance still to be calculated
+                rest_factor = (rest_rel_distance - 100 * start_factor) / distances[xPct_index + range_counter];
+                // Set start factor to 1 as for next range it does not apply.
+                start_factor = 1;
+            } else {
+                // If smaller or equal then take the percentual distance of the calculate percentual part of that range
+                rel_range_distance = ((distances[xPct_index + range_counter] * range_pct) / 100) * rest_factor;
+                // No rest left as the rest fits in current range
+                rest_factor = 0;
+            }
+
+            if (direction) {
+                abs_distance_counter = abs_distance_counter - rel_range_distance;
+                // Limit range to first range when distance becomes outside of minimum range
+                if (this.xPct.length + range_counter >= 1) {
+                    range_counter--;
+                }
+            } else {
+                abs_distance_counter = abs_distance_counter + rel_range_distance;
+                // Limit range to last range when distance becomes outside of maximum range
+                if (this.xPct.length - range_counter >= 1) {
+                    range_counter++;
+                }
+            }
+
+            // Rest of relative percentual distance still to be calculated
+            rest_rel_distance = distances[xPct_index + range_counter] * rest_factor;
+        }
+
+        return value + abs_distance_counter;
+    };
+
+    Spectrum.prototype.toStepping = function(value) {
+        value = toStepping(this.xVal, this.xPct, value);
+
+        return value;
+    };
+
+    Spectrum.prototype.fromStepping = function(value) {
+        return fromStepping(this.xVal, this.xPct, value);
+    };
+
+    Spectrum.prototype.getStep = function(value) {
+        value = getStep(this.xPct, this.xSteps, this.snap, value);
+
+        return value;
+    };
+
+    Spectrum.prototype.getDefaultStep = function(value, isDown, size) {
+        var j = getJ(value, this.xPct);
+
+        // When at the top or stepping down, look at the previous sub-range
+        if (value === 100 || (isDown && value === this.xPct[j - 1])) {
+            j = Math.max(j - 1, 1);
+        }
+
+        return (this.xVal[j] - this.xVal[j - 1]) / size;
+    };
+
+    Spectrum.prototype.getNearbySteps = function(value) {
+        var j = getJ(value, this.xPct);
+
+        return {
+            stepBefore: {
+                startValue: this.xVal[j - 2],
+                step: this.xNumSteps[j - 2],
+                highestStep: this.xHighestCompleteStep[j - 2]
+            },
+            thisStep: {
+                startValue: this.xVal[j - 1],
+                step: this.xNumSteps[j - 1],
+                highestStep: this.xHighestCompleteStep[j - 1]
+            },
+            stepAfter: {
+                startValue: this.xVal[j],
+                step: this.xNumSteps[j],
+                highestStep: this.xHighestCompleteStep[j]
+            }
+        };
+    };
+
+    Spectrum.prototype.countStepDecimals = function() {
+        var stepDecimals = this.xNumSteps.map(countDecimals);
+        return Math.max.apply(null, stepDecimals);
+    };
+
+    // Outside testing
+    Spectrum.prototype.convert = function(value) {
+        return this.getStep(this.toStepping(value));
+    };
+
+    //endregion
+
+    //region Options
+
+    /*	Every input option is tested and parsed. This'll prevent
+        endless validation in internal methods. These tests are
+        structured with an item for every option available. An
+        option can be marked as required by setting the 'r' flag.
+        The testing function is provided with three arguments:
+            - The provided value for the option;
+            - A reference to the options object;
+            - The name for the option;
+
+        The testing function returns false when an error is detected,
+        or true when everything is OK. It can also modify the option
+        object, to make sure all values can be correctly looped elsewhere. */
+
+    //region Defaults
+
+    var defaultFormatter = {
+        to: function(value) {
+            return value !== undefined && value.toFixed(2);
+        },
+        from: Number
+    };
+
+    var cssClasses = {
+        target: "target",
+        base: "base",
+        origin: "origin",
+        handle: "handle",
+        handleLower: "handle-lower",
+        handleUpper: "handle-upper",
+        touchArea: "touch-area",
+        horizontal: "horizontal",
+        vertical: "vertical",
+        background: "background",
+        connect: "connect",
+        connects: "connects",
+        ltr: "ltr",
+        rtl: "rtl",
+        textDirectionLtr: "txt-dir-ltr",
+        textDirectionRtl: "txt-dir-rtl",
+        draggable: "draggable",
+        drag: "state-drag",
+        tap: "state-tap",
+        active: "active",
+        tooltip: "tooltip",
+        pips: "pips",
+        pipsHorizontal: "pips-horizontal",
+        pipsVertical: "pips-vertical",
+        marker: "marker",
+        markerHorizontal: "marker-horizontal",
+        markerVertical: "marker-vertical",
+        markerNormal: "marker-normal",
+        markerLarge: "marker-large",
+        markerSub: "marker-sub",
+        value: "value",
+        valueHorizontal: "value-horizontal",
+        valueVertical: "value-vertical",
+        valueNormal: "value-normal",
+        valueLarge: "value-large",
+        valueSub: "value-sub"
+    };
+
+    //endregion
+
+    function validateFormat(entry) {
+        // Any object with a to and from method is supported.
+        if (isValidFormatter(entry)) {
+            return true;
+        }
+
+        throw new Error("noUiSlider (" + VERSION + "): 'format' requires 'to' and 'from' methods.");
+    }
+
+    function testStep(parsed, entry) {
+        if (!isNumeric(entry)) {
+            throw new Error("noUiSlider (" + VERSION + "): 'step' is not numeric.");
+        }
+
+        // The step option can still be used to set stepping
+        // for linear sliders. Overwritten if set in 'range'.
+        parsed.singleStep = entry;
+    }
+
+    function testRange(parsed, entry) {
+        // Filter incorrect input.
+        if (typeof entry !== "object" || Array.isArray(entry)) {
+            throw new Error("noUiSlider (" + VERSION + "): 'range' is not an object.");
+        }
+
+        // Catch missing start or end.
+        if (entry.min === undefined || entry.max === undefined) {
+            throw new Error("noUiSlider (" + VERSION + "): Missing 'min' or 'max' in 'range'.");
+        }
+
+        // Catch equal start or end.
+        if (entry.min === entry.max) {
+            throw new Error("noUiSlider (" + VERSION + "): 'range' 'min' and 'max' cannot be equal.");
+        }
+
+        parsed.spectrum = new Spectrum(entry, parsed.snap, parsed.singleStep);
+    }
+
+    function testStart(parsed, entry) {
+        entry = asArray(entry);
+
+        // Validate input. Values aren't tested, as the public .val method
+        // will always provide a valid location.
+        if (!Array.isArray(entry) || !entry.length) {
+            throw new Error("noUiSlider (" + VERSION + "): 'start' option is incorrect.");
+        }
+
+        // Store the number of handles.
+        parsed.handles = entry.length;
+
+        // When the slider is initialized, the .val method will
+        // be called with the start options.
+        parsed.start = entry;
+    }
+
+    function testSnap(parsed, entry) {
+        // Enforce 100% stepping within subranges.
+        parsed.snap = entry;
+
+        if (typeof entry !== "boolean") {
+            throw new Error("noUiSlider (" + VERSION + "): 'snap' option must be a boolean.");
+        }
+    }
+
+    function testAnimate(parsed, entry) {
+        // Enforce 100% stepping within subranges.
+        parsed.animate = entry;
+
+        if (typeof entry !== "boolean") {
+            throw new Error("noUiSlider (" + VERSION + "): 'animate' option must be a boolean.");
+        }
+    }
+
+    function testAnimationDuration(parsed, entry) {
+        parsed.animationDuration = entry;
+
+        if (typeof entry !== "number") {
+            throw new Error("noUiSlider (" + VERSION + "): 'animationDuration' option must be a number.");
+        }
+    }
+
+    function testConnect(parsed, entry) {
+        var connect = [false];
+        var i;
+
+        // Map legacy options
+        if (entry === "lower") {
+            entry = [true, false];
+        } else if (entry === "upper") {
+            entry = [false, true];
+        }
+
+        // Handle boolean options
+        if (entry === true || entry === false) {
+            for (i = 1; i < parsed.handles; i++) {
+                connect.push(entry);
+            }
+
+            connect.push(false);
+        }
+
+        // Reject invalid input
+        else if (!Array.isArray(entry) || !entry.length || entry.length !== parsed.handles + 1) {
+            throw new Error("noUiSlider (" + VERSION + "): 'connect' option doesn't match handle count.");
+        } else {
+            connect = entry;
+        }
+
+        parsed.connect = connect;
+    }
+
+    function testOrientation(parsed, entry) {
+        // Set orientation to an a numerical value for easy
+        // array selection.
+        switch (entry) {
+            case "horizontal":
+                parsed.ort = 0;
+                break;
+            case "vertical":
+                parsed.ort = 1;
+                break;
+            default:
+                throw new Error("noUiSlider (" + VERSION + "): 'orientation' option is invalid.");
+        }
+    }
+
+    function testMargin(parsed, entry) {
+        if (!isNumeric(entry)) {
+            throw new Error("noUiSlider (" + VERSION + "): 'margin' option must be numeric.");
+        }
+
+        // Issue #582
+        if (entry === 0) {
+            return;
+        }
+
+        parsed.margin = parsed.spectrum.getDistance(entry);
+    }
+
+    function testLimit(parsed, entry) {
+        if (!isNumeric(entry)) {
+            throw new Error("noUiSlider (" + VERSION + "): 'limit' option must be numeric.");
+        }
+
+        parsed.limit = parsed.spectrum.getDistance(entry);
+
+        if (!parsed.limit || parsed.handles < 2) {
+            throw new Error(
+                "noUiSlider (" +
+                    VERSION +
+                    "): 'limit' option is only supported on linear sliders with 2 or more handles."
+            );
+        }
+    }
+
+    function testPadding(parsed, entry) {
+        var index;
+
+        if (!isNumeric(entry) && !Array.isArray(entry)) {
+            throw new Error(
+                "noUiSlider (" + VERSION + "): 'padding' option must be numeric or array of exactly 2 numbers."
+            );
+        }
+
+        if (Array.isArray(entry) && !(entry.length === 2 || isNumeric(entry[0]) || isNumeric(entry[1]))) {
+            throw new Error(
+                "noUiSlider (" + VERSION + "): 'padding' option must be numeric or array of exactly 2 numbers."
+            );
+        }
+
+        if (entry === 0) {
+            return;
+        }
+
+        if (!Array.isArray(entry)) {
+            entry = [entry, entry];
+        }
+
+        // 'getDistance' returns false for invalid values.
+        parsed.padding = [parsed.spectrum.getDistance(entry[0]), parsed.spectrum.getDistance(entry[1])];
+
+        for (index = 0; index < parsed.spectrum.xNumSteps.length - 1; index++) {
+            // last "range" can't contain step size as it is purely an endpoint.
+            if (parsed.padding[0][index] < 0 || parsed.padding[1][index] < 0) {
+                throw new Error("noUiSlider (" + VERSION + "): 'padding' option must be a positive number(s).");
+            }
+        }
+
+        var totalPadding = entry[0] + entry[1];
+        var firstValue = parsed.spectrum.xVal[0];
+        var lastValue = parsed.spectrum.xVal[parsed.spectrum.xVal.length - 1];
+
+        if (totalPadding / (lastValue - firstValue) > 1) {
+            throw new Error("noUiSlider (" + VERSION + "): 'padding' option must not exceed 100% of the range.");
+        }
+    }
+
+    function testDirection(parsed, entry) {
+        // Set direction as a numerical value for easy parsing.
+        // Invert connection for RTL sliders, so that the proper
+        // handles get the connect/background classes.
+        switch (entry) {
+            case "ltr":
+                parsed.dir = 0;
+                break;
+            case "rtl":
+                parsed.dir = 1;
+                break;
+            default:
+                throw new Error("noUiSlider (" + VERSION + "): 'direction' option was not recognized.");
+        }
+    }
+
+    function testBehaviour(parsed, entry) {
+        // Make sure the input is a string.
+        if (typeof entry !== "string") {
+            throw new Error("noUiSlider (" + VERSION + "): 'behaviour' must be a string containing options.");
+        }
+
+        // Check if the string contains any keywords.
+        // None are required.
+        var tap = entry.indexOf("tap") >= 0;
+        var drag = entry.indexOf("drag") >= 0;
+        var fixed = entry.indexOf("fixed") >= 0;
+        var snap = entry.indexOf("snap") >= 0;
+        var hover = entry.indexOf("hover") >= 0;
+        var unconstrained = entry.indexOf("unconstrained") >= 0;
+
+        if (fixed) {
+            if (parsed.handles !== 2) {
+                throw new Error("noUiSlider (" + VERSION + "): 'fixed' behaviour must be used with 2 handles");
+            }
+
+            // Use margin to enforce fixed state
+            testMargin(parsed, parsed.start[1] - parsed.start[0]);
+        }
+
+        if (unconstrained && (parsed.margin || parsed.limit)) {
+            throw new Error(
+                "noUiSlider (" + VERSION + "): 'unconstrained' behaviour cannot be used with margin or limit"
+            );
+        }
+
+        parsed.events = {
+            tap: tap || snap,
+            drag: drag,
+            fixed: fixed,
+            snap: snap,
+            hover: hover,
+            unconstrained: unconstrained
+        };
+    }
+
+    function testTooltips(parsed, entry) {
+        if (entry === false) {
+            return;
+        }
+
+        if (entry === true) {
+            parsed.tooltips = [];
+
+            for (var i = 0; i < parsed.handles; i++) {
+                parsed.tooltips.push(true);
+            }
+        } else {
+            parsed.tooltips = asArray(entry);
+
+            if (parsed.tooltips.length !== parsed.handles) {
+                throw new Error("noUiSlider (" + VERSION + "): must pass a formatter for all handles.");
+            }
+
+            parsed.tooltips.forEach(function(formatter) {
+                if (
+                    typeof formatter !== "boolean" &&
+                    (typeof formatter !== "object" || typeof formatter.to !== "function")
+                ) {
+                    throw new Error("noUiSlider (" + VERSION + "): 'tooltips' must be passed a formatter or 'false'.");
+                }
+            });
+        }
+    }
+
+    function testAriaFormat(parsed, entry) {
+        parsed.ariaFormat = entry;
+        validateFormat(entry);
+    }
+
+    function testFormat(parsed, entry) {
+        parsed.format = entry;
+        validateFormat(entry);
+    }
+
+    function testKeyboardSupport(parsed, entry) {
+        parsed.keyboardSupport = entry;
+
+        if (typeof entry !== "boolean") {
+            throw new Error("noUiSlider (" + VERSION + "): 'keyboardSupport' option must be a boolean.");
+        }
+    }
+
+    function testDocumentElement(parsed, entry) {
+        // This is an advanced option. Passed values are used without validation.
+        parsed.documentElement = entry;
+    }
+
+    function testCssPrefix(parsed, entry) {
+        if (typeof entry !== "string" && entry !== false) {
+            throw new Error("noUiSlider (" + VERSION + "): 'cssPrefix' must be a string or `false`.");
+        }
+
+        parsed.cssPrefix = entry;
+    }
+
+    function testCssClasses(parsed, entry) {
+        if (typeof entry !== "object") {
+            throw new Error("noUiSlider (" + VERSION + "): 'cssClasses' must be an object.");
+        }
+
+        if (typeof parsed.cssPrefix === "string") {
+            parsed.cssClasses = {};
+
+            for (var key in entry) {
+                if (!entry.hasOwnProperty(key)) {
+                    continue;
+                }
+
+                parsed.cssClasses[key] = parsed.cssPrefix + entry[key];
+            }
+        } else {
+            parsed.cssClasses = entry;
+        }
+    }
+
+    // Test all developer settings and parse to assumption-safe values.
+    function testOptions(options) {
+        // To prove a fix for #537, freeze options here.
+        // If the object is modified, an error will be thrown.
+        // Object.freeze(options);
+
+        var parsed = {
+            margin: 0,
+            limit: 0,
+            padding: 0,
+            animate: true,
+            animationDuration: 300,
+            ariaFormat: defaultFormatter,
+            format: defaultFormatter
+        };
+
+        // Tests are executed in the order they are presented here.
+        var tests = {
+            step: { r: false, t: testStep },
+            start: { r: true, t: testStart },
+            connect: { r: true, t: testConnect },
+            direction: { r: true, t: testDirection },
+            snap: { r: false, t: testSnap },
+            animate: { r: false, t: testAnimate },
+            animationDuration: { r: false, t: testAnimationDuration },
+            range: { r: true, t: testRange },
+            orientation: { r: false, t: testOrientation },
+            margin: { r: false, t: testMargin },
+            limit: { r: false, t: testLimit },
+            padding: { r: false, t: testPadding },
+            behaviour: { r: true, t: testBehaviour },
+            ariaFormat: { r: false, t: testAriaFormat },
+            format: { r: false, t: testFormat },
+            tooltips: { r: false, t: testTooltips },
+            keyboardSupport: { r: true, t: testKeyboardSupport },
+            documentElement: { r: false, t: testDocumentElement },
+            cssPrefix: { r: true, t: testCssPrefix },
+            cssClasses: { r: true, t: testCssClasses }
+        };
+
+        var defaults = {
+            connect: false,
+            direction: "ltr",
+            behaviour: "tap",
+            orientation: "horizontal",
+            keyboardSupport: true,
+            cssPrefix: "noUi-",
+            cssClasses: cssClasses
+        };
+
+        // AriaFormat defaults to regular format, if any.
+        if (options.format && !options.ariaFormat) {
+            options.ariaFormat = options.format;
+        }
+
+        // Run all options through a testing mechanism to ensure correct
+        // input. It should be noted that options might get modified to
+        // be handled properly. E.g. wrapping integers in arrays.
+        Object.keys(tests).forEach(function(name) {
+            // If the option isn't set, but it is required, throw an error.
+            if (!isSet(options[name]) && defaults[name] === undefined) {
+                if (tests[name].r) {
+                    throw new Error("noUiSlider (" + VERSION + "): '" + name + "' is required.");
+                }
+
+                return true;
+            }
+
+            tests[name].t(parsed, !isSet(options[name]) ? defaults[name] : options[name]);
+        });
+
+        // Forward pips options
+        parsed.pips = options.pips;
+
+        // All recent browsers accept unprefixed transform.
+        // We need -ms- for IE9 and -webkit- for older Android;
+        // Assume use of -webkit- if unprefixed and -ms- are not supported.
+        // https://caniuse.com/#feat=transforms2d
+        var d = document.createElement("div");
+        var msPrefix = d.style.msTransform !== undefined;
+        var noPrefix = d.style.transform !== undefined;
+
+        parsed.transformRule = noPrefix ? "transform" : msPrefix ? "msTransform" : "webkitTransform";
+
+        // Pips don't move, so we can place them using left/top.
+        var styles = [["left", "top"], ["right", "bottom"]];
+
+        parsed.style = styles[parsed.dir][parsed.ort];
+
+        return parsed;
+    }
+
+    //endregion
+
+    function scope(target, options, originalOptions) {
+        var actions = getActions();
+        var supportsTouchActionNone = getSupportsTouchActionNone();
+        var supportsPassive = supportsTouchActionNone && getSupportsPassive();
+
+        // All variables local to 'scope' are prefixed with 'scope_'
+
+        // Slider DOM Nodes
+        var scope_Target = target;
+        var scope_Base;
+        var scope_Handles;
+        var scope_Connects;
+        var scope_Pips;
+        var scope_Tooltips;
+
+        // Slider state values
+        var scope_Spectrum = options.spectrum;
+        var scope_Values = [];
+        var scope_Locations = [];
+        var scope_HandleNumbers = [];
+        var scope_ActiveHandlesCount = 0;
+        var scope_Events = {};
+
+        // Exposed API
+        var scope_Self;
+
+        // Document Nodes
+        var scope_Document = target.ownerDocument;
+        var scope_DocumentElement = options.documentElement || scope_Document.documentElement;
+        var scope_Body = scope_Document.body;
+
+        // Pips constants
+        var PIPS_NONE = -1;
+        var PIPS_NO_VALUE = 0;
+        var PIPS_LARGE_VALUE = 1;
+        var PIPS_SMALL_VALUE = 2;
+
+        // For horizontal sliders in standard ltr documents,
+        // make .noUi-origin overflow to the left so the document doesn't scroll.
+        var scope_DirOffset = scope_Document.dir === "rtl" || options.ort === 1 ? 0 : 100;
+
+        // Creates a node, adds it to target, returns the new node.
+        function addNodeTo(addTarget, className) {
+            var div = scope_Document.createElement("div");
+
+            if (className) {
+                addClass(div, className);
+            }
+
+            addTarget.appendChild(div);
+
+            return div;
+        }
+
+        // Append a origin to the base
+        function addOrigin(base, handleNumber) {
+            var origin = addNodeTo(base, options.cssClasses.origin);
+            var handle = addNodeTo(origin, options.cssClasses.handle);
+
+            addNodeTo(handle, options.cssClasses.touchArea);
+
+            handle.setAttribute("data-handle", handleNumber);
+
+            if (options.keyboardSupport) {
+                // https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex
+                // 0 = focusable and reachable
+                handle.setAttribute("tabindex", "0");
+                handle.addEventListener("keydown", function(event) {
+                    return eventKeydown(event, handleNumber);
+                });
+            }
+
+            handle.setAttribute("role", "slider");
+            handle.setAttribute("aria-orientation", options.ort ? "vertical" : "horizontal");
+
+            if (handleNumber === 0) {
+                addClass(handle, options.cssClasses.handleLower);
+            } else if (handleNumber === options.handles - 1) {
+                addClass(handle, options.cssClasses.handleUpper);
+            }
+
+            return origin;
+        }
+
+        // Insert nodes for connect elements
+        function addConnect(base, add) {
+            if (!add) {
+                return false;
+            }
+
+            return addNodeTo(base, options.cssClasses.connect);
+        }
+
+        // Add handles to the slider base.
+        function addElements(connectOptions, base) {
+            var connectBase = addNodeTo(base, options.cssClasses.connects);
+
+            scope_Handles = [];
+            scope_Connects = [];
+
+            scope_Connects.push(addConnect(connectBase, connectOptions[0]));
+
+            // [::::O====O====O====]
+            // connectOptions = [0, 1, 1, 1]
+
+            for (var i = 0; i < options.handles; i++) {
+                // Keep a list of all added handles.
+                scope_Handles.push(addOrigin(base, i));
+                scope_HandleNumbers[i] = i;
+                scope_Connects.push(addConnect(connectBase, connectOptions[i + 1]));
+            }
+        }
+
+        // Initialize a single slider.
+        function addSlider(addTarget) {
+            // Apply classes and data to the target.
+            addClass(addTarget, options.cssClasses.target);
+
+            if (options.dir === 0) {
+                addClass(addTarget, options.cssClasses.ltr);
+            } else {
+                addClass(addTarget, options.cssClasses.rtl);
+            }
+
+            if (options.ort === 0) {
+                addClass(addTarget, options.cssClasses.horizontal);
+            } else {
+                addClass(addTarget, options.cssClasses.vertical);
+            }
+
+            var textDirection = getComputedStyle(addTarget).direction;
+
+            if (textDirection === "rtl") {
+                addClass(addTarget, options.cssClasses.textDirectionRtl);
+            } else {
+                addClass(addTarget, options.cssClasses.textDirectionLtr);
+            }
+
+            return addNodeTo(addTarget, options.cssClasses.base);
+        }
+
+        function addTooltip(handle, handleNumber) {
+            if (!options.tooltips[handleNumber]) {
+                return false;
+            }
+
+            return addNodeTo(handle.firstChild, options.cssClasses.tooltip);
+        }
+
+        function isSliderDisabled() {
+            return scope_Target.hasAttribute("disabled");
+        }
+
+        // Disable the slider dragging if any handle is disabled
+        function isHandleDisabled(handleNumber) {
+            var handleOrigin = scope_Handles[handleNumber];
+            return handleOrigin.hasAttribute("disabled");
+        }
+
+        function removeTooltips() {
+            if (scope_Tooltips) {
+                removeEvent("update.tooltips");
+                scope_Tooltips.forEach(function(tooltip) {
+                    if (tooltip) {
+                        removeElement(tooltip);
+                    }
+                });
+                scope_Tooltips = null;
+            }
+        }
+
+        // The tooltips option is a shorthand for using the 'update' event.
+        function tooltips() {
+            removeTooltips();
+
+            // Tooltips are added with options.tooltips in original order.
+            scope_Tooltips = scope_Handles.map(addTooltip);
+
+            bindEvent("update.tooltips", function(values, handleNumber, unencoded) {
+                if (!scope_Tooltips[handleNumber]) {
+                    return;
+                }
+
+                var formattedValue = values[handleNumber];
+
+                if (options.tooltips[handleNumber] !== true) {
+                    formattedValue = options.tooltips[handleNumber].to(unencoded[handleNumber]);
+                }
+
+                scope_Tooltips[handleNumber].innerHTML = formattedValue;
+            });
+        }
+
+        function aria() {
+            bindEvent("update", function(values, handleNumber, unencoded, tap, positions) {
+                // Update Aria Values for all handles, as a change in one changes min and max values for the next.
+                scope_HandleNumbers.forEach(function(index) {
+                    var handle = scope_Handles[index];
+
+                    var min = checkHandlePosition(scope_Locations, index, 0, true, true, true);
+                    var max = checkHandlePosition(scope_Locations, index, 100, true, true, true);
+
+                    var now = positions[index];
+
+                    // Formatted value for display
+                    var text = options.ariaFormat.to(unencoded[index]);
+
+                    // Map to slider range values
+                    min = scope_Spectrum.fromStepping(min).toFixed(1);
+                    max = scope_Spectrum.fromStepping(max).toFixed(1);
+                    now = scope_Spectrum.fromStepping(now).toFixed(1);
+
+                    handle.children[0].setAttribute("aria-valuemin", min);
+                    handle.children[0].setAttribute("aria-valuemax", max);
+                    handle.children[0].setAttribute("aria-valuenow", now);
+                    handle.children[0].setAttribute("aria-valuetext", text);
+                });
+            });
+        }
+
+        function getGroup(mode, values, stepped) {
+            // Use the range.
+            if (mode === "range" || mode === "steps") {
+                return scope_Spectrum.xVal;
+            }
+
+            if (mode === "count") {
+                if (values < 2) {
+                    throw new Error("noUiSlider (" + VERSION + "): 'values' (>= 2) required for mode 'count'.");
+                }
+
+                // Divide 0 - 100 in 'count' parts.
+                var interval = values - 1;
+                var spread = 100 / interval;
+
+                values = [];
+
+                // List these parts and have them handled as 'positions'.
+                while (interval--) {
+                    values[interval] = interval * spread;
+                }
+
+                values.push(100);
+
+                mode = "positions";
+            }
+
+            if (mode === "positions") {
+                // Map all percentages to on-range values.
+                return values.map(function(value) {
+                    return scope_Spectrum.fromStepping(stepped ? scope_Spectrum.getStep(value) : value);
+                });
+            }
+
+            if (mode === "values") {
+                // If the value must be stepped, it needs to be converted to a percentage first.
+                if (stepped) {
+                    return values.map(function(value) {
+                        // Convert to percentage, apply step, return to value.
+                        return scope_Spectrum.fromStepping(scope_Spectrum.getStep(scope_Spectrum.toStepping(value)));
+                    });
+                }
+
+                // Otherwise, we can simply use the values.
+                return values;
+            }
+        }
+
+        function generateSpread(density, mode, group) {
+            function safeIncrement(value, increment) {
+                // Avoid floating point variance by dropping the smallest decimal places.
+                return (value + increment).toFixed(7) / 1;
+            }
+
+            var indexes = {};
+            var firstInRange = scope_Spectrum.xVal[0];
+            var lastInRange = scope_Spectrum.xVal[scope_Spectrum.xVal.length - 1];
+            var ignoreFirst = false;
+            var ignoreLast = false;
+            var prevPct = 0;
+
+            // Create a copy of the group, sort it and filter away all duplicates.
+            group = unique(
+                group.slice().sort(function(a, b) {
+                    return a - b;
+                })
+            );
+
+            // Make sure the range starts with the first element.
+            if (group[0] !== firstInRange) {
+                group.unshift(firstInRange);
+                ignoreFirst = true;
+            }
+
+            // Likewise for the last one.
+            if (group[group.length - 1] !== lastInRange) {
+                group.push(lastInRange);
+                ignoreLast = true;
+            }
+
+            group.forEach(function(current, index) {
+                // Get the current step and the lower + upper positions.
+                var step;
+                var i;
+                var q;
+                var low = current;
+                var high = group[index + 1];
+                var newPct;
+                var pctDifference;
+                var pctPos;
+                var type;
+                var steps;
+                var realSteps;
+                var stepSize;
+                var isSteps = mode === "steps";
+
+                // When using 'steps' mode, use the provided steps.
+                // Otherwise, we'll step on to the next subrange.
+                if (isSteps) {
+                    step = scope_Spectrum.xNumSteps[index];
+                }
+
+                // Default to a 'full' step.
+                if (!step) {
+                    step = high - low;
+                }
+
+                // Low can be 0, so test for false. If high is undefined,
+                // we are at the last subrange. Index 0 is already handled.
+                if (low === false || high === undefined) {
+                    return;
+                }
+
+                // Make sure step isn't 0, which would cause an infinite loop (#654)
+                step = Math.max(step, 0.0000001);
+
+                // Find all steps in the subrange.
+                for (i = low; i <= high; i = safeIncrement(i, step)) {
+                    // Get the percentage value for the current step,
+                    // calculate the size for the subrange.
+                    newPct = scope_Spectrum.toStepping(i);
+                    pctDifference = newPct - prevPct;
+
+                    steps = pctDifference / density;
+                    realSteps = Math.round(steps);
+
+                    // This ratio represents the amount of percentage-space a point indicates.
+                    // For a density 1 the points/percentage = 1. For density 2, that percentage needs to be re-divided.
+                    // Round the percentage offset to an even number, then divide by two
+                    // to spread the offset on both sides of the range.
+                    stepSize = pctDifference / realSteps;
+
+                    // Divide all points evenly, adding the correct number to this subrange.
+                    // Run up to <= so that 100% gets a point, event if ignoreLast is set.
+                    for (q = 1; q <= realSteps; q += 1) {
+                        // The ratio between the rounded value and the actual size might be ~1% off.
+                        // Correct the percentage offset by the number of points
+                        // per subrange. density = 1 will result in 100 points on the
+                        // full range, 2 for 50, 4 for 25, etc.
+                        pctPos = prevPct + q * stepSize;
+                        indexes[pctPos.toFixed(5)] = [scope_Spectrum.fromStepping(pctPos), 0];
+                    }
+
+                    // Determine the point type.
+                    type = group.indexOf(i) > -1 ? PIPS_LARGE_VALUE : isSteps ? PIPS_SMALL_VALUE : PIPS_NO_VALUE;
+
+                    // Enforce the 'ignoreFirst' option by overwriting the type for 0.
+                    if (!index && ignoreFirst && i !== high) {
+                        type = 0;
+                    }
+
+                    if (!(i === high && ignoreLast)) {
+                        // Mark the 'type' of this point. 0 = plain, 1 = real value, 2 = step value.
+                        indexes[newPct.toFixed(5)] = [i, type];
+                    }
+
+                    // Update the percentage count.
+                    prevPct = newPct;
+                }
+            });
+
+            return indexes;
+        }
+
+        function addMarking(spread, filterFunc, formatter) {
+            var element = scope_Document.createElement("div");
+
+            var valueSizeClasses = [];
+            valueSizeClasses[PIPS_NO_VALUE] = options.cssClasses.valueNormal;
+            valueSizeClasses[PIPS_LARGE_VALUE] = options.cssClasses.valueLarge;
+            valueSizeClasses[PIPS_SMALL_VALUE] = options.cssClasses.valueSub;
+
+            var markerSizeClasses = [];
+            markerSizeClasses[PIPS_NO_VALUE] = options.cssClasses.markerNormal;
+            markerSizeClasses[PIPS_LARGE_VALUE] = options.cssClasses.markerLarge;
+            markerSizeClasses[PIPS_SMALL_VALUE] = options.cssClasses.markerSub;
+
+            var valueOrientationClasses = [options.cssClasses.valueHorizontal, options.cssClasses.valueVertical];
+            var markerOrientationClasses = [options.cssClasses.markerHorizontal, options.cssClasses.markerVertical];
+
+            addClass(element, options.cssClasses.pips);
+            addClass(element, options.ort === 0 ? options.cssClasses.pipsHorizontal : options.cssClasses.pipsVertical);
+
+            function getClasses(type, source) {
+                var a = source === options.cssClasses.value;
+                var orientationClasses = a ? valueOrientationClasses : markerOrientationClasses;
+                var sizeClasses = a ? valueSizeClasses : markerSizeClasses;
+
+                return source + " " + orientationClasses[options.ort] + " " + sizeClasses[type];
+            }
+
+            function addSpread(offset, value, type) {
+                // Apply the filter function, if it is set.
+                type = filterFunc ? filterFunc(value, type) : type;
+
+                if (type === PIPS_NONE) {
+                    return;
+                }
+
+                // Add a marker for every point
+                var node = addNodeTo(element, false);
+                node.className = getClasses(type, options.cssClasses.marker);
+                node.style[options.style] = offset + "%";
+
+                // Values are only appended for points marked '1' or '2'.
+                if (type > PIPS_NO_VALUE) {
+                    node = addNodeTo(element, false);
+                    node.className = getClasses(type, options.cssClasses.value);
+                    node.setAttribute("data-value", value);
+                    node.style[options.style] = offset + "%";
+                    node.innerHTML = formatter.to(value);
+                }
+            }
+
+            // Append all points.
+            Object.keys(spread).forEach(function(offset) {
+                addSpread(offset, spread[offset][0], spread[offset][1]);
+            });
+
+            return element;
+        }
+
+        function removePips() {
+            if (scope_Pips) {
+                removeElement(scope_Pips);
+                scope_Pips = null;
+            }
+        }
+
+        function pips(grid) {
+            // Fix #669
+            removePips();
+
+            var mode = grid.mode;
+            var density = grid.density || 1;
+            var filter = grid.filter || false;
+            var values = grid.values || false;
+            var stepped = grid.stepped || false;
+            var group = getGroup(mode, values, stepped);
+            var spread = generateSpread(density, mode, group);
+            var format = grid.format || {
+                to: Math.round
+            };
+
+            scope_Pips = scope_Target.appendChild(addMarking(spread, filter, format));
+
+            return scope_Pips;
+        }
+
+        // Shorthand for base dimensions.
+        function baseSize() {
+            var rect = scope_Base.getBoundingClientRect();
+            var alt = "offset" + ["Width", "Height"][options.ort];
+            return options.ort === 0 ? rect.width || scope_Base[alt] : rect.height || scope_Base[alt];
+        }
+
+        // Handler for attaching events trough a proxy.
+        function attachEvent(events, element, callback, data) {
+            // This function can be used to 'filter' events to the slider.
+            // element is a node, not a nodeList
+
+            var method = function(e) {
+                e = fixEvent(e, data.pageOffset, data.target || element);
+
+                // fixEvent returns false if this event has a different target
+                // when handling (multi-) touch events;
+                if (!e) {
+                    return false;
+                }
+
+                // doNotReject is passed by all end events to make sure released touches
+                // are not rejected, leaving the slider "stuck" to the cursor;
+                if (isSliderDisabled() && !data.doNotReject) {
+                    return false;
+                }
+
+                // Stop if an active 'tap' transition is taking place.
+                if (hasClass(scope_Target, options.cssClasses.tap) && !data.doNotReject) {
+                    return false;
+                }
+
+                // Ignore right or middle clicks on start #454
+                if (events === actions.start && e.buttons !== undefined && e.buttons > 1) {
+                    return false;
+                }
+
+                // Ignore right or middle clicks on start #454
+                if (data.hover && e.buttons) {
+                    return false;
+                }
+
+                // 'supportsPassive' is only true if a browser also supports touch-action: none in CSS.
+                // iOS safari does not, so it doesn't get to benefit from passive scrolling. iOS does support
+                // touch-action: manipulation, but that allows panning, which breaks
+                // sliders after zooming/on non-responsive pages.
+                // See: https://bugs.webkit.org/show_bug.cgi?id=133112
+                if (!supportsPassive) {
+                    e.preventDefault();
+                }
+
+                e.calcPoint = e.points[options.ort];
+
+                // Call the event handler with the event [ and additional data ].
+                callback(e, data);
+            };
+
+            var methods = [];
+
+            // Bind a closure on the target for every event type.
+            events.split(" ").forEach(function(eventName) {
+                element.addEventListener(eventName, method, supportsPassive ? { passive: true } : false);
+                methods.push([eventName, method]);
+            });
+
+            return methods;
+        }
+
+        // Provide a clean event with standardized offset values.
+        function fixEvent(e, pageOffset, eventTarget) {
+            // Filter the event to register the type, which can be
+            // touch, mouse or pointer. Offset changes need to be
+            // made on an event specific basis.
+            var touch = e.type.indexOf("touch") === 0;
+            var mouse = e.type.indexOf("mouse") === 0;
+            var pointer = e.type.indexOf("pointer") === 0;
+
+            var x;
+            var y;
+
+            // IE10 implemented pointer events with a prefix;
+            if (e.type.indexOf("MSPointer") === 0) {
+                pointer = true;
+            }
+
+            // The only thing one handle should be concerned about is the touches that originated on top of it.
+            if (touch) {
+                // Returns true if a touch originated on the target.
+                var isTouchOnTarget = function(checkTouch) {
+                    return (
+                        checkTouch.target === eventTarget ||
+                        eventTarget.contains(checkTouch.target) ||
+                        (checkTouch.target.shadowRoot && checkTouch.target.shadowRoot.contains(eventTarget))
+                    );
+                };
+
+                // In the case of touchstart events, we need to make sure there is still no more than one
+                // touch on the target so we look amongst all touches.
+                if (e.type === "touchstart") {
+                    var targetTouches = Array.prototype.filter.call(e.touches, isTouchOnTarget);
+
+                    // Do not support more than one touch per handle.
+                    if (targetTouches.length > 1) {
+                        return false;
+                    }
+
+                    x = targetTouches[0].pageX;
+                    y = targetTouches[0].pageY;
+                } else {
+                    // In the other cases, find on changedTouches is enough.
+                    var targetTouch = Array.prototype.find.call(e.changedTouches, isTouchOnTarget);
+
+                    // Cancel if the target touch has not moved.
+                    if (!targetTouch) {
+                        return false;
+                    }
+
+                    x = targetTouch.pageX;
+                    y = targetTouch.pageY;
+                }
+            }
+
+            pageOffset = pageOffset || getPageOffset(scope_Document);
+
+            if (mouse || pointer) {
+                x = e.clientX + pageOffset.x;
+                y = e.clientY + pageOffset.y;
+            }
+
+            e.pageOffset = pageOffset;
+            e.points = [x, y];
+            e.cursor = mouse || pointer; // Fix #435
+
+            return e;
+        }
+
+        // Translate a coordinate in the document to a percentage on the slider
+        function calcPointToPercentage(calcPoint) {
+            var location = calcPoint - offset(scope_Base, options.ort);
+            var proposal = (location * 100) / baseSize();
+
+            // Clamp proposal between 0% and 100%
+            // Out-of-bound coordinates may occur when .noUi-base pseudo-elements
+            // are used (e.g. contained handles feature)
+            proposal = limit(proposal);
+
+            return options.dir ? 100 - proposal : proposal;
+        }
+
+        // Find handle closest to a certain percentage on the slider
+        function getClosestHandle(clickedPosition) {
+            var smallestDifference = 100;
+            var handleNumber = false;
+
+            scope_Handles.forEach(function(handle, index) {
+                // Disabled handles are ignored
+                if (isHandleDisabled(index)) {
+                    return;
+                }
+
+                var handlePosition = scope_Locations[index];
+                var differenceWithThisHandle = Math.abs(handlePosition - clickedPosition);
+
+                // Initial state
+                var clickAtEdge = differenceWithThisHandle === 100 && smallestDifference === 100;
+
+                // Difference with this handle is smaller than the previously checked handle
+                var isCloser = differenceWithThisHandle < smallestDifference;
+                var isCloserAfter = differenceWithThisHandle <= smallestDifference && clickedPosition > handlePosition;
+
+                if (isCloser || isCloserAfter || clickAtEdge) {
+                    handleNumber = index;
+                    smallestDifference = differenceWithThisHandle;
+                }
+            });
+
+            return handleNumber;
+        }
+
+        // Fire 'end' when a mouse or pen leaves the document.
+        function documentLeave(event, data) {
+            if (event.type === "mouseout" && event.target.nodeName === "HTML" && event.relatedTarget === null) {
+                eventEnd(event, data);
+            }
+        }
+
+        // Handle movement on document for handle and range drag.
+        function eventMove(event, data) {
+            // Fix #498
+            // Check value of .buttons in 'start' to work around a bug in IE10 mobile (data.buttonsProperty).
+            // https://connect.microsoft.com/IE/feedback/details/927005/mobile-ie10-windows-phone-buttons-property-of-pointermove-event-always-zero
+            // IE9 has .buttons and .which zero on mousemove.
+            // Firefox breaks the spec MDN defines.
+            if (navigator.appVersion.indexOf("MSIE 9") === -1 && event.buttons === 0 && data.buttonsProperty !== 0) {
+                return eventEnd(event, data);
+            }
+
+            // Check if we are moving up or down
+            var movement = (options.dir ? -1 : 1) * (event.calcPoint - data.startCalcPoint);
+
+            // Convert the movement into a percentage of the slider width/height
+            var proposal = (movement * 100) / data.baseSize;
+
+            moveHandles(movement > 0, proposal, data.locations, data.handleNumbers);
+        }
+
+        // Unbind move events on document, call callbacks.
+        function eventEnd(event, data) {
+            // The handle is no longer active, so remove the class.
+            if (data.handle) {
+                removeClass(data.handle, options.cssClasses.active);
+                scope_ActiveHandlesCount -= 1;
+            }
+
+            // Unbind the move and end events, which are added on 'start'.
+            data.listeners.forEach(function(c) {
+                scope_DocumentElement.removeEventListener(c[0], c[1]);
+            });
+
+            if (scope_ActiveHandlesCount === 0) {
+                // Remove dragging class.
+                removeClass(scope_Target, options.cssClasses.drag);
+                setZindex();
+
+                // Remove cursor styles and text-selection events bound to the body.
+                if (event.cursor) {
+                    scope_Body.style.cursor = "";
+                    scope_Body.removeEventListener("selectstart", preventDefault);
+                }
+            }
+
+            data.handleNumbers.forEach(function(handleNumber) {
+                fireEvent("change", handleNumber);
+                fireEvent("set", handleNumber);
+                fireEvent("end", handleNumber);
+            });
+        }
+
+        // Bind move events on document.
+        function eventStart(event, data) {
+            // Ignore event if any handle is disabled
+            if (data.handleNumbers.some(isHandleDisabled)) {
+                return false;
+            }
+
+            var handle;
+
+            if (data.handleNumbers.length === 1) {
+                var handleOrigin = scope_Handles[data.handleNumbers[0]];
+
+                handle = handleOrigin.children[0];
+                scope_ActiveHandlesCount += 1;
+
+                // Mark the handle as 'active' so it can be styled.
+                addClass(handle, options.cssClasses.active);
+            }
+
+            // A drag should never propagate up to the 'tap' event.
+            event.stopPropagation();
+
+            // Record the event listeners.
+            var listeners = [];
+
+            // Attach the move and end events.
+            var moveEvent = attachEvent(actions.move, scope_DocumentElement, eventMove, {
+                // The event target has changed so we need to propagate the original one so that we keep
+                // relying on it to extract target touches.
+                target: event.target,
+                handle: handle,
+                listeners: listeners,
+                startCalcPoint: event.calcPoint,
+                baseSize: baseSize(),
+                pageOffset: event.pageOffset,
+                handleNumbers: data.handleNumbers,
+                buttonsProperty: event.buttons,
+                locations: scope_Locations.slice()
+            });
+
+            var endEvent = attachEvent(actions.end, scope_DocumentElement, eventEnd, {
+                target: event.target,
+                handle: handle,
+                listeners: listeners,
+                doNotReject: true,
+                handleNumbers: data.handleNumbers
+            });
+
+            var outEvent = attachEvent("mouseout", scope_DocumentElement, documentLeave, {
+                target: event.target,
+                handle: handle,
+                listeners: listeners,
+                doNotReject: true,
+                handleNumbers: data.handleNumbers
+            });
+
+            // We want to make sure we pushed the listeners in the listener list rather than creating
+            // a new one as it has already been passed to the event handlers.
+            listeners.push.apply(listeners, moveEvent.concat(endEvent, outEvent));
+
+            // Text selection isn't an issue on touch devices,
+            // so adding cursor styles can be skipped.
+            if (event.cursor) {
+                // Prevent the 'I' cursor and extend the range-drag cursor.
+                scope_Body.style.cursor = getComputedStyle(event.target).cursor;
+
+                // Mark the target with a dragging state.
+                if (scope_Handles.length > 1) {
+                    addClass(scope_Target, options.cssClasses.drag);
+                }
+
+                // Prevent text selection when dragging the handles.
+                // In noUiSlider <= 9.2.0, this was handled by calling preventDefault on mouse/touch start/move,
+                // which is scroll blocking. The selectstart event is supported by FireFox starting from version 52,
+                // meaning the only holdout is iOS Safari. This doesn't matter: text selection isn't triggered there.
+                // The 'cursor' flag is false.
+                // See: http://caniuse.com/#search=selectstart
+                scope_Body.addEventListener("selectstart", preventDefault, false);
+            }
+
+            data.handleNumbers.forEach(function(handleNumber) {
+                fireEvent("start", handleNumber);
+            });
+        }
+
+        // Move closest handle to tapped location.
+        function eventTap(event) {
+            // The tap event shouldn't propagate up
+            event.stopPropagation();
+
+            var proposal = calcPointToPercentage(event.calcPoint);
+            var handleNumber = getClosestHandle(proposal);
+
+            // Tackle the case that all handles are 'disabled'.
+            if (handleNumber === false) {
+                return false;
+            }
+
+            // Flag the slider as it is now in a transitional state.
+            // Transition takes a configurable amount of ms (default 300). Re-enable the slider after that.
+            if (!options.events.snap) {
+                addClassFor(scope_Target, options.cssClasses.tap, options.animationDuration);
+            }
+
+            setHandle(handleNumber, proposal, true, true);
+
+            setZindex();
+
+            fireEvent("slide", handleNumber, true);
+            fireEvent("update", handleNumber, true);
+            fireEvent("change", handleNumber, true);
+            fireEvent("set", handleNumber, true);
+
+            if (options.events.snap) {
+                eventStart(event, { handleNumbers: [handleNumber] });
+            }
+        }
+
+        // Fires a 'hover' event for a hovered mouse/pen position.
+        function eventHover(event) {
+            var proposal = calcPointToPercentage(event.calcPoint);
+
+            var to = scope_Spectrum.getStep(proposal);
+            var value = scope_Spectrum.fromStepping(to);
+
+            Object.keys(scope_Events).forEach(function(targetEvent) {
+                if ("hover" === targetEvent.split(".")[0]) {
+                    scope_Events[targetEvent].forEach(function(callback) {
+                        callback.call(scope_Self, value);
+                    });
+                }
+            });
+        }
+
+        // Handles keydown on focused handles
+        // Don't move the document when pressing arrow keys on focused handles
+        function eventKeydown(event, handleNumber) {
+            if (isSliderDisabled() || isHandleDisabled(handleNumber)) {
+                return false;
+            }
+
+            var horizontalKeys = ["Left", "Right"];
+            var verticalKeys = ["Down", "Up"];
+            var largeStepKeys = ["PageDown", "PageUp"];
+            var edgeKeys = ["Home", "End"];
+
+            if (options.dir && !options.ort) {
+                // On an right-to-left slider, the left and right keys act inverted
+                horizontalKeys.reverse();
+            } else if (options.ort && !options.dir) {
+                // On a top-to-bottom slider, the up and down keys act inverted
+                verticalKeys.reverse();
+                largeStepKeys.reverse();
+            }
+
+            // Strip "Arrow" for IE compatibility. https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key
+            var key = event.key.replace("Arrow", "");
+
+            var isLargeDown = key === largeStepKeys[0];
+            var isLargeUp = key === largeStepKeys[1];
+            var isDown = key === verticalKeys[0] || key === horizontalKeys[0] || isLargeDown;
+            var isUp = key === verticalKeys[1] || key === horizontalKeys[1] || isLargeUp;
+            var isMin = key === edgeKeys[0];
+            var isMax = key === edgeKeys[1];
+
+            if (!isDown && !isUp && !isMin && !isMax) {
+                return true;
+            }
+
+            event.preventDefault();
+
+            var to;
+
+            if (isUp || isDown) {
+                var multiplier = 5;
+                var direction = isDown ? 0 : 1;
+                var steps = getNextStepsForHandle(handleNumber);
+                var step = steps[direction];
+
+                // At the edge of a slider, do nothing
+                if (step === null) {
+                    return false;
+                }
+
+                // No step set, use the default of 10% of the sub-range
+                if (step === false) {
+                    step = scope_Spectrum.getDefaultStep(scope_Locations[handleNumber], isDown, 10);
+                }
+
+                if (isLargeUp || isLargeDown) {
+                    step *= multiplier;
+                }
+
+                // Step over zero-length ranges (#948);
+                step = Math.max(step, 0.0000001);
+
+                // Decrement for down steps
+                step = (isDown ? -1 : 1) * step;
+
+                to = scope_Values[handleNumber] + step;
+            } else if (isMax) {
+                // End key
+                to = options.spectrum.xVal[options.spectrum.xVal.length - 1];
+            } else {
+                // Home key
+                to = options.spectrum.xVal[0];
+            }
+
+            setHandle(handleNumber, scope_Spectrum.toStepping(to), true, true);
+
+            fireEvent("slide", handleNumber);
+            fireEvent("update", handleNumber);
+            fireEvent("change", handleNumber);
+            fireEvent("set", handleNumber);
+
+            return false;
+        }
+
+        // Attach events to several slider parts.
+        function bindSliderEvents(behaviour) {
+            // Attach the standard drag event to the handles.
+            if (!behaviour.fixed) {
+                scope_Handles.forEach(function(handle, index) {
+                    // These events are only bound to the visual handle
+                    // element, not the 'real' origin element.
+                    attachEvent(actions.start, handle.children[0], eventStart, {
+                        handleNumbers: [index]
+                    });
+                });
+            }
+
+            // Attach the tap event to the slider base.
+            if (behaviour.tap) {
+                attachEvent(actions.start, scope_Base, eventTap, {});
+            }
+
+            // Fire hover events
+            if (behaviour.hover) {
+                attachEvent(actions.move, scope_Base, eventHover, {
+                    hover: true
+                });
+            }
+
+            // Make the range draggable.
+            if (behaviour.drag) {
+                scope_Connects.forEach(function(connect, index) {
+                    if (connect === false || index === 0 || index === scope_Connects.length - 1) {
+                        return;
+                    }
+
+                    var handleBefore = scope_Handles[index - 1];
+                    var handleAfter = scope_Handles[index];
+                    var eventHolders = [connect];
+
+                    addClass(connect, options.cssClasses.draggable);
+
+                    // When the range is fixed, the entire range can
+                    // be dragged by the handles. The handle in the first
+                    // origin will propagate the start event upward,
+                    // but it needs to be bound manually on the other.
+                    if (behaviour.fixed) {
+                        eventHolders.push(handleBefore.children[0]);
+                        eventHolders.push(handleAfter.children[0]);
+                    }
+
+                    eventHolders.forEach(function(eventHolder) {
+                        attachEvent(actions.start, eventHolder, eventStart, {
+                            handles: [handleBefore, handleAfter],
+                            handleNumbers: [index - 1, index]
+                        });
+                    });
+                });
+            }
+        }
+
+        // Attach an event to this slider, possibly including a namespace
+        function bindEvent(namespacedEvent, callback) {
+            scope_Events[namespacedEvent] = scope_Events[namespacedEvent] || [];
+            scope_Events[namespacedEvent].push(callback);
+
+            // If the event bound is 'update,' fire it immediately for all handles.
+            if (namespacedEvent.split(".")[0] === "update") {
+                scope_Handles.forEach(function(a, index) {
+                    fireEvent("update", index);
+                });
+            }
+        }
+
+        // Undo attachment of event
+        function removeEvent(namespacedEvent) {
+            var event = namespacedEvent && namespacedEvent.split(".")[0];
+            var namespace = event && namespacedEvent.substring(event.length);
+
+            Object.keys(scope_Events).forEach(function(bind) {
+                var tEvent = bind.split(".")[0];
+                var tNamespace = bind.substring(tEvent.length);
+
+                if ((!event || event === tEvent) && (!namespace || namespace === tNamespace)) {
+                    delete scope_Events[bind];
+                }
+            });
+        }
+
+        // External event handling
+        function fireEvent(eventName, handleNumber, tap) {
+            Object.keys(scope_Events).forEach(function(targetEvent) {
+                var eventType = targetEvent.split(".")[0];
+
+                if (eventName === eventType) {
+                    scope_Events[targetEvent].forEach(function(callback) {
+                        callback.call(
+                            // Use the slider public API as the scope ('this')
+                            scope_Self,
+                            // Return values as array, so arg_1[arg_2] is always valid.
+                            scope_Values.map(options.format.to),
+                            // Handle index, 0 or 1
+                            handleNumber,
+                            // Un-formatted slider values
+                            scope_Values.slice(),
+                            // Event is fired by tap, true or false
+                            tap || false,
+                            // Left offset of the handle, in relation to the slider
+                            scope_Locations.slice(),
+                            // add the slider public API to an accessible parameter when this is unavailable
+                            scope_Self
+                        );
+                    });
+                }
+            });
+        }
+
+        // Split out the handle positioning logic so the Move event can use it, too
+        function checkHandlePosition(reference, handleNumber, to, lookBackward, lookForward, getValue) {
+            var distance;
+
+            // For sliders with multiple handles, limit movement to the other handle.
+            // Apply the margin option by adding it to the handle positions.
+            if (scope_Handles.length > 1 && !options.events.unconstrained) {
+                if (lookBackward && handleNumber > 0) {
+                    distance = scope_Spectrum.getAbsoluteDistance(reference[handleNumber - 1], options.margin, 0);
+                    to = Math.max(to, distance);
+                }
+
+                if (lookForward && handleNumber < scope_Handles.length - 1) {
+                    distance = scope_Spectrum.getAbsoluteDistance(reference[handleNumber + 1], options.margin, 1);
+                    to = Math.min(to, distance);
+                }
+            }
+
+            // The limit option has the opposite effect, limiting handles to a
+            // maximum distance from another. Limit must be > 0, as otherwise
+            // handles would be unmovable.
+            if (scope_Handles.length > 1 && options.limit) {
+                if (lookBackward && handleNumber > 0) {
+                    distance = scope_Spectrum.getAbsoluteDistance(reference[handleNumber - 1], options.limit, 0);
+                    to = Math.min(to, distance);
+                }
+
+                if (lookForward && handleNumber < scope_Handles.length - 1) {
+                    distance = scope_Spectrum.getAbsoluteDistance(reference[handleNumber + 1], options.limit, 1);
+                    to = Math.max(to, distance);
+                }
+            }
+
+            // The padding option keeps the handles a certain distance from the
+            // edges of the slider. Padding must be > 0.
+            if (options.padding) {
+                if (handleNumber === 0) {
+                    distance = scope_Spectrum.getAbsoluteDistance(0, options.padding[0], 0);
+                    to = Math.max(to, distance);
+                }
+
+                if (handleNumber === scope_Handles.length - 1) {
+                    distance = scope_Spectrum.getAbsoluteDistance(100, options.padding[1], 1);
+                    to = Math.min(to, distance);
+                }
+            }
+
+            to = scope_Spectrum.getStep(to);
+
+            // Limit percentage to the 0 - 100 range
+            to = limit(to);
+
+            // Return false if handle can't move
+            if (to === reference[handleNumber] && !getValue) {
+                return false;
+            }
+
+            return to;
+        }
+
+        // Uses slider orientation to create CSS rules. a = base value;
+        function inRuleOrder(v, a) {
+            var o = options.ort;
+            return (o ? a : v) + ", " + (o ? v : a);
+        }
+
+        // Moves handle(s) by a percentage
+        // (bool, % to move, [% where handle started, ...], [index in scope_Handles, ...])
+        function moveHandles(upward, proposal, locations, handleNumbers) {
+            var proposals = locations.slice();
+
+            var b = [!upward, upward];
+            var f = [upward, !upward];
+
+            // Copy handleNumbers so we don't change the dataset
+            handleNumbers = handleNumbers.slice();
+
+            // Check to see which handle is 'leading'.
+            // If that one can't move the second can't either.
+            if (upward) {
+                handleNumbers.reverse();
+            }
+
+            // Step 1: get the maximum percentage that any of the handles can move
+            if (handleNumbers.length > 1) {
+                handleNumbers.forEach(function(handleNumber, o) {
+                    var to = checkHandlePosition(
+                        proposals,
+                        handleNumber,
+                        proposals[handleNumber] + proposal,
+                        b[o],
+                        f[o],
+                        false
+                    );
+
+                    // Stop if one of the handles can't move.
+                    if (to === false) {
+                        proposal = 0;
+                    } else {
+                        proposal = to - proposals[handleNumber];
+                        proposals[handleNumber] = to;
+                    }
+                });
+            }
+
+            // If using one handle, check backward AND forward
+            else {
+                b = f = [true];
+            }
+
+            var state = false;
+
+            // Step 2: Try to set the handles with the found percentage
+            handleNumbers.forEach(function(handleNumber, o) {
+                state = setHandle(handleNumber, locations[handleNumber] + proposal, b[o], f[o]) || state;
+            });
+
+            // Step 3: If a handle moved, fire events
+            if (state) {
+                handleNumbers.forEach(function(handleNumber) {
+                    fireEvent("update", handleNumber);
+                    fireEvent("slide", handleNumber);
+                });
+            }
+        }
+
+        // Takes a base value and an offset. This offset is used for the connect bar size.
+        // In the initial design for this feature, the origin element was 1% wide.
+        // Unfortunately, a rounding bug in Chrome makes it impossible to implement this feature
+        // in this manner: https://bugs.chromium.org/p/chromium/issues/detail?id=798223
+        function transformDirection(a, b) {
+            return options.dir ? 100 - a - b : a;
+        }
+
+        // Updates scope_Locations and scope_Values, updates visual state
+        function updateHandlePosition(handleNumber, to) {
+            // Update locations.
+            scope_Locations[handleNumber] = to;
+
+            // Convert the value to the slider stepping/range.
+            scope_Values[handleNumber] = scope_Spectrum.fromStepping(to);
+
+            var translation = 10 * (transformDirection(to, 0) - scope_DirOffset);
+            var translateRule = "translate(" + inRuleOrder(translation + "%", "0") + ")";
+
+            scope_Handles[handleNumber].style[options.transformRule] = translateRule;
+
+            updateConnect(handleNumber);
+            updateConnect(handleNumber + 1);
+        }
+
+        // Handles before the slider middle are stacked later = higher,
+        // Handles after the middle later is lower
+        // [[7] [8] .......... | .......... [5] [4]
+        function setZindex() {
+            scope_HandleNumbers.forEach(function(handleNumber) {
+                var dir = scope_Locations[handleNumber] > 50 ? -1 : 1;
+                var zIndex = 3 + (scope_Handles.length + dir * handleNumber);
+                scope_Handles[handleNumber].style.zIndex = zIndex;
+            });
+        }
+
+        // Test suggested values and apply margin, step.
+        function setHandle(handleNumber, to, lookBackward, lookForward) {
+            to = checkHandlePosition(scope_Locations, handleNumber, to, lookBackward, lookForward, false);
+
+            if (to === false) {
+                return false;
+            }
+
+            updateHandlePosition(handleNumber, to);
+
+            return true;
+        }
+
+        // Updates style attribute for connect nodes
+        function updateConnect(index) {
+            // Skip connects set to false
+            if (!scope_Connects[index]) {
+                return;
+            }
+
+            var l = 0;
+            var h = 100;
+
+            if (index !== 0) {
+                l = scope_Locations[index - 1];
+            }
+
+            if (index !== scope_Connects.length - 1) {
+                h = scope_Locations[index];
+            }
+
+            // We use two rules:
+            // 'translate' to change the left/top offset;
+            // 'scale' to change the width of the element;
+            // As the element has a width of 100%, a translation of 100% is equal to 100% of the parent (.noUi-base)
+            var connectWidth = h - l;
+            var translateRule = "translate(" + inRuleOrder(transformDirection(l, connectWidth) + "%", "0") + ")";
+            var scaleRule = "scale(" + inRuleOrder(connectWidth / 100, "1") + ")";
+
+            scope_Connects[index].style[options.transformRule] = translateRule + " " + scaleRule;
+        }
+
+        // Parses value passed to .set method. Returns current value if not parse-able.
+        function resolveToValue(to, handleNumber) {
+            // Setting with null indicates an 'ignore'.
+            // Inputting 'false' is invalid.
+            if (to === null || to === false || to === undefined) {
+                return scope_Locations[handleNumber];
+            }
+
+            // If a formatted number was passed, attempt to decode it.
+            if (typeof to === "number") {
+                to = String(to);
+            }
+
+            to = options.format.from(to);
+            to = scope_Spectrum.toStepping(to);
+
+            // If parsing the number failed, use the current value.
+            if (to === false || isNaN(to)) {
+                return scope_Locations[handleNumber];
+            }
+
+            return to;
+        }
+
+        // Set the slider value.
+        function valueSet(input, fireSetEvent) {
+            var values = asArray(input);
+            var isInit = scope_Locations[0] === undefined;
+
+            // Event fires by default
+            fireSetEvent = fireSetEvent === undefined ? true : !!fireSetEvent;
+
+            // Animation is optional.
+            // Make sure the initial values were set before using animated placement.
+            if (options.animate && !isInit) {
+                addClassFor(scope_Target, options.cssClasses.tap, options.animationDuration);
+            }
+
+            // First pass, without lookAhead but with lookBackward. Values are set from left to right.
+            scope_HandleNumbers.forEach(function(handleNumber) {
+                setHandle(handleNumber, resolveToValue(values[handleNumber], handleNumber), true, false);
+            });
+
+            var i = scope_HandleNumbers.length === 1 ? 0 : 1;
+
+            // Secondary passes. Now that all base values are set, apply constraints.
+            // Iterate all handles to ensure constraints are applied for the entire slider (Issue #1009)
+            for (; i < scope_HandleNumbers.length; ++i) {
+                scope_HandleNumbers.forEach(function(handleNumber) {
+                    setHandle(handleNumber, scope_Locations[handleNumber], true, true);
+                });
+            }
+
+            setZindex();
+
+            scope_HandleNumbers.forEach(function(handleNumber) {
+                fireEvent("update", handleNumber);
+
+                // Fire the event only for handles that received a new value, as per #579
+                if (values[handleNumber] !== null && fireSetEvent) {
+                    fireEvent("set", handleNumber);
+                }
+            });
+        }
+
+        // Reset slider to initial values
+        function valueReset(fireSetEvent) {
+            valueSet(options.start, fireSetEvent);
+        }
+
+        // Set value for a single handle
+        function valueSetHandle(handleNumber, value, fireSetEvent) {
+            // Ensure numeric input
+            handleNumber = Number(handleNumber);
+
+            if (!(handleNumber >= 0 && handleNumber < scope_HandleNumbers.length)) {
+                throw new Error("noUiSlider (" + VERSION + "): invalid handle number, got: " + handleNumber);
+            }
+
+            // Look both backward and forward, since we don't want this handle to "push" other handles (#960);
+            setHandle(handleNumber, resolveToValue(value, handleNumber), true, true);
+
+            fireEvent("update", handleNumber);
+
+            if (fireSetEvent) {
+                fireEvent("set", handleNumber);
+            }
+        }
+
+        // Get the slider value.
+        function valueGet() {
+            var values = scope_Values.map(options.format.to);
+
+            // If only one handle is used, return a single value.
+            if (values.length === 1) {
+                return values[0];
+            }
+
+            return values;
+        }
+
+        // Removes classes from the root and empties it.
+        function destroy() {
+            for (var key in options.cssClasses) {
+                if (!options.cssClasses.hasOwnProperty(key)) {
+                    continue;
+                }
+                removeClass(scope_Target, options.cssClasses[key]);
+            }
+
+            while (scope_Target.firstChild) {
+                scope_Target.removeChild(scope_Target.firstChild);
+            }
+
+            delete scope_Target.noUiSlider;
+        }
+
+        function getNextStepsForHandle(handleNumber) {
+            var location = scope_Locations[handleNumber];
+            var nearbySteps = scope_Spectrum.getNearbySteps(location);
+            var value = scope_Values[handleNumber];
+            var increment = nearbySteps.thisStep.step;
+            var decrement = null;
+
+            // If snapped, directly use defined step value
+            if (options.snap) {
+                return [
+                    value - nearbySteps.stepBefore.startValue || null,
+                    nearbySteps.stepAfter.startValue - value || null
+                ];
+            }
+
+            // If the next value in this step moves into the next step,
+            // the increment is the start of the next step - the current value
+            if (increment !== false) {
+                if (value + increment > nearbySteps.stepAfter.startValue) {
+                    increment = nearbySteps.stepAfter.startValue - value;
+                }
+            }
+
+            // If the value is beyond the starting point
+            if (value > nearbySteps.thisStep.startValue) {
+                decrement = nearbySteps.thisStep.step;
+            } else if (nearbySteps.stepBefore.step === false) {
+                decrement = false;
+            }
+
+            // If a handle is at the start of a step, it always steps back into the previous step first
+            else {
+                decrement = value - nearbySteps.stepBefore.highestStep;
+            }
+
+            // Now, if at the slider edges, there is no in/decrement
+            if (location === 100) {
+                increment = null;
+            } else if (location === 0) {
+                decrement = null;
+            }
+
+            // As per #391, the comparison for the decrement step can have some rounding issues.
+            var stepDecimals = scope_Spectrum.countStepDecimals();
+
+            // Round per #391
+            if (increment !== null && increment !== false) {
+                increment = Number(increment.toFixed(stepDecimals));
+            }
+
+            if (decrement !== null && decrement !== false) {
+                decrement = Number(decrement.toFixed(stepDecimals));
+            }
+
+            return [decrement, increment];
+        }
+
+        // Get the current step size for the slider.
+        function getNextSteps() {
+            return scope_HandleNumbers.map(getNextStepsForHandle);
+        }
+
+        // Updateable: margin, limit, padding, step, range, animate, snap
+        function updateOptions(optionsToUpdate, fireSetEvent) {
+            // Spectrum is created using the range, snap, direction and step options.
+            // 'snap' and 'step' can be updated.
+            // If 'snap' and 'step' are not passed, they should remain unchanged.
+            var v = valueGet();
+
+            var updateAble = [
+                "margin",
+                "limit",
+                "padding",
+                "range",
+                "animate",
+                "snap",
+                "step",
+                "format",
+                "pips",
+                "tooltips"
+            ];
+
+            // Only change options that we're actually passed to update.
+            updateAble.forEach(function(name) {
+                // Check for undefined. null removes the value.
+                if (optionsToUpdate[name] !== undefined) {
+                    originalOptions[name] = optionsToUpdate[name];
+                }
+            });
+
+            var newOptions = testOptions(originalOptions);
+
+            // Load new options into the slider state
+            updateAble.forEach(function(name) {
+                if (optionsToUpdate[name] !== undefined) {
+                    options[name] = newOptions[name];
+                }
+            });
+
+            scope_Spectrum = newOptions.spectrum;
+
+            // Limit, margin and padding depend on the spectrum but are stored outside of it. (#677)
+            options.margin = newOptions.margin;
+            options.limit = newOptions.limit;
+            options.padding = newOptions.padding;
+
+            // Update pips, removes existing.
+            if (options.pips) {
+                pips(options.pips);
+            } else {
+                removePips();
+            }
+
+            // Update tooltips, removes existing.
+            if (options.tooltips) {
+                tooltips();
+            } else {
+                removeTooltips();
+            }
+
+            // Invalidate the current positioning so valueSet forces an update.
+            scope_Locations = [];
+            valueSet(optionsToUpdate.start || v, fireSetEvent);
+        }
+
+        // Initialization steps
+        function setupSlider() {
+            // Create the base element, initialize HTML and set classes.
+            // Add handles and connect elements.
+            scope_Base = addSlider(scope_Target);
+
+            addElements(options.connect, scope_Base);
+
+            // Attach user events.
+            bindSliderEvents(options.events);
+
+            // Use the public value method to set the start values.
+            valueSet(options.start);
+
+            if (options.pips) {
+                pips(options.pips);
+            }
+
+            if (options.tooltips) {
+                tooltips();
+            }
+
+            aria();
+        }
+
+        setupSlider();
+
+        // noinspection JSUnusedGlobalSymbols
+        scope_Self = {
+            destroy: destroy,
+            steps: getNextSteps,
+            on: bindEvent,
+            off: removeEvent,
+            get: valueGet,
+            set: valueSet,
+            setHandle: valueSetHandle,
+            reset: valueReset,
+            // Exposed for unit testing, don't use this in your application.
+            __moveHandles: function(a, b, c) {
+                moveHandles(a, b, scope_Locations, c);
+            },
+            options: originalOptions, // Issue #600, #678
+            updateOptions: updateOptions,
+            target: scope_Target, // Issue #597
+            removePips: removePips,
+            removeTooltips: removeTooltips,
+            getTooltips: function() {
+                return scope_Tooltips;
+            },
+            getOrigins: function() {
+                return scope_Handles;
+            },
+            pips: pips // Issue #594
+        };
+
+        return scope_Self;
+    }
+
+    // Run the standard initializer
+    function initialize(target, originalOptions) {
+        if (!target || !target.nodeName) {
+            throw new Error("noUiSlider (" + VERSION + "): create requires a single element, got: " + target);
+        }
+
+        // Throw an error if the slider was already initialized.
+        if (target.noUiSlider) {
+            throw new Error("noUiSlider (" + VERSION + "): Slider was already initialized.");
+        }
+
+        // Test the options and create the slider environment;
+        var options = testOptions(originalOptions, target);
+        var api = scope(target, options, originalOptions);
+
+        target.noUiSlider = api;
+
+        return api;
+    }
+
+    // Use an object instead of a function for future expandability;
+    return {
+        // Exposed for unit testing, don't use this in your application.
+        __spectrum: Spectrum,
+        version: VERSION,
+        // A reference to the default classes, allows global changes.
+        // Use the cssClasses option for changes to one slider.
+        cssClasses: cssClasses,
+        create: initialize
+    };
+});
+
+},{}],103:[function(require,module,exports){
 var crypto = require('crypto')
 
 function sha (key, body, algorithm) {
@@ -14304,7 +16961,7 @@ exports.plaintext = plaintext
 exports.sign = sign
 exports.rfc3986 = rfc3986
 exports.generateBase = generateBase
-},{"crypto":248}],103:[function(require,module,exports){
+},{"crypto":250}],104:[function(require,module,exports){
 (function (process){
 // Generated by CoffeeScript 1.12.2
 (function() {
@@ -14344,7 +17001,7 @@ exports.generateBase = generateBase
 
 
 }).call(this,require('_process'))
-},{"_process":342}],104:[function(require,module,exports){
+},{"_process":344}],105:[function(require,module,exports){
 module.exports=[
 "ac",
 "com.ac",
@@ -23179,7 +25836,7 @@ module.exports=[
 "virtualserver.io",
 "enterprisecloud.nu"
 ]
-},{}],105:[function(require,module,exports){
+},{}],106:[function(require,module,exports){
 /*eslint no-var:0, prefer-arrow-callback: 0, object-shorthand: 0 */
 'use strict';
 
@@ -23450,7 +26107,7 @@ exports.isValid = function (domain) {
   return Boolean(parsed.domain && parsed.listed);
 };
 
-},{"./data/rules.json":104,"punycode":350}],106:[function(require,module,exports){
+},{"./data/rules.json":105,"punycode":352}],107:[function(require,module,exports){
 // Copyright 2010-2012 Mikeal Rogers
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -23607,7 +26264,7 @@ Object.defineProperty(request, 'debug', {
   }
 })
 
-},{"./lib/cookies":108,"./lib/helpers":112,"./request":126,"extend":63}],107:[function(require,module,exports){
+},{"./lib/cookies":109,"./lib/helpers":113,"./request":127,"extend":63}],108:[function(require,module,exports){
 'use strict'
 
 var caseless = require('caseless')
@@ -23776,7 +26433,7 @@ Auth.prototype.onResponse = function (response) {
 
 exports.Auth = Auth
 
-},{"./helpers":112,"caseless":56,"uuid/v4":166}],108:[function(require,module,exports){
+},{"./helpers":113,"caseless":56,"uuid/v4":167}],109:[function(require,module,exports){
 'use strict'
 
 var tough = require('tough-cookie')
@@ -23816,7 +26473,7 @@ exports.jar = function (store) {
   return new RequestJar(store)
 }
 
-},{"tough-cookie":154}],109:[function(require,module,exports){
+},{"tough-cookie":155}],110:[function(require,module,exports){
 (function (process){
 'use strict'
 
@@ -23899,7 +26556,7 @@ function getProxyFromURI (uri) {
 module.exports = getProxyFromURI
 
 }).call(this,require('_process'))
-},{"_process":342}],110:[function(require,module,exports){
+},{"_process":344}],111:[function(require,module,exports){
 'use strict'
 
 var fs = require('fs')
@@ -24106,7 +26763,7 @@ Har.prototype.options = function (options) {
 
 exports.Har = Har
 
-},{"extend":63,"fs":168,"har-validator":89,"querystring":353}],111:[function(require,module,exports){
+},{"extend":63,"fs":170,"har-validator":89,"querystring":355}],112:[function(require,module,exports){
 'use strict'
 
 var crypto = require('crypto')
@@ -24197,7 +26854,7 @@ exports.header = function (uri, method, opts) {
   return header
 }
 
-},{"crypto":248}],112:[function(require,module,exports){
+},{"crypto":250}],113:[function(require,module,exports){
 (function (process,setImmediate){
 'use strict'
 
@@ -24267,7 +26924,7 @@ exports.version = version
 exports.defer = defer
 
 }).call(this,require('_process'),require("timers").setImmediate)
-},{"_process":342,"crypto":248,"json-stringify-safe":100,"safe-buffer":127,"timers":402}],113:[function(require,module,exports){
+},{"_process":344,"crypto":250,"json-stringify-safe":100,"safe-buffer":128,"timers":404}],114:[function(require,module,exports){
 'use strict'
 
 var uuid = require('uuid/v4')
@@ -24381,7 +27038,7 @@ Multipart.prototype.onRequest = function (options) {
 
 exports.Multipart = Multipart
 
-},{"combined-stream":57,"isstream":96,"safe-buffer":127,"uuid/v4":166}],114:[function(require,module,exports){
+},{"combined-stream":57,"isstream":96,"safe-buffer":128,"uuid/v4":167}],115:[function(require,module,exports){
 'use strict'
 
 var url = require('url')
@@ -24531,7 +27188,7 @@ OAuth.prototype.onRequest = function (_oauth) {
 
 exports.OAuth = OAuth
 
-},{"caseless":56,"crypto":248,"oauth-sign":102,"qs":122,"safe-buffer":127,"url":403,"uuid/v4":166}],115:[function(require,module,exports){
+},{"caseless":56,"crypto":250,"oauth-sign":103,"qs":123,"safe-buffer":128,"url":405,"uuid/v4":167}],116:[function(require,module,exports){
 'use strict'
 
 var qs = require('qs')
@@ -24583,7 +27240,7 @@ Querystring.prototype.unescape = querystring.unescape
 
 exports.Querystring = Querystring
 
-},{"qs":122,"querystring":353}],116:[function(require,module,exports){
+},{"qs":123,"querystring":355}],117:[function(require,module,exports){
 'use strict'
 
 var url = require('url')
@@ -24739,7 +27396,7 @@ Redirect.prototype.onResponse = function (response) {
 
 exports.Redirect = Redirect
 
-},{"url":403}],117:[function(require,module,exports){
+},{"url":405}],118:[function(require,module,exports){
 'use strict'
 
 var url = require('url')
@@ -24916,7 +27573,7 @@ Tunnel.defaultProxyHeaderWhiteList = defaultProxyHeaderWhiteList
 Tunnel.defaultProxyHeaderExclusiveList = defaultProxyHeaderExclusiveList
 exports.Tunnel = Tunnel
 
-},{"tunnel-agent":161,"url":403}],118:[function(require,module,exports){
+},{"tunnel-agent":162,"url":405}],119:[function(require,module,exports){
 module.exports={
   "application/1d-interleaved-parityfec": {
     "source": "iana"
@@ -33094,7 +35751,7 @@ module.exports={
   }
 }
 
-},{}],119:[function(require,module,exports){
+},{}],120:[function(require,module,exports){
 /*!
  * mime-db
  * Copyright(c) 2014 Jonathan Ong
@@ -33107,7 +35764,7 @@ module.exports={
 
 module.exports = require('./db.json')
 
-},{"./db.json":118}],120:[function(require,module,exports){
+},{"./db.json":119}],121:[function(require,module,exports){
 /*!
  * mime-types
  * Copyright(c) 2014 Jonathan Ong
@@ -33297,7 +35954,7 @@ function populateMaps (extensions, types) {
   })
 }
 
-},{"mime-db":119,"path":335}],121:[function(require,module,exports){
+},{"mime-db":120,"path":337}],122:[function(require,module,exports){
 'use strict';
 
 var replace = String.prototype.replace;
@@ -33317,7 +35974,7 @@ module.exports = {
     RFC3986: 'RFC3986'
 };
 
-},{}],122:[function(require,module,exports){
+},{}],123:[function(require,module,exports){
 'use strict';
 
 var stringify = require('./stringify');
@@ -33330,7 +35987,7 @@ module.exports = {
     stringify: stringify
 };
 
-},{"./formats":121,"./parse":123,"./stringify":124}],123:[function(require,module,exports){
+},{"./formats":122,"./parse":124,"./stringify":125}],124:[function(require,module,exports){
 'use strict';
 
 var utils = require('./utils');
@@ -33506,7 +36163,7 @@ module.exports = function (str, opts) {
     return utils.compact(obj);
 };
 
-},{"./utils":125}],124:[function(require,module,exports){
+},{"./utils":126}],125:[function(require,module,exports){
 'use strict';
 
 var utils = require('./utils');
@@ -33718,7 +36375,7 @@ module.exports = function (object, opts) {
     return joined.length > 0 ? prefix + joined : '';
 };
 
-},{"./formats":121,"./utils":125}],125:[function(require,module,exports){
+},{"./formats":122,"./utils":126}],126:[function(require,module,exports){
 'use strict';
 
 var has = Object.prototype.hasOwnProperty;
@@ -33933,7 +36590,7 @@ module.exports = {
     merge: merge
 };
 
-},{}],126:[function(require,module,exports){
+},{}],127:[function(require,module,exports){
 (function (process){
 'use strict'
 
@@ -35490,7 +38147,7 @@ Request.prototype.toJSON = requestToJSON
 module.exports = Request
 
 }).call(this,require('_process'))
-},{"./lib/auth":107,"./lib/cookies":108,"./lib/getProxyFromURI":109,"./lib/har":110,"./lib/hawk":111,"./lib/helpers":112,"./lib/multipart":113,"./lib/oauth":114,"./lib/querystring":115,"./lib/redirect":116,"./lib/tunnel":117,"_process":342,"aws-sign2":52,"aws4":53,"caseless":56,"extend":63,"forever-agent":67,"form-data":68,"http":382,"http-signature":90,"https":308,"is-typedarray":95,"isstream":96,"mime-types":120,"performance-now":103,"safe-buffer":127,"stream":381,"url":403,"util":408,"zlib":236}],127:[function(require,module,exports){
+},{"./lib/auth":108,"./lib/cookies":109,"./lib/getProxyFromURI":110,"./lib/har":111,"./lib/hawk":112,"./lib/helpers":113,"./lib/multipart":114,"./lib/oauth":115,"./lib/querystring":116,"./lib/redirect":117,"./lib/tunnel":118,"_process":344,"aws-sign2":52,"aws4":53,"caseless":56,"extend":63,"forever-agent":67,"form-data":68,"http":384,"http-signature":90,"https":310,"is-typedarray":95,"isstream":96,"mime-types":121,"performance-now":104,"safe-buffer":128,"stream":383,"url":405,"util":410,"zlib":238}],128:[function(require,module,exports){
 /* eslint-disable node/no-deprecated-api */
 var buffer = require('buffer')
 var Buffer = buffer.Buffer
@@ -35554,7 +38211,7 @@ SafeBuffer.allocUnsafeSlow = function (size) {
   return buffer.SlowBuffer(size)
 }
 
-},{"buffer":238}],128:[function(require,module,exports){
+},{"buffer":240}],129:[function(require,module,exports){
 (function (process){
 /* eslint-disable node/no-deprecated-api */
 
@@ -35635,7 +38292,7 @@ if (!safer.constants) {
 module.exports = safer
 
 }).call(this,require('_process'))
-},{"_process":342,"buffer":238}],129:[function(require,module,exports){
+},{"_process":344,"buffer":240}],130:[function(require,module,exports){
 // Copyright 2015 Joyent, Inc.
 
 var Buffer = require('safer-buffer').Buffer;
@@ -35805,7 +38462,7 @@ module.exports = {
 	curves: curves
 };
 
-},{"safer-buffer":128}],130:[function(require,module,exports){
+},{"safer-buffer":129}],131:[function(require,module,exports){
 // Copyright 2016 Joyent, Inc.
 
 module.exports = Certificate;
@@ -36217,7 +38874,7 @@ Certificate._oldVersionDetect = function (obj) {
 	return ([1, 0]);
 };
 
-},{"./algs":129,"./errors":133,"./fingerprint":134,"./formats/openssh-cert":137,"./formats/x509":146,"./formats/x509-pem":145,"./identity":147,"./key":149,"./private-key":150,"./signature":151,"./utils":153,"assert-plus":51,"crypto":248,"safer-buffer":128,"util":408}],131:[function(require,module,exports){
+},{"./algs":130,"./errors":134,"./fingerprint":135,"./formats/openssh-cert":138,"./formats/x509":147,"./formats/x509-pem":146,"./identity":148,"./key":150,"./private-key":151,"./signature":152,"./utils":154,"assert-plus":51,"crypto":250,"safer-buffer":129,"util":410}],132:[function(require,module,exports){
 // Copyright 2017 Joyent, Inc.
 
 module.exports = {
@@ -36616,7 +39273,7 @@ function generateECDSA(curve) {
 	}
 }
 
-},{"./algs":129,"./key":149,"./private-key":150,"./utils":153,"assert-plus":51,"crypto":248,"ecc-jsbn":60,"ecc-jsbn/lib/ec":61,"jsbn":97,"safer-buffer":128,"tweetnacl":162}],132:[function(require,module,exports){
+},{"./algs":130,"./key":150,"./private-key":151,"./utils":154,"assert-plus":51,"crypto":250,"ecc-jsbn":60,"ecc-jsbn/lib/ec":61,"jsbn":97,"safer-buffer":129,"tweetnacl":163}],133:[function(require,module,exports){
 // Copyright 2015 Joyent, Inc.
 
 module.exports = {
@@ -36710,7 +39367,7 @@ Signer.prototype.sign = function () {
 	return (sigObj);
 };
 
-},{"./signature":151,"assert-plus":51,"safer-buffer":128,"stream":381,"tweetnacl":162,"util":408}],133:[function(require,module,exports){
+},{"./signature":152,"assert-plus":51,"safer-buffer":129,"stream":383,"tweetnacl":163,"util":410}],134:[function(require,module,exports){
 // Copyright 2015 Joyent, Inc.
 
 var assert = require('assert-plus');
@@ -36796,7 +39453,7 @@ module.exports = {
 	CertificateParseError: CertificateParseError
 };
 
-},{"assert-plus":51,"util":408}],134:[function(require,module,exports){
+},{"assert-plus":51,"util":410}],135:[function(require,module,exports){
 // Copyright 2018 Joyent, Inc.
 
 module.exports = Fingerprint;
@@ -37018,7 +39675,7 @@ Fingerprint._oldVersionDetect = function (obj) {
 	return ([1, 0]);
 };
 
-},{"./algs":129,"./certificate":130,"./errors":133,"./key":149,"./private-key":150,"./utils":153,"assert-plus":51,"crypto":248,"safer-buffer":128}],135:[function(require,module,exports){
+},{"./algs":130,"./certificate":131,"./errors":134,"./key":150,"./private-key":151,"./utils":154,"assert-plus":51,"crypto":250,"safer-buffer":129}],136:[function(require,module,exports){
 // Copyright 2018 Joyent, Inc.
 
 module.exports = {
@@ -37144,7 +39801,7 @@ function write(key, options) {
 	throw (new Error('"auto" format cannot be used for writing'));
 }
 
-},{"../key":149,"../private-key":150,"../utils":153,"./dnssec":136,"./pem":138,"./putty":141,"./rfc4253":142,"./ssh":144,"assert-plus":51,"safer-buffer":128}],136:[function(require,module,exports){
+},{"../key":150,"../private-key":151,"../utils":154,"./dnssec":137,"./pem":139,"./putty":142,"./rfc4253":143,"./ssh":145,"assert-plus":51,"safer-buffer":129}],137:[function(require,module,exports){
 // Copyright 2017 Joyent, Inc.
 
 module.exports = {
@@ -37433,7 +40090,7 @@ function write(key, options) {
 	}
 }
 
-},{"../dhe":131,"../key":149,"../private-key":150,"../ssh-buffer":152,"../utils":153,"assert-plus":51,"safer-buffer":128}],137:[function(require,module,exports){
+},{"../dhe":132,"../key":150,"../private-key":151,"../ssh-buffer":153,"../utils":154,"assert-plus":51,"safer-buffer":129}],138:[function(require,module,exports){
 // Copyright 2017 Joyent, Inc.
 
 module.exports = {
@@ -37787,7 +40444,7 @@ function getCertType(key) {
 	throw (new Error('Unsupported key type ' + key.type));
 }
 
-},{"../algs":129,"../certificate":130,"../identity":147,"../key":149,"../private-key":150,"../signature":151,"../ssh-buffer":152,"../utils":153,"./rfc4253":142,"assert-plus":51,"crypto":248,"safer-buffer":128}],138:[function(require,module,exports){
+},{"../algs":130,"../certificate":131,"../identity":148,"../key":150,"../private-key":151,"../signature":152,"../ssh-buffer":153,"../utils":154,"./rfc4253":143,"assert-plus":51,"crypto":250,"safer-buffer":129}],139:[function(require,module,exports){
 // Copyright 2018 Joyent, Inc.
 
 module.exports = {
@@ -38079,7 +40736,7 @@ function write(key, options, type) {
 	return (buf.slice(0, o));
 }
 
-},{"../algs":129,"../errors":133,"../key":149,"../private-key":150,"../utils":153,"./pkcs1":139,"./pkcs8":140,"./rfc4253":142,"./ssh-private":143,"asn1":50,"assert-plus":51,"crypto":248,"safer-buffer":128}],139:[function(require,module,exports){
+},{"../algs":130,"../errors":134,"../key":150,"../private-key":151,"../utils":154,"./pkcs1":140,"./pkcs8":141,"./rfc4253":143,"./ssh-private":144,"asn1":50,"assert-plus":51,"crypto":250,"safer-buffer":129}],140:[function(require,module,exports){
 // Copyright 2015 Joyent, Inc.
 
 module.exports = {
@@ -38454,7 +41111,7 @@ function writePkcs1EdDSAPublic(der, key) {
 	throw (new Error('Public keys are not supported for EdDSA PKCS#1'));
 }
 
-},{"../algs":129,"../key":149,"../private-key":150,"../utils":153,"./pem":138,"./pkcs8":140,"asn1":50,"assert-plus":51,"safer-buffer":128}],140:[function(require,module,exports){
+},{"../algs":130,"../key":150,"../private-key":151,"../utils":154,"./pem":139,"./pkcs8":141,"asn1":50,"assert-plus":51,"safer-buffer":129}],141:[function(require,module,exports){
 // Copyright 2018 Joyent, Inc.
 
 module.exports = {
@@ -39087,7 +41744,7 @@ function writePkcs8EdDSAPrivate(key, der) {
 	der.endSequence();
 }
 
-},{"../algs":129,"../key":149,"../private-key":150,"../utils":153,"./pem":138,"asn1":50,"assert-plus":51,"safer-buffer":128}],141:[function(require,module,exports){
+},{"../algs":130,"../key":150,"../private-key":151,"../utils":154,"./pem":139,"asn1":50,"assert-plus":51,"safer-buffer":129}],142:[function(require,module,exports){
 // Copyright 2018 Joyent, Inc.
 
 module.exports = {
@@ -39188,7 +41845,7 @@ function wrap(txt, len) {
 	return (lines);
 }
 
-},{"../errors":133,"../key":149,"./rfc4253":142,"assert-plus":51,"safer-buffer":128}],142:[function(require,module,exports){
+},{"../errors":134,"../key":150,"./rfc4253":143,"assert-plus":51,"safer-buffer":129}],143:[function(require,module,exports){
 // Copyright 2015 Joyent, Inc.
 
 module.exports = {
@@ -39356,7 +42013,7 @@ function write(key, options) {
 	return (buf.toBuffer());
 }
 
-},{"../algs":129,"../key":149,"../private-key":150,"../ssh-buffer":152,"../utils":153,"assert-plus":51,"safer-buffer":128}],143:[function(require,module,exports){
+},{"../algs":130,"../key":150,"../private-key":151,"../ssh-buffer":153,"../utils":154,"assert-plus":51,"safer-buffer":129}],144:[function(require,module,exports){
 // Copyright 2015 Joyent, Inc.
 
 module.exports = {
@@ -39620,7 +42277,7 @@ function write(key, options) {
 	return (buf.slice(0, o));
 }
 
-},{"../algs":129,"../errors":133,"../key":149,"../private-key":150,"../ssh-buffer":152,"../utils":153,"./pem":138,"./rfc4253":142,"asn1":50,"assert-plus":51,"bcrypt-pbkdf":55,"crypto":248,"safer-buffer":128}],144:[function(require,module,exports){
+},{"../algs":130,"../errors":134,"../key":150,"../private-key":151,"../ssh-buffer":153,"../utils":154,"./pem":139,"./rfc4253":143,"asn1":50,"assert-plus":51,"bcrypt-pbkdf":55,"crypto":250,"safer-buffer":129}],145:[function(require,module,exports){
 // Copyright 2015 Joyent, Inc.
 
 module.exports = {
@@ -39737,7 +42394,7 @@ function write(key, options) {
 	return (Buffer.from(parts.join(' ')));
 }
 
-},{"../key":149,"../private-key":150,"../utils":153,"./rfc4253":142,"./ssh-private":143,"assert-plus":51,"safer-buffer":128}],145:[function(require,module,exports){
+},{"../key":150,"../private-key":151,"../utils":154,"./rfc4253":143,"./ssh-private":144,"assert-plus":51,"safer-buffer":129}],146:[function(require,module,exports){
 // Copyright 2016 Joyent, Inc.
 
 var x509 = require('./x509');
@@ -39827,7 +42484,7 @@ function write(cert, options) {
 	return (buf.slice(0, o));
 }
 
-},{"../algs":129,"../certificate":130,"../identity":147,"../key":149,"../private-key":150,"../signature":151,"../utils":153,"./pem":138,"./x509":146,"asn1":50,"assert-plus":51,"safer-buffer":128}],146:[function(require,module,exports){
+},{"../algs":130,"../certificate":131,"../identity":148,"../key":150,"../private-key":151,"../signature":152,"../utils":154,"./pem":139,"./x509":147,"asn1":50,"assert-plus":51,"safer-buffer":129}],147:[function(require,module,exports){
 // Copyright 2017 Joyent, Inc.
 
 module.exports = {
@@ -40581,7 +43238,7 @@ function writeBitField(setBits, bitIndex) {
 	return (bits);
 }
 
-},{"../algs":129,"../certificate":130,"../identity":147,"../key":149,"../private-key":150,"../signature":151,"../utils":153,"./pem":138,"./pkcs8":140,"asn1":50,"assert-plus":51,"safer-buffer":128}],147:[function(require,module,exports){
+},{"../algs":130,"../certificate":131,"../identity":148,"../key":150,"../private-key":151,"../signature":152,"../utils":154,"./pem":139,"./pkcs8":141,"asn1":50,"assert-plus":51,"safer-buffer":129}],148:[function(require,module,exports){
 // Copyright 2017 Joyent, Inc.
 
 module.exports = Identity;
@@ -40956,7 +43613,7 @@ Identity._oldVersionDetect = function (obj) {
 	return ([1, 0]);
 };
 
-},{"./algs":129,"./errors":133,"./fingerprint":134,"./signature":151,"./utils":153,"asn1":50,"assert-plus":51,"crypto":248,"safer-buffer":128,"util":408}],148:[function(require,module,exports){
+},{"./algs":130,"./errors":134,"./fingerprint":135,"./signature":152,"./utils":154,"asn1":50,"assert-plus":51,"crypto":250,"safer-buffer":129,"util":410}],149:[function(require,module,exports){
 // Copyright 2015 Joyent, Inc.
 
 var Key = require('./key');
@@ -40998,7 +43655,7 @@ module.exports = {
 	CertificateParseError: errs.CertificateParseError
 };
 
-},{"./certificate":130,"./errors":133,"./fingerprint":134,"./identity":147,"./key":149,"./private-key":150,"./signature":151}],149:[function(require,module,exports){
+},{"./certificate":131,"./errors":134,"./fingerprint":135,"./identity":148,"./key":150,"./private-key":151,"./signature":152}],150:[function(require,module,exports){
 (function (Buffer){
 // Copyright 2018 Joyent, Inc.
 
@@ -41296,7 +43953,7 @@ Key._oldVersionDetect = function (obj) {
 };
 
 }).call(this,{"isBuffer":require("../../../../../usr/local/lib/node_modules/browserify/node_modules/is-buffer/index.js")})
-},{"../../../../../usr/local/lib/node_modules/browserify/node_modules/is-buffer/index.js":311,"./algs":129,"./dhe":131,"./ed-compat":132,"./errors":133,"./fingerprint":134,"./formats/auto":135,"./formats/dnssec":136,"./formats/pem":138,"./formats/pkcs1":139,"./formats/pkcs8":140,"./formats/putty":141,"./formats/rfc4253":142,"./formats/ssh":144,"./formats/ssh-private":143,"./private-key":150,"./signature":151,"./utils":153,"assert-plus":51,"crypto":248}],150:[function(require,module,exports){
+},{"../../../../../usr/local/lib/node_modules/browserify/node_modules/is-buffer/index.js":313,"./algs":130,"./dhe":132,"./ed-compat":133,"./errors":134,"./fingerprint":135,"./formats/auto":136,"./formats/dnssec":137,"./formats/pem":139,"./formats/pkcs1":140,"./formats/pkcs8":141,"./formats/putty":142,"./formats/rfc4253":143,"./formats/ssh":145,"./formats/ssh-private":144,"./private-key":151,"./signature":152,"./utils":154,"assert-plus":51,"crypto":250}],151:[function(require,module,exports){
 // Copyright 2017 Joyent, Inc.
 
 module.exports = PrivateKey;
@@ -41544,7 +44201,7 @@ PrivateKey._oldVersionDetect = function (obj) {
 	return ([1, 0]);
 };
 
-},{"./algs":129,"./dhe":131,"./ed-compat":132,"./errors":133,"./fingerprint":134,"./formats/auto":135,"./formats/dnssec":136,"./formats/pem":138,"./formats/pkcs1":139,"./formats/pkcs8":140,"./formats/rfc4253":142,"./formats/ssh-private":143,"./key":149,"./signature":151,"./utils":153,"assert-plus":51,"crypto":248,"safer-buffer":128,"tweetnacl":162,"util":408}],151:[function(require,module,exports){
+},{"./algs":130,"./dhe":132,"./ed-compat":133,"./errors":134,"./fingerprint":135,"./formats/auto":136,"./formats/dnssec":137,"./formats/pem":139,"./formats/pkcs1":140,"./formats/pkcs8":141,"./formats/rfc4253":143,"./formats/ssh-private":144,"./key":150,"./signature":152,"./utils":154,"assert-plus":51,"crypto":250,"safer-buffer":129,"tweetnacl":163,"util":410}],152:[function(require,module,exports){
 // Copyright 2015 Joyent, Inc.
 
 module.exports = Signature;
@@ -41860,7 +44517,7 @@ Signature._oldVersionDetect = function (obj) {
 	return ([1, 0]);
 };
 
-},{"./algs":129,"./errors":133,"./ssh-buffer":152,"./utils":153,"asn1":50,"assert-plus":51,"crypto":248,"safer-buffer":128}],152:[function(require,module,exports){
+},{"./algs":130,"./errors":134,"./ssh-buffer":153,"./utils":154,"asn1":50,"assert-plus":51,"crypto":250,"safer-buffer":129}],153:[function(require,module,exports){
 // Copyright 2015 Joyent, Inc.
 
 module.exports = SSHBuffer;
@@ -42011,7 +44668,7 @@ SSHBuffer.prototype.write = function (buf) {
 	this._offset += buf.length;
 };
 
-},{"assert-plus":51,"safer-buffer":128}],153:[function(require,module,exports){
+},{"assert-plus":51,"safer-buffer":129}],154:[function(require,module,exports){
 // Copyright 2015 Joyent, Inc.
 
 module.exports = {
@@ -42417,7 +45074,7 @@ function opensshCipherInfo(cipher) {
 	return (inf);
 }
 
-},{"./algs":129,"./key":149,"./private-key":150,"asn1":50,"assert-plus":51,"crypto":248,"ecc-jsbn/lib/ec":61,"jsbn":97,"safer-buffer":128,"tweetnacl":162}],154:[function(require,module,exports){
+},{"./algs":130,"./key":150,"./private-key":151,"asn1":50,"assert-plus":51,"crypto":250,"ecc-jsbn/lib/ec":61,"jsbn":97,"safer-buffer":129,"tweetnacl":163}],155:[function(require,module,exports){
 /*!
  * Copyright (c) 2015, Salesforce.com, Inc.
  * All rights reserved.
@@ -43901,7 +46558,7 @@ exports.permuteDomain = require('./permuteDomain').permuteDomain;
 exports.permutePath = permutePath;
 exports.canonicalDomain = canonicalDomain;
 
-},{"./memstore":155,"./pathMatch":156,"./permuteDomain":157,"./pubsuffix-psl":158,"./store":159,"./version":160,"net":168,"punycode":350,"url":403,"util":408}],155:[function(require,module,exports){
+},{"./memstore":156,"./pathMatch":157,"./permuteDomain":158,"./pubsuffix-psl":159,"./store":160,"./version":161,"net":170,"punycode":352,"url":405,"util":410}],156:[function(require,module,exports){
 /*!
  * Copyright (c) 2015, Salesforce.com, Inc.
  * All rights reserved.
@@ -44084,7 +46741,7 @@ MemoryCookieStore.prototype.getAllCookies = function(cb) {
   cb(null, cookies);
 };
 
-},{"./pathMatch":156,"./permuteDomain":157,"./store":159,"util":408}],156:[function(require,module,exports){
+},{"./pathMatch":157,"./permuteDomain":158,"./store":160,"util":410}],157:[function(require,module,exports){
 /*!
  * Copyright (c) 2015, Salesforce.com, Inc.
  * All rights reserved.
@@ -44147,7 +46804,7 @@ function pathMatch (reqPath, cookiePath) {
 
 exports.pathMatch = pathMatch;
 
-},{}],157:[function(require,module,exports){
+},{}],158:[function(require,module,exports){
 /*!
  * Copyright (c) 2015, Salesforce.com, Inc.
  * All rights reserved.
@@ -44205,7 +46862,7 @@ function permuteDomain (domain) {
 
 exports.permuteDomain = permuteDomain;
 
-},{"./pubsuffix-psl":158}],158:[function(require,module,exports){
+},{"./pubsuffix-psl":159}],159:[function(require,module,exports){
 /*!
  * Copyright (c) 2018, Salesforce.com, Inc.
  * All rights reserved.
@@ -44245,7 +46902,7 @@ function getPublicSuffix(domain) {
 
 exports.getPublicSuffix = getPublicSuffix;
 
-},{"psl":105}],159:[function(require,module,exports){
+},{"psl":106}],160:[function(require,module,exports){
 /*!
  * Copyright (c) 2015, Salesforce.com, Inc.
  * All rights reserved.
@@ -44322,11 +46979,11 @@ Store.prototype.getAllCookies = function(cb) {
   throw new Error('getAllCookies is not implemented (therefore jar cannot be serialized)');
 };
 
-},{}],160:[function(require,module,exports){
+},{}],161:[function(require,module,exports){
 // generated by genversion
 module.exports = '2.5.0'
 
-},{}],161:[function(require,module,exports){
+},{}],162:[function(require,module,exports){
 (function (process){
 'use strict'
 
@@ -44574,7 +47231,7 @@ if (process.env.NODE_DEBUG && /\btunnel\b/.test(process.env.NODE_DEBUG)) {
 exports.debug = debug // for test
 
 }).call(this,require('_process'))
-},{"_process":342,"assert":184,"events":277,"http":382,"https":308,"net":168,"safe-buffer":127,"tls":168,"util":408}],162:[function(require,module,exports){
+},{"_process":344,"assert":186,"events":279,"http":384,"https":310,"net":170,"safe-buffer":128,"tls":170,"util":410}],163:[function(require,module,exports){
 (function(nacl) {
 'use strict';
 
@@ -46964,7 +49621,7 @@ nacl.setPRNG = function(fn) {
 
 })(typeof module !== 'undefined' && module.exports ? module.exports : (self.nacl = self.nacl || {}));
 
-},{"crypto":191}],163:[function(require,module,exports){
+},{"crypto":193}],164:[function(require,module,exports){
 /** @license URI.js v4.2.1 (c) 2011 Gary Court. License: http://github.com/garycourt/uri-js */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
@@ -48355,7 +51012,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 })));
 
 
-},{}],164:[function(require,module,exports){
+},{}],165:[function(require,module,exports){
 /**
  * Convert array of 16 byte values to UUID string format of the form:
  * XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
@@ -48383,7 +51040,7 @@ function bytesToUuid(buf, offset) {
 
 module.exports = bytesToUuid;
 
-},{}],165:[function(require,module,exports){
+},{}],166:[function(require,module,exports){
 // Unique ID creation requires a high quality random # generator.  In the
 // browser this is a little complicated due to unknown quality of Math.random()
 // and inconsistent support for the `crypto` API.  We do the best we can via
@@ -48419,7 +51076,7 @@ if (getRandomValues) {
   };
 }
 
-},{}],166:[function(require,module,exports){
+},{}],167:[function(require,module,exports){
 var rng = require('./lib/rng');
 var bytesToUuid = require('./lib/bytesToUuid');
 
@@ -48450,7 +51107,7 @@ function v4(options, buf, offset) {
 
 module.exports = v4;
 
-},{"./lib/bytesToUuid":164,"./lib/rng":165}],167:[function(require,module,exports){
+},{"./lib/bytesToUuid":165,"./lib/rng":166}],168:[function(require,module,exports){
 /*
  * verror.js: richer JavaScript errors
  */
@@ -48903,9 +51560,392 @@ WError.prototype.cause = function we_cause(c)
 	return (this.jse_cause);
 };
 
-},{"assert-plus":51,"core-util-is":58,"extsprintf":64,"util":408}],168:[function(require,module,exports){
+},{"assert-plus":51,"core-util-is":58,"extsprintf":64,"util":410}],169:[function(require,module,exports){
+(function(factory) {
+  if (typeof define === "function" && define.amd) {
+    // AMD. Register as an anonymous module.
+    define([], factory);
+  } else if (typeof exports === "object") {
+    // Node/CommonJS
+    module.exports = factory();
+  } else {
+    // Browser globals
+    window.wNumb = factory();
+  }
+})(function() {
+  "use strict";
 
-},{}],169:[function(require,module,exports){
+  var FormatOptions = [
+    "decimals",
+    "thousand",
+    "mark",
+    "prefix",
+    "suffix",
+    "encoder",
+    "decoder",
+    "negativeBefore",
+    "negative",
+    "edit",
+    "undo"
+  ];
+
+  // General
+
+  // Reverse a string
+  function strReverse(a) {
+    return a
+      .split("")
+      .reverse()
+      .join("");
+  }
+
+  // Check if a string starts with a specified prefix.
+  function strStartsWith(input, match) {
+    return input.substring(0, match.length) === match;
+  }
+
+  // Check is a string ends in a specified suffix.
+  function strEndsWith(input, match) {
+    return input.slice(-1 * match.length) === match;
+  }
+
+  // Throw an error if formatting options are incompatible.
+  function throwEqualError(F, a, b) {
+    if ((F[a] || F[b]) && F[a] === F[b]) {
+      throw new Error(a);
+    }
+  }
+
+  // Check if a number is finite and not NaN
+  function isValidNumber(input) {
+    return typeof input === "number" && isFinite(input);
+  }
+
+  // Provide rounding-accurate toFixed method.
+  // Borrowed: http://stackoverflow.com/a/21323330/775265
+  function toFixed(value, exp) {
+    value = value.toString().split("e");
+    value = Math.round(+(value[0] + "e" + (value[1] ? +value[1] + exp : exp)));
+    value = value.toString().split("e");
+    return (+(value[0] + "e" + (value[1] ? +value[1] - exp : -exp))).toFixed(exp);
+  }
+
+  // Formatting
+
+  // Accept a number as input, output formatted string.
+  function formatTo(
+    decimals,
+    thousand,
+    mark,
+    prefix,
+    suffix,
+    encoder,
+    decoder,
+    negativeBefore,
+    negative,
+    edit,
+    undo,
+    input
+  ) {
+    var originalInput = input,
+      inputIsNegative,
+      inputPieces,
+      inputBase,
+      inputDecimals = "",
+      output = "";
+
+    // Apply user encoder to the input.
+    // Expected outcome: number.
+    if (encoder) {
+      input = encoder(input);
+    }
+
+    // Stop if no valid number was provided, the number is infinite or NaN.
+    if (!isValidNumber(input)) {
+      return false;
+    }
+
+    // Rounding away decimals might cause a value of -0
+    // when using very small ranges. Remove those cases.
+    if (decimals !== false && parseFloat(input.toFixed(decimals)) === 0) {
+      input = 0;
+    }
+
+    // Formatting is done on absolute numbers,
+    // decorated by an optional negative symbol.
+    if (input < 0) {
+      inputIsNegative = true;
+      input = Math.abs(input);
+    }
+
+    // Reduce the number of decimals to the specified option.
+    if (decimals !== false) {
+      input = toFixed(input, decimals);
+    }
+
+    // Transform the number into a string, so it can be split.
+    input = input.toString();
+
+    // Break the number on the decimal separator.
+    if (input.indexOf(".") !== -1) {
+      inputPieces = input.split(".");
+
+      inputBase = inputPieces[0];
+
+      if (mark) {
+        inputDecimals = mark + inputPieces[1];
+      }
+    } else {
+      // If it isn't split, the entire number will do.
+      inputBase = input;
+    }
+
+    // Group numbers in sets of three.
+    if (thousand) {
+      inputBase = strReverse(inputBase).match(/.{1,3}/g);
+      inputBase = strReverse(inputBase.join(strReverse(thousand)));
+    }
+
+    // If the number is negative, prefix with negation symbol.
+    if (inputIsNegative && negativeBefore) {
+      output += negativeBefore;
+    }
+
+    // Prefix the number
+    if (prefix) {
+      output += prefix;
+    }
+
+    // Normal negative option comes after the prefix. Defaults to '-'.
+    if (inputIsNegative && negative) {
+      output += negative;
+    }
+
+    // Append the actual number.
+    output += inputBase;
+    output += inputDecimals;
+
+    // Apply the suffix.
+    if (suffix) {
+      output += suffix;
+    }
+
+    // Run the output through a user-specified post-formatter.
+    if (edit) {
+      output = edit(output, originalInput);
+    }
+
+    // All done.
+    return output;
+  }
+
+  // Accept a sting as input, output decoded number.
+  function formatFrom(
+    decimals,
+    thousand,
+    mark,
+    prefix,
+    suffix,
+    encoder,
+    decoder,
+    negativeBefore,
+    negative,
+    edit,
+    undo,
+    input
+  ) {
+    var originalInput = input,
+      inputIsNegative,
+      output = "";
+
+    // User defined pre-decoder. Result must be a non empty string.
+    if (undo) {
+      input = undo(input);
+    }
+
+    // Test the input. Can't be empty.
+    if (!input || typeof input !== "string") {
+      return false;
+    }
+
+    // If the string starts with the negativeBefore value: remove it.
+    // Remember is was there, the number is negative.
+    if (negativeBefore && strStartsWith(input, negativeBefore)) {
+      input = input.replace(negativeBefore, "");
+      inputIsNegative = true;
+    }
+
+    // Repeat the same procedure for the prefix.
+    if (prefix && strStartsWith(input, prefix)) {
+      input = input.replace(prefix, "");
+    }
+
+    // And again for negative.
+    if (negative && strStartsWith(input, negative)) {
+      input = input.replace(negative, "");
+      inputIsNegative = true;
+    }
+
+    // Remove the suffix.
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/slice
+    if (suffix && strEndsWith(input, suffix)) {
+      input = input.slice(0, -1 * suffix.length);
+    }
+
+    // Remove the thousand grouping.
+    if (thousand) {
+      input = input.split(thousand).join("");
+    }
+
+    // Set the decimal separator back to period.
+    if (mark) {
+      input = input.replace(mark, ".");
+    }
+
+    // Prepend the negative symbol.
+    if (inputIsNegative) {
+      output += "-";
+    }
+
+    // Add the number
+    output += input;
+
+    // Trim all non-numeric characters (allow '.' and '-');
+    output = output.replace(/[^0-9\.\-.]/g, "");
+
+    // The value contains no parse-able number.
+    if (output === "") {
+      return false;
+    }
+
+    // Covert to number.
+    output = Number(output);
+
+    // Run the user-specified post-decoder.
+    if (decoder) {
+      output = decoder(output);
+    }
+
+    // Check is the output is valid, otherwise: return false.
+    if (!isValidNumber(output)) {
+      return false;
+    }
+
+    return output;
+  }
+
+  // Framework
+
+  // Validate formatting options
+  function validate(inputOptions) {
+    var i,
+      optionName,
+      optionValue,
+      filteredOptions = {};
+
+    if (inputOptions["suffix"] === undefined) {
+      inputOptions["suffix"] = inputOptions["postfix"];
+    }
+
+    for (i = 0; i < FormatOptions.length; i += 1) {
+      optionName = FormatOptions[i];
+      optionValue = inputOptions[optionName];
+
+      if (optionValue === undefined) {
+        // Only default if negativeBefore isn't set.
+        if (optionName === "negative" && !filteredOptions.negativeBefore) {
+          filteredOptions[optionName] = "-";
+          // Don't set a default for mark when 'thousand' is set.
+        } else if (optionName === "mark" && filteredOptions.thousand !== ".") {
+          filteredOptions[optionName] = ".";
+        } else {
+          filteredOptions[optionName] = false;
+        }
+
+        // Floating points in JS are stable up to 7 decimals.
+      } else if (optionName === "decimals") {
+        if (optionValue >= 0 && optionValue < 8) {
+          filteredOptions[optionName] = optionValue;
+        } else {
+          throw new Error(optionName);
+        }
+
+        // These options, when provided, must be functions.
+      } else if (
+        optionName === "encoder" ||
+        optionName === "decoder" ||
+        optionName === "edit" ||
+        optionName === "undo"
+      ) {
+        if (typeof optionValue === "function") {
+          filteredOptions[optionName] = optionValue;
+        } else {
+          throw new Error(optionName);
+        }
+
+        // Other options are strings.
+      } else {
+        if (typeof optionValue === "string") {
+          filteredOptions[optionName] = optionValue;
+        } else {
+          throw new Error(optionName);
+        }
+      }
+    }
+
+    // Some values can't be extracted from a
+    // string if certain combinations are present.
+    throwEqualError(filteredOptions, "mark", "thousand");
+    throwEqualError(filteredOptions, "prefix", "negative");
+    throwEqualError(filteredOptions, "prefix", "negativeBefore");
+
+    return filteredOptions;
+  }
+
+  // Pass all options as function arguments
+  function passAll(options, method, input) {
+    var i,
+      args = [];
+
+    // Add all options in order of FormatOptions
+    for (i = 0; i < FormatOptions.length; i += 1) {
+      args.push(options[FormatOptions[i]]);
+    }
+
+    // Append the input, then call the method, presenting all
+    // options as arguments.
+    args.push(input);
+    return method.apply("", args);
+  }
+
+  function wNumb(options) {
+    if (!(this instanceof wNumb)) {
+      return new wNumb(options);
+    }
+
+    if (typeof options !== "object") {
+      return;
+    }
+
+    options = validate(options);
+
+    // Call 'formatTo' with proper arguments.
+    this.to = function(input) {
+      return passAll(options, formatTo, input);
+    };
+
+    // Call 'formatFrom' with proper arguments.
+    this.from = function(input) {
+      return passAll(options, formatFrom, input);
+    };
+  }
+
+  return wNumb;
+});
+
+},{}],170:[function(require,module,exports){
+
+},{}],171:[function(require,module,exports){
 var asn1 = exports;
 
 asn1.bignum = require('bn.js');
@@ -48916,7 +51956,7 @@ asn1.constants = require('./asn1/constants');
 asn1.decoders = require('./asn1/decoders');
 asn1.encoders = require('./asn1/encoders');
 
-},{"./asn1/api":170,"./asn1/base":172,"./asn1/constants":176,"./asn1/decoders":178,"./asn1/encoders":181,"bn.js":183}],170:[function(require,module,exports){
+},{"./asn1/api":172,"./asn1/base":174,"./asn1/constants":178,"./asn1/decoders":180,"./asn1/encoders":183,"bn.js":185}],172:[function(require,module,exports){
 var asn1 = require('../asn1');
 var inherits = require('inherits');
 
@@ -48979,7 +52019,7 @@ Entity.prototype.encode = function encode(data, enc, /* internal */ reporter) {
   return this._getEncoder(enc).encode(data, reporter);
 };
 
-},{"../asn1":169,"inherits":310,"vm":409}],171:[function(require,module,exports){
+},{"../asn1":171,"inherits":312,"vm":411}],173:[function(require,module,exports){
 var inherits = require('inherits');
 var Reporter = require('../base').Reporter;
 var Buffer = require('buffer').Buffer;
@@ -49097,7 +52137,7 @@ EncoderBuffer.prototype.join = function join(out, offset) {
   return out;
 };
 
-},{"../base":172,"buffer":238,"inherits":310}],172:[function(require,module,exports){
+},{"../base":174,"buffer":240,"inherits":312}],174:[function(require,module,exports){
 var base = exports;
 
 base.Reporter = require('./reporter').Reporter;
@@ -49105,7 +52145,7 @@ base.DecoderBuffer = require('./buffer').DecoderBuffer;
 base.EncoderBuffer = require('./buffer').EncoderBuffer;
 base.Node = require('./node');
 
-},{"./buffer":171,"./node":173,"./reporter":174}],173:[function(require,module,exports){
+},{"./buffer":173,"./node":175,"./reporter":176}],175:[function(require,module,exports){
 var Reporter = require('../base').Reporter;
 var EncoderBuffer = require('../base').EncoderBuffer;
 var DecoderBuffer = require('../base').DecoderBuffer;
@@ -49741,7 +52781,7 @@ Node.prototype._isPrintstr = function isPrintstr(str) {
   return /^[A-Za-z0-9 '\(\)\+,\-\.\/:=\?]*$/.test(str);
 };
 
-},{"../base":172,"minimalistic-assert":316}],174:[function(require,module,exports){
+},{"../base":174,"minimalistic-assert":318}],176:[function(require,module,exports){
 var inherits = require('inherits');
 
 function Reporter(options) {
@@ -49864,7 +52904,7 @@ ReporterError.prototype.rethrow = function rethrow(msg) {
   return this;
 };
 
-},{"inherits":310}],175:[function(require,module,exports){
+},{"inherits":312}],177:[function(require,module,exports){
 var constants = require('../constants');
 
 exports.tagClass = {
@@ -49908,7 +52948,7 @@ exports.tag = {
 };
 exports.tagByName = constants._reverse(exports.tag);
 
-},{"../constants":176}],176:[function(require,module,exports){
+},{"../constants":178}],178:[function(require,module,exports){
 var constants = exports;
 
 // Helper
@@ -49929,7 +52969,7 @@ constants._reverse = function reverse(map) {
 
 constants.der = require('./der');
 
-},{"./der":175}],177:[function(require,module,exports){
+},{"./der":177}],179:[function(require,module,exports){
 var inherits = require('inherits');
 
 var asn1 = require('../../asn1');
@@ -50255,13 +53295,13 @@ function derDecodeLen(buf, primitive, fail) {
   return len;
 }
 
-},{"../../asn1":169,"inherits":310}],178:[function(require,module,exports){
+},{"../../asn1":171,"inherits":312}],180:[function(require,module,exports){
 var decoders = exports;
 
 decoders.der = require('./der');
 decoders.pem = require('./pem');
 
-},{"./der":177,"./pem":179}],179:[function(require,module,exports){
+},{"./der":179,"./pem":181}],181:[function(require,module,exports){
 var inherits = require('inherits');
 var Buffer = require('buffer').Buffer;
 
@@ -50312,7 +53352,7 @@ PEMDecoder.prototype.decode = function decode(data, options) {
   return DERDecoder.prototype.decode.call(this, input, options);
 };
 
-},{"./der":177,"buffer":238,"inherits":310}],180:[function(require,module,exports){
+},{"./der":179,"buffer":240,"inherits":312}],182:[function(require,module,exports){
 var inherits = require('inherits');
 var Buffer = require('buffer').Buffer;
 
@@ -50609,13 +53649,13 @@ function encodeTag(tag, primitive, cls, reporter) {
   return res;
 }
 
-},{"../../asn1":169,"buffer":238,"inherits":310}],181:[function(require,module,exports){
+},{"../../asn1":171,"buffer":240,"inherits":312}],183:[function(require,module,exports){
 var encoders = exports;
 
 encoders.der = require('./der');
 encoders.pem = require('./pem');
 
-},{"./der":180,"./pem":182}],182:[function(require,module,exports){
+},{"./der":182,"./pem":184}],184:[function(require,module,exports){
 var inherits = require('inherits');
 
 var DEREncoder = require('./der');
@@ -50638,7 +53678,7 @@ PEMEncoder.prototype.encode = function encode(data, options) {
   return out.join('\n');
 };
 
-},{"./der":180,"inherits":310}],183:[function(require,module,exports){
+},{"./der":182,"inherits":312}],185:[function(require,module,exports){
 (function (module, exports) {
   'use strict';
 
@@ -54067,7 +57107,7 @@ PEMEncoder.prototype.encode = function encode(data, options) {
   };
 })(typeof module === 'undefined' || module, this);
 
-},{"buffer":191}],184:[function(require,module,exports){
+},{"buffer":193}],186:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -54577,7 +57617,7 @@ var objectKeys = Object.keys || function (obj) {
 };
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"object-assign":318,"util/":187}],185:[function(require,module,exports){
+},{"object-assign":320,"util/":189}],187:[function(require,module,exports){
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -54602,14 +57642,14 @@ if (typeof Object.create === 'function') {
   }
 }
 
-},{}],186:[function(require,module,exports){
+},{}],188:[function(require,module,exports){
 module.exports = function isBuffer(arg) {
   return arg && typeof arg === 'object'
     && typeof arg.copy === 'function'
     && typeof arg.fill === 'function'
     && typeof arg.readUInt8 === 'function';
 }
-},{}],187:[function(require,module,exports){
+},{}],189:[function(require,module,exports){
 (function (process,global){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -55199,7 +58239,7 @@ function hasOwnProperty(obj, prop) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./support/isBuffer":186,"_process":342,"inherits":185}],188:[function(require,module,exports){
+},{"./support/isBuffer":188,"_process":344,"inherits":187}],190:[function(require,module,exports){
 'use strict'
 
 exports.byteLength = byteLength
@@ -55353,7 +58393,7 @@ function fromByteArray (uint8) {
   return parts.join('')
 }
 
-},{}],189:[function(require,module,exports){
+},{}],191:[function(require,module,exports){
 (function (module, exports) {
   'use strict';
 
@@ -58885,7 +61925,7 @@ function fromByteArray (uint8) {
   };
 })(typeof module === 'undefined' || module, this);
 
-},{"buffer":191}],190:[function(require,module,exports){
+},{"buffer":193}],192:[function(require,module,exports){
 var r;
 
 module.exports = function rand(len) {
@@ -58952,9 +61992,9 @@ if (typeof self === 'object') {
   }
 }
 
-},{"crypto":191}],191:[function(require,module,exports){
-arguments[4][168][0].apply(exports,arguments)
-},{"dup":168}],192:[function(require,module,exports){
+},{"crypto":193}],193:[function(require,module,exports){
+arguments[4][170][0].apply(exports,arguments)
+},{"dup":170}],194:[function(require,module,exports){
 // based on the aes implimentation in triple sec
 // https://github.com/keybase/triplesec
 // which is in turn based on the one from crypto-js
@@ -59184,7 +62224,7 @@ AES.prototype.scrub = function () {
 
 module.exports.AES = AES
 
-},{"safe-buffer":372}],193:[function(require,module,exports){
+},{"safe-buffer":374}],195:[function(require,module,exports){
 var aes = require('./aes')
 var Buffer = require('safe-buffer').Buffer
 var Transform = require('cipher-base')
@@ -59303,7 +62343,7 @@ StreamCipher.prototype.setAAD = function setAAD (buf) {
 
 module.exports = StreamCipher
 
-},{"./aes":192,"./ghash":197,"./incr32":198,"buffer-xor":237,"cipher-base":240,"inherits":310,"safe-buffer":372}],194:[function(require,module,exports){
+},{"./aes":194,"./ghash":199,"./incr32":200,"buffer-xor":239,"cipher-base":242,"inherits":312,"safe-buffer":374}],196:[function(require,module,exports){
 var ciphers = require('./encrypter')
 var deciphers = require('./decrypter')
 var modes = require('./modes/list.json')
@@ -59318,7 +62358,7 @@ exports.createDecipher = exports.Decipher = deciphers.createDecipher
 exports.createDecipheriv = exports.Decipheriv = deciphers.createDecipheriv
 exports.listCiphers = exports.getCiphers = getCiphers
 
-},{"./decrypter":195,"./encrypter":196,"./modes/list.json":206}],195:[function(require,module,exports){
+},{"./decrypter":197,"./encrypter":198,"./modes/list.json":208}],197:[function(require,module,exports){
 var AuthCipher = require('./authCipher')
 var Buffer = require('safe-buffer').Buffer
 var MODES = require('./modes')
@@ -59444,7 +62484,7 @@ function createDecipher (suite, password) {
 exports.createDecipher = createDecipher
 exports.createDecipheriv = createDecipheriv
 
-},{"./aes":192,"./authCipher":193,"./modes":205,"./streamCipher":208,"cipher-base":240,"evp_bytestokey":278,"inherits":310,"safe-buffer":372}],196:[function(require,module,exports){
+},{"./aes":194,"./authCipher":195,"./modes":207,"./streamCipher":210,"cipher-base":242,"evp_bytestokey":280,"inherits":312,"safe-buffer":374}],198:[function(require,module,exports){
 var MODES = require('./modes')
 var AuthCipher = require('./authCipher')
 var Buffer = require('safe-buffer').Buffer
@@ -59560,7 +62600,7 @@ function createCipher (suite, password) {
 exports.createCipheriv = createCipheriv
 exports.createCipher = createCipher
 
-},{"./aes":192,"./authCipher":193,"./modes":205,"./streamCipher":208,"cipher-base":240,"evp_bytestokey":278,"inherits":310,"safe-buffer":372}],197:[function(require,module,exports){
+},{"./aes":194,"./authCipher":195,"./modes":207,"./streamCipher":210,"cipher-base":242,"evp_bytestokey":280,"inherits":312,"safe-buffer":374}],199:[function(require,module,exports){
 var Buffer = require('safe-buffer').Buffer
 var ZEROES = Buffer.alloc(16, 0)
 
@@ -59651,7 +62691,7 @@ GHASH.prototype.final = function (abl, bl) {
 
 module.exports = GHASH
 
-},{"safe-buffer":372}],198:[function(require,module,exports){
+},{"safe-buffer":374}],200:[function(require,module,exports){
 function incr32 (iv) {
   var len = iv.length
   var item
@@ -59668,7 +62708,7 @@ function incr32 (iv) {
 }
 module.exports = incr32
 
-},{}],199:[function(require,module,exports){
+},{}],201:[function(require,module,exports){
 var xor = require('buffer-xor')
 
 exports.encrypt = function (self, block) {
@@ -59687,7 +62727,7 @@ exports.decrypt = function (self, block) {
   return xor(out, pad)
 }
 
-},{"buffer-xor":237}],200:[function(require,module,exports){
+},{"buffer-xor":239}],202:[function(require,module,exports){
 var Buffer = require('safe-buffer').Buffer
 var xor = require('buffer-xor')
 
@@ -59722,7 +62762,7 @@ exports.encrypt = function (self, data, decrypt) {
   return out
 }
 
-},{"buffer-xor":237,"safe-buffer":372}],201:[function(require,module,exports){
+},{"buffer-xor":239,"safe-buffer":374}],203:[function(require,module,exports){
 var Buffer = require('safe-buffer').Buffer
 
 function encryptByte (self, byteParam, decrypt) {
@@ -59766,7 +62806,7 @@ exports.encrypt = function (self, chunk, decrypt) {
   return out
 }
 
-},{"safe-buffer":372}],202:[function(require,module,exports){
+},{"safe-buffer":374}],204:[function(require,module,exports){
 var Buffer = require('safe-buffer').Buffer
 
 function encryptByte (self, byteParam, decrypt) {
@@ -59793,7 +62833,7 @@ exports.encrypt = function (self, chunk, decrypt) {
   return out
 }
 
-},{"safe-buffer":372}],203:[function(require,module,exports){
+},{"safe-buffer":374}],205:[function(require,module,exports){
 var xor = require('buffer-xor')
 var Buffer = require('safe-buffer').Buffer
 var incr32 = require('../incr32')
@@ -59825,7 +62865,7 @@ exports.encrypt = function (self, chunk) {
   return xor(chunk, pad)
 }
 
-},{"../incr32":198,"buffer-xor":237,"safe-buffer":372}],204:[function(require,module,exports){
+},{"../incr32":200,"buffer-xor":239,"safe-buffer":374}],206:[function(require,module,exports){
 exports.encrypt = function (self, block) {
   return self._cipher.encryptBlock(block)
 }
@@ -59834,7 +62874,7 @@ exports.decrypt = function (self, block) {
   return self._cipher.decryptBlock(block)
 }
 
-},{}],205:[function(require,module,exports){
+},{}],207:[function(require,module,exports){
 var modeModules = {
   ECB: require('./ecb'),
   CBC: require('./cbc'),
@@ -59854,7 +62894,7 @@ for (var key in modes) {
 
 module.exports = modes
 
-},{"./cbc":199,"./cfb":200,"./cfb1":201,"./cfb8":202,"./ctr":203,"./ecb":204,"./list.json":206,"./ofb":207}],206:[function(require,module,exports){
+},{"./cbc":201,"./cfb":202,"./cfb1":203,"./cfb8":204,"./ctr":205,"./ecb":206,"./list.json":208,"./ofb":209}],208:[function(require,module,exports){
 module.exports={
   "aes-128-ecb": {
     "cipher": "AES",
@@ -60047,7 +63087,7 @@ module.exports={
   }
 }
 
-},{}],207:[function(require,module,exports){
+},{}],209:[function(require,module,exports){
 (function (Buffer){
 var xor = require('buffer-xor')
 
@@ -60067,7 +63107,7 @@ exports.encrypt = function (self, chunk) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":238,"buffer-xor":237}],208:[function(require,module,exports){
+},{"buffer":240,"buffer-xor":239}],210:[function(require,module,exports){
 var aes = require('./aes')
 var Buffer = require('safe-buffer').Buffer
 var Transform = require('cipher-base')
@@ -60096,7 +63136,7 @@ StreamCipher.prototype._final = function () {
 
 module.exports = StreamCipher
 
-},{"./aes":192,"cipher-base":240,"inherits":310,"safe-buffer":372}],209:[function(require,module,exports){
+},{"./aes":194,"cipher-base":242,"inherits":312,"safe-buffer":374}],211:[function(require,module,exports){
 var DES = require('browserify-des')
 var aes = require('browserify-aes/browser')
 var aesModes = require('browserify-aes/modes')
@@ -60165,7 +63205,7 @@ exports.createDecipher = exports.Decipher = createDecipher
 exports.createDecipheriv = exports.Decipheriv = createDecipheriv
 exports.listCiphers = exports.getCiphers = getCiphers
 
-},{"browserify-aes/browser":194,"browserify-aes/modes":205,"browserify-des":210,"browserify-des/modes":211,"evp_bytestokey":278}],210:[function(require,module,exports){
+},{"browserify-aes/browser":196,"browserify-aes/modes":207,"browserify-des":212,"browserify-des/modes":213,"evp_bytestokey":280}],212:[function(require,module,exports){
 var CipherBase = require('cipher-base')
 var des = require('des.js')
 var inherits = require('inherits')
@@ -60217,7 +63257,7 @@ DES.prototype._final = function () {
   return Buffer.from(this._des.final())
 }
 
-},{"cipher-base":240,"des.js":249,"inherits":310,"safe-buffer":372}],211:[function(require,module,exports){
+},{"cipher-base":242,"des.js":251,"inherits":312,"safe-buffer":374}],213:[function(require,module,exports){
 exports['des-ecb'] = {
   key: 8,
   iv: 0
@@ -60243,7 +63283,7 @@ exports['des-ede'] = {
   iv: 0
 }
 
-},{}],212:[function(require,module,exports){
+},{}],214:[function(require,module,exports){
 (function (Buffer){
 var bn = require('bn.js');
 var randomBytes = require('randombytes');
@@ -60287,12 +63327,12 @@ function getr(priv) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"bn.js":213,"buffer":238,"randombytes":354}],213:[function(require,module,exports){
-arguments[4][183][0].apply(exports,arguments)
-},{"buffer":191,"dup":183}],214:[function(require,module,exports){
+},{"bn.js":215,"buffer":240,"randombytes":356}],215:[function(require,module,exports){
+arguments[4][185][0].apply(exports,arguments)
+},{"buffer":193,"dup":185}],216:[function(require,module,exports){
 module.exports = require('./browser/algorithms.json')
 
-},{"./browser/algorithms.json":215}],215:[function(require,module,exports){
+},{"./browser/algorithms.json":217}],217:[function(require,module,exports){
 module.exports={
   "sha224WithRSAEncryption": {
     "sign": "rsa",
@@ -60446,7 +63486,7 @@ module.exports={
   }
 }
 
-},{}],216:[function(require,module,exports){
+},{}],218:[function(require,module,exports){
 module.exports={
   "1.3.132.0.10": "secp256k1",
   "1.3.132.0.33": "p224",
@@ -60456,7 +63496,7 @@ module.exports={
   "1.3.132.0.35": "p521"
 }
 
-},{}],217:[function(require,module,exports){
+},{}],219:[function(require,module,exports){
 var Buffer = require('buffer').Buffer
 var createHash = require('create-hash')
 var stream = require('readable-stream')
@@ -60550,7 +63590,7 @@ module.exports = {
   createVerify: createVerify
 }
 
-},{"./algorithms.json":215,"./sign":218,"./verify":219,"buffer":238,"create-hash":244,"inherits":310,"readable-stream":234}],218:[function(require,module,exports){
+},{"./algorithms.json":217,"./sign":220,"./verify":221,"buffer":240,"create-hash":246,"inherits":312,"readable-stream":236}],220:[function(require,module,exports){
 // much of this based on https://github.com/indutny/self-signed/blob/gh-pages/lib/rsa.js
 var Buffer = require('buffer').Buffer
 var createHmac = require('create-hmac')
@@ -60695,7 +63735,7 @@ module.exports = sign
 module.exports.getKey = getKey
 module.exports.makeKey = makeKey
 
-},{"./curves.json":216,"bn.js":189,"browserify-rsa":212,"buffer":238,"create-hmac":246,"elliptic":260,"parse-asn1":334}],219:[function(require,module,exports){
+},{"./curves.json":218,"bn.js":191,"browserify-rsa":214,"buffer":240,"create-hmac":248,"elliptic":262,"parse-asn1":336}],221:[function(require,module,exports){
 // much of this based on https://github.com/indutny/self-signed/blob/gh-pages/lib/rsa.js
 var Buffer = require('buffer').Buffer
 var BN = require('bn.js')
@@ -60781,7 +63821,7 @@ function checkValue (b, q) {
 
 module.exports = verify
 
-},{"./curves.json":216,"bn.js":189,"buffer":238,"elliptic":260,"parse-asn1":334}],220:[function(require,module,exports){
+},{"./curves.json":218,"bn.js":191,"buffer":240,"elliptic":262,"parse-asn1":336}],222:[function(require,module,exports){
 'use strict';
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
@@ -60910,7 +63950,7 @@ createErrorType('ERR_UNKNOWN_ENCODING', function (arg) {
 createErrorType('ERR_STREAM_UNSHIFT_AFTER_END_EVENT', 'stream.unshift() after end event');
 module.exports.codes = codes;
 
-},{}],221:[function(require,module,exports){
+},{}],223:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -61052,7 +64092,7 @@ Object.defineProperty(Duplex.prototype, 'destroyed', {
   }
 });
 }).call(this,require('_process'))
-},{"./_stream_readable":223,"./_stream_writable":225,"_process":342,"inherits":310}],222:[function(require,module,exports){
+},{"./_stream_readable":225,"./_stream_writable":227,"_process":344,"inherits":312}],224:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -61092,7 +64132,7 @@ function PassThrough(options) {
 PassThrough.prototype._transform = function (chunk, encoding, cb) {
   cb(null, chunk);
 };
-},{"./_stream_transform":224,"inherits":310}],223:[function(require,module,exports){
+},{"./_stream_transform":226,"inherits":312}],225:[function(require,module,exports){
 (function (process,global){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -62219,7 +65259,7 @@ function indexOf(xs, x) {
   return -1;
 }
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../errors":220,"./_stream_duplex":221,"./internal/streams/async_iterator":226,"./internal/streams/buffer_list":227,"./internal/streams/destroy":228,"./internal/streams/from":230,"./internal/streams/state":232,"./internal/streams/stream":233,"_process":342,"buffer":238,"events":277,"inherits":310,"string_decoder/":401,"util":191}],224:[function(require,module,exports){
+},{"../errors":222,"./_stream_duplex":223,"./internal/streams/async_iterator":228,"./internal/streams/buffer_list":229,"./internal/streams/destroy":230,"./internal/streams/from":232,"./internal/streams/state":234,"./internal/streams/stream":235,"_process":344,"buffer":240,"events":279,"inherits":312,"string_decoder/":403,"util":193}],226:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -62421,7 +65461,7 @@ function done(stream, er, data) {
   if (stream._transformState.transforming) throw new ERR_TRANSFORM_ALREADY_TRANSFORMING();
   return stream.push(null);
 }
-},{"../errors":220,"./_stream_duplex":221,"inherits":310}],225:[function(require,module,exports){
+},{"../errors":222,"./_stream_duplex":223,"inherits":312}],227:[function(require,module,exports){
 (function (process,global){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -63121,7 +66161,7 @@ Writable.prototype._destroy = function (err, cb) {
   cb(err);
 };
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../errors":220,"./_stream_duplex":221,"./internal/streams/destroy":228,"./internal/streams/state":232,"./internal/streams/stream":233,"_process":342,"buffer":238,"inherits":310,"util-deprecate":405}],226:[function(require,module,exports){
+},{"../errors":222,"./_stream_duplex":223,"./internal/streams/destroy":230,"./internal/streams/state":234,"./internal/streams/stream":235,"_process":344,"buffer":240,"inherits":312,"util-deprecate":407}],228:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -63331,7 +66371,7 @@ var createReadableStreamAsyncIterator = function createReadableStreamAsyncIterat
 
 module.exports = createReadableStreamAsyncIterator;
 }).call(this,require('_process'))
-},{"./end-of-stream":229,"_process":342}],227:[function(require,module,exports){
+},{"./end-of-stream":231,"_process":344}],229:[function(require,module,exports){
 'use strict';
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -63542,7 +66582,7 @@ function () {
 
   return BufferList;
 }();
-},{"buffer":238,"util":191}],228:[function(require,module,exports){
+},{"buffer":240,"util":193}],230:[function(require,module,exports){
 (function (process){
 'use strict'; // undocumented cb() API, needed for core, not for public API
 
@@ -63650,7 +66690,7 @@ module.exports = {
   errorOrDestroy: errorOrDestroy
 };
 }).call(this,require('_process'))
-},{"_process":342}],229:[function(require,module,exports){
+},{"_process":344}],231:[function(require,module,exports){
 // Ported from https://github.com/mafintosh/end-of-stream with
 // permission from the author, Mathias Buus (@mafintosh).
 'use strict';
@@ -63755,12 +66795,12 @@ function eos(stream, opts, callback) {
 }
 
 module.exports = eos;
-},{"../../../errors":220}],230:[function(require,module,exports){
+},{"../../../errors":222}],232:[function(require,module,exports){
 module.exports = function () {
   throw new Error('Readable.from is not available in the browser')
 };
 
-},{}],231:[function(require,module,exports){
+},{}],233:[function(require,module,exports){
 // Ported from https://github.com/mafintosh/pump with
 // permission from the author, Mathias Buus (@mafintosh).
 'use strict';
@@ -63858,7 +66898,7 @@ function pipeline() {
 }
 
 module.exports = pipeline;
-},{"../../../errors":220,"./end-of-stream":229}],232:[function(require,module,exports){
+},{"../../../errors":222,"./end-of-stream":231}],234:[function(require,module,exports){
 'use strict';
 
 var ERR_INVALID_OPT_VALUE = require('../../../errors').codes.ERR_INVALID_OPT_VALUE;
@@ -63886,10 +66926,10 @@ function getHighWaterMark(state, options, duplexKey, isDuplex) {
 module.exports = {
   getHighWaterMark: getHighWaterMark
 };
-},{"../../../errors":220}],233:[function(require,module,exports){
+},{"../../../errors":222}],235:[function(require,module,exports){
 module.exports = require('events').EventEmitter;
 
-},{"events":277}],234:[function(require,module,exports){
+},{"events":279}],236:[function(require,module,exports){
 exports = module.exports = require('./lib/_stream_readable.js');
 exports.Stream = exports;
 exports.Readable = exports;
@@ -63900,7 +66940,7 @@ exports.PassThrough = require('./lib/_stream_passthrough.js');
 exports.finished = require('./lib/internal/streams/end-of-stream.js');
 exports.pipeline = require('./lib/internal/streams/pipeline.js');
 
-},{"./lib/_stream_duplex.js":221,"./lib/_stream_passthrough.js":222,"./lib/_stream_readable.js":223,"./lib/_stream_transform.js":224,"./lib/_stream_writable.js":225,"./lib/internal/streams/end-of-stream.js":229,"./lib/internal/streams/pipeline.js":231}],235:[function(require,module,exports){
+},{"./lib/_stream_duplex.js":223,"./lib/_stream_passthrough.js":224,"./lib/_stream_readable.js":225,"./lib/_stream_transform.js":226,"./lib/_stream_writable.js":227,"./lib/internal/streams/end-of-stream.js":231,"./lib/internal/streams/pipeline.js":233}],237:[function(require,module,exports){
 (function (process,Buffer){
 'use strict';
 /* eslint camelcase: "off" */
@@ -64312,7 +67352,7 @@ Zlib.prototype._reset = function () {
 
 exports.Zlib = Zlib;
 }).call(this,require('_process'),require("buffer").Buffer)
-},{"_process":342,"assert":184,"buffer":238,"pako/lib/zlib/constants":321,"pako/lib/zlib/deflate.js":323,"pako/lib/zlib/inflate.js":325,"pako/lib/zlib/zstream":329}],236:[function(require,module,exports){
+},{"_process":344,"assert":186,"buffer":240,"pako/lib/zlib/constants":323,"pako/lib/zlib/deflate.js":325,"pako/lib/zlib/inflate.js":327,"pako/lib/zlib/zstream":331}],238:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -64924,7 +67964,7 @@ util.inherits(DeflateRaw, Zlib);
 util.inherits(InflateRaw, Zlib);
 util.inherits(Unzip, Zlib);
 }).call(this,require('_process'))
-},{"./binding":235,"_process":342,"assert":184,"buffer":238,"stream":381,"util":408}],237:[function(require,module,exports){
+},{"./binding":237,"_process":344,"assert":186,"buffer":240,"stream":383,"util":410}],239:[function(require,module,exports){
 (function (Buffer){
 module.exports = function xor (a, b) {
   var length = Math.min(a.length, b.length)
@@ -64938,7 +67978,7 @@ module.exports = function xor (a, b) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":238}],238:[function(require,module,exports){
+},{"buffer":240}],240:[function(require,module,exports){
 (function (Buffer){
 /*!
  * The buffer module from node.js, for the browser.
@@ -66719,7 +69759,7 @@ function numberIsNaN (obj) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"base64-js":188,"buffer":238,"ieee754":309}],239:[function(require,module,exports){
+},{"base64-js":190,"buffer":240,"ieee754":311}],241:[function(require,module,exports){
 module.exports = {
   "100": "Continue",
   "101": "Switching Protocols",
@@ -66785,7 +69825,7 @@ module.exports = {
   "511": "Network Authentication Required"
 }
 
-},{}],240:[function(require,module,exports){
+},{}],242:[function(require,module,exports){
 var Buffer = require('safe-buffer').Buffer
 var Transform = require('stream').Transform
 var StringDecoder = require('string_decoder').StringDecoder
@@ -66886,7 +69926,7 @@ CipherBase.prototype._toString = function (value, enc, fin) {
 
 module.exports = CipherBase
 
-},{"inherits":310,"safe-buffer":372,"stream":381,"string_decoder":401}],241:[function(require,module,exports){
+},{"inherits":312,"safe-buffer":374,"stream":383,"string_decoder":403}],243:[function(require,module,exports){
 (function (Buffer){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -66997,7 +70037,7 @@ function objectToString(o) {
 }
 
 }).call(this,{"isBuffer":require("../../is-buffer/index.js")})
-},{"../../is-buffer/index.js":311}],242:[function(require,module,exports){
+},{"../../is-buffer/index.js":313}],244:[function(require,module,exports){
 (function (Buffer){
 var elliptic = require('elliptic')
 var BN = require('bn.js')
@@ -67125,9 +70165,9 @@ function formatReturnValue (bn, enc, len) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"bn.js":243,"buffer":238,"elliptic":260}],243:[function(require,module,exports){
-arguments[4][183][0].apply(exports,arguments)
-},{"buffer":191,"dup":183}],244:[function(require,module,exports){
+},{"bn.js":245,"buffer":240,"elliptic":262}],245:[function(require,module,exports){
+arguments[4][185][0].apply(exports,arguments)
+},{"buffer":193,"dup":185}],246:[function(require,module,exports){
 'use strict'
 var inherits = require('inherits')
 var MD5 = require('md5.js')
@@ -67159,14 +70199,14 @@ module.exports = function createHash (alg) {
   return new Hash(sha(alg))
 }
 
-},{"cipher-base":240,"inherits":310,"md5.js":313,"ripemd160":371,"sha.js":374}],245:[function(require,module,exports){
+},{"cipher-base":242,"inherits":312,"md5.js":315,"ripemd160":373,"sha.js":376}],247:[function(require,module,exports){
 var MD5 = require('md5.js')
 
 module.exports = function (buffer) {
   return new MD5().update(buffer).digest()
 }
 
-},{"md5.js":313}],246:[function(require,module,exports){
+},{"md5.js":315}],248:[function(require,module,exports){
 'use strict'
 var inherits = require('inherits')
 var Legacy = require('./legacy')
@@ -67230,7 +70270,7 @@ module.exports = function createHmac (alg, key) {
   return new Hmac(alg, key)
 }
 
-},{"./legacy":247,"cipher-base":240,"create-hash/md5":245,"inherits":310,"ripemd160":371,"safe-buffer":372,"sha.js":374}],247:[function(require,module,exports){
+},{"./legacy":249,"cipher-base":242,"create-hash/md5":247,"inherits":312,"ripemd160":373,"safe-buffer":374,"sha.js":376}],249:[function(require,module,exports){
 'use strict'
 var inherits = require('inherits')
 var Buffer = require('safe-buffer').Buffer
@@ -67278,7 +70318,7 @@ Hmac.prototype._final = function () {
 }
 module.exports = Hmac
 
-},{"cipher-base":240,"inherits":310,"safe-buffer":372}],248:[function(require,module,exports){
+},{"cipher-base":242,"inherits":312,"safe-buffer":374}],250:[function(require,module,exports){
 'use strict'
 
 exports.randomBytes = exports.rng = exports.pseudoRandomBytes = exports.prng = require('randombytes')
@@ -67377,7 +70417,7 @@ exports.constants = {
   'POINT_CONVERSION_HYBRID': 6
 }
 
-},{"browserify-cipher":209,"browserify-sign":217,"browserify-sign/algos":214,"create-ecdh":242,"create-hash":244,"create-hmac":246,"diffie-hellman":255,"pbkdf2":336,"public-encrypt":343,"randombytes":354,"randomfill":355}],249:[function(require,module,exports){
+},{"browserify-cipher":211,"browserify-sign":219,"browserify-sign/algos":216,"create-ecdh":244,"create-hash":246,"create-hmac":248,"diffie-hellman":257,"pbkdf2":338,"public-encrypt":345,"randombytes":356,"randomfill":357}],251:[function(require,module,exports){
 'use strict';
 
 exports.utils = require('./des/utils');
@@ -67386,7 +70426,7 @@ exports.DES = require('./des/des');
 exports.CBC = require('./des/cbc');
 exports.EDE = require('./des/ede');
 
-},{"./des/cbc":250,"./des/cipher":251,"./des/des":252,"./des/ede":253,"./des/utils":254}],250:[function(require,module,exports){
+},{"./des/cbc":252,"./des/cipher":253,"./des/des":254,"./des/ede":255,"./des/utils":256}],252:[function(require,module,exports){
 'use strict';
 
 var assert = require('minimalistic-assert');
@@ -67453,7 +70493,7 @@ proto._update = function _update(inp, inOff, out, outOff) {
   }
 };
 
-},{"inherits":310,"minimalistic-assert":316}],251:[function(require,module,exports){
+},{"inherits":312,"minimalistic-assert":318}],253:[function(require,module,exports){
 'use strict';
 
 var assert = require('minimalistic-assert');
@@ -67596,7 +70636,7 @@ Cipher.prototype._finalDecrypt = function _finalDecrypt() {
   return this._unpad(out);
 };
 
-},{"minimalistic-assert":316}],252:[function(require,module,exports){
+},{"minimalistic-assert":318}],254:[function(require,module,exports){
 'use strict';
 
 var assert = require('minimalistic-assert');
@@ -67740,7 +70780,7 @@ DES.prototype._decrypt = function _decrypt(state, lStart, rStart, out, off) {
   utils.rip(l, r, out, off);
 };
 
-},{"./cipher":251,"./utils":254,"inherits":310,"minimalistic-assert":316}],253:[function(require,module,exports){
+},{"./cipher":253,"./utils":256,"inherits":312,"minimalistic-assert":318}],255:[function(require,module,exports){
 'use strict';
 
 var assert = require('minimalistic-assert');
@@ -67796,7 +70836,7 @@ EDE.prototype._update = function _update(inp, inOff, out, outOff) {
 EDE.prototype._pad = DES.prototype._pad;
 EDE.prototype._unpad = DES.prototype._unpad;
 
-},{"./cipher":251,"./des":252,"inherits":310,"minimalistic-assert":316}],254:[function(require,module,exports){
+},{"./cipher":253,"./des":254,"inherits":312,"minimalistic-assert":318}],256:[function(require,module,exports){
 'use strict';
 
 exports.readUInt32BE = function readUInt32BE(bytes, off) {
@@ -68054,7 +71094,7 @@ exports.padSplit = function padSplit(num, size, group) {
   return out.join(' ');
 };
 
-},{}],255:[function(require,module,exports){
+},{}],257:[function(require,module,exports){
 (function (Buffer){
 var generatePrime = require('./lib/generatePrime')
 var primes = require('./lib/primes.json')
@@ -68100,7 +71140,7 @@ exports.DiffieHellmanGroup = exports.createDiffieHellmanGroup = exports.getDiffi
 exports.createDiffieHellman = exports.DiffieHellman = createDiffieHellman
 
 }).call(this,require("buffer").Buffer)
-},{"./lib/dh":256,"./lib/generatePrime":257,"./lib/primes.json":258,"buffer":238}],256:[function(require,module,exports){
+},{"./lib/dh":258,"./lib/generatePrime":259,"./lib/primes.json":260,"buffer":240}],258:[function(require,module,exports){
 (function (Buffer){
 var BN = require('bn.js');
 var MillerRabin = require('miller-rabin');
@@ -68268,7 +71308,7 @@ function formatReturnValue(bn, enc) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"./generatePrime":257,"bn.js":259,"buffer":238,"miller-rabin":314,"randombytes":354}],257:[function(require,module,exports){
+},{"./generatePrime":259,"bn.js":261,"buffer":240,"miller-rabin":316,"randombytes":356}],259:[function(require,module,exports){
 var randomBytes = require('randombytes');
 module.exports = findPrime;
 findPrime.simpleSieve = simpleSieve;
@@ -68375,7 +71415,7 @@ function findPrime(bits, gen) {
 
 }
 
-},{"bn.js":259,"miller-rabin":314,"randombytes":354}],258:[function(require,module,exports){
+},{"bn.js":261,"miller-rabin":316,"randombytes":356}],260:[function(require,module,exports){
 module.exports={
     "modp1": {
         "gen": "02",
@@ -68410,9 +71450,9 @@ module.exports={
         "prime": "ffffffffffffffffc90fdaa22168c234c4c6628b80dc1cd129024e088a67cc74020bbea63b139b22514a08798e3404ddef9519b3cd3a431b302b0a6df25f14374fe1356d6d51c245e485b576625e7ec6f44c42e9a637ed6b0bff5cb6f406b7edee386bfb5a899fa5ae9f24117c4b1fe649286651ece45b3dc2007cb8a163bf0598da48361c55d39a69163fa8fd24cf5f83655d23dca3ad961c62f356208552bb9ed529077096966d670c354e4abc9804f1746c08ca18217c32905e462e36ce3be39e772c180e86039b2783a2ec07a28fb5c55df06f4c52c9de2bcbf6955817183995497cea956ae515d2261898fa051015728e5a8aaac42dad33170d04507a33a85521abdf1cba64ecfb850458dbef0a8aea71575d060c7db3970f85a6e1e4c7abf5ae8cdb0933d71e8c94e04a25619dcee3d2261ad2ee6bf12ffa06d98a0864d87602733ec86a64521f2b18177b200cbbe117577a615d6c770988c0bad946e208e24fa074e5ab3143db5bfce0fd108e4b82d120a92108011a723c12a787e6d788719a10bdba5b2699c327186af4e23c1a946834b6150bda2583e9ca2ad44ce8dbbbc2db04de8ef92e8efc141fbecaa6287c59474e6bc05d99b2964fa090c3a2233ba186515be7ed1f612970cee2d7afb81bdd762170481cd0069127d5b05aa993b4ea988d8fddc186ffb7dc90a6c08f4df435c93402849236c3fab4d27c7026c1d4dcb2602646dec9751e763dba37bdf8ff9406ad9e530ee5db382f413001aeb06a53ed9027d831179727b0865a8918da3edbebcf9b14ed44ce6cbaced4bb1bdb7f1447e6cc254b332051512bd7af426fb8f401378cd2bf5983ca01c64b92ecf032ea15d1721d03f482d7ce6e74fef6d55e702f46980c82b5a84031900b1c9e59e7c97fbec7e8f323a97a7e36cc88be0f1d45b7ff585ac54bd407b22b4154aacc8f6d7ebf48e1d814cc5ed20f8037e0a79715eef29be32806a1d58bb7c5da76f550aa3d8a1fbff0eb19ccb1a313d55cda56c9ec2ef29632387fe8d76e3c0468043e8f663f4860ee12bf2d5b0b7474d6e694f91e6dbe115974a3926f12fee5e438777cb6a932df8cd8bec4d073b931ba3bc832b68d9dd300741fa7bf8afc47ed2576f6936ba424663aab639c5ae4f5683423b4742bf1c978238f16cbe39d652de3fdb8befc848ad922222e04a4037c0713eb57a81a23f0c73473fc646cea306b4bcbc8862f8385ddfa9d4b7fa2c087e879683303ed5bdd3a062b3cf5b3a278a66d2a13f83f44f82ddf310ee074ab6a364597e899a0255dc164f31cc50846851df9ab48195ded7ea1b1d510bd7ee74d73faf36bc31ecfa268359046f4eb879f924009438b481c6cd7889a002ed5ee382bc9190da6fc026e479558e4475677e9aa9e3050e2765694dfc81f56e880b96e7160c980dd98edd3dfffffffffffffffff"
     }
 }
-},{}],259:[function(require,module,exports){
-arguments[4][183][0].apply(exports,arguments)
-},{"buffer":191,"dup":183}],260:[function(require,module,exports){
+},{}],261:[function(require,module,exports){
+arguments[4][185][0].apply(exports,arguments)
+},{"buffer":193,"dup":185}],262:[function(require,module,exports){
 'use strict';
 
 var elliptic = exports;
@@ -68427,7 +71467,7 @@ elliptic.curves = require('./elliptic/curves');
 elliptic.ec = require('./elliptic/ec');
 elliptic.eddsa = require('./elliptic/eddsa');
 
-},{"../package.json":276,"./elliptic/curve":263,"./elliptic/curves":266,"./elliptic/ec":267,"./elliptic/eddsa":270,"./elliptic/utils":274,"brorand":190}],261:[function(require,module,exports){
+},{"../package.json":278,"./elliptic/curve":265,"./elliptic/curves":268,"./elliptic/ec":269,"./elliptic/eddsa":272,"./elliptic/utils":276,"brorand":192}],263:[function(require,module,exports){
 'use strict';
 
 var BN = require('bn.js');
@@ -68805,7 +71845,7 @@ BasePoint.prototype.dblp = function dblp(k) {
   return r;
 };
 
-},{"../utils":274,"bn.js":275}],262:[function(require,module,exports){
+},{"../utils":276,"bn.js":277}],264:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -69239,7 +72279,7 @@ Point.prototype.eqXToP = function eqXToP(x) {
 Point.prototype.toP = Point.prototype.normalize;
 Point.prototype.mixedAdd = Point.prototype.add;
 
-},{"../utils":274,"./base":261,"bn.js":275,"inherits":310}],263:[function(require,module,exports){
+},{"../utils":276,"./base":263,"bn.js":277,"inherits":312}],265:[function(require,module,exports){
 'use strict';
 
 var curve = exports;
@@ -69249,7 +72289,7 @@ curve.short = require('./short');
 curve.mont = require('./mont');
 curve.edwards = require('./edwards');
 
-},{"./base":261,"./edwards":262,"./mont":264,"./short":265}],264:[function(require,module,exports){
+},{"./base":263,"./edwards":264,"./mont":266,"./short":267}],266:[function(require,module,exports){
 'use strict';
 
 var BN = require('bn.js');
@@ -69429,7 +72469,7 @@ Point.prototype.getX = function getX() {
   return this.x.fromRed();
 };
 
-},{"../utils":274,"./base":261,"bn.js":275,"inherits":310}],265:[function(require,module,exports){
+},{"../utils":276,"./base":263,"bn.js":277,"inherits":312}],267:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -70368,7 +73408,7 @@ JPoint.prototype.isInfinity = function isInfinity() {
   return this.z.cmpn(0) === 0;
 };
 
-},{"../utils":274,"./base":261,"bn.js":275,"inherits":310}],266:[function(require,module,exports){
+},{"../utils":276,"./base":263,"bn.js":277,"inherits":312}],268:[function(require,module,exports){
 'use strict';
 
 var curves = exports;
@@ -70576,7 +73616,7 @@ defineCurve('secp256k1', {
   ]
 });
 
-},{"./curve":263,"./precomputed/secp256k1":273,"./utils":274,"hash.js":295}],267:[function(require,module,exports){
+},{"./curve":265,"./precomputed/secp256k1":275,"./utils":276,"hash.js":297}],269:[function(require,module,exports){
 'use strict';
 
 var BN = require('bn.js');
@@ -70819,7 +73859,7 @@ EC.prototype.getKeyRecoveryParam = function(e, signature, Q, enc) {
   throw new Error('Unable to find valid recovery factor');
 };
 
-},{"../curves":266,"../utils":274,"./key":268,"./signature":269,"bn.js":275,"brorand":190,"hmac-drbg":307}],268:[function(require,module,exports){
+},{"../curves":268,"../utils":276,"./key":270,"./signature":271,"bn.js":277,"brorand":192,"hmac-drbg":309}],270:[function(require,module,exports){
 'use strict';
 
 var BN = require('bn.js');
@@ -70939,7 +73979,7 @@ KeyPair.prototype.inspect = function inspect() {
          ' pub: ' + (this.pub && this.pub.inspect()) + ' >';
 };
 
-},{"../utils":274,"bn.js":275}],269:[function(require,module,exports){
+},{"../utils":276,"bn.js":277}],271:[function(require,module,exports){
 'use strict';
 
 var BN = require('bn.js');
@@ -71075,7 +74115,7 @@ Signature.prototype.toDER = function toDER(enc) {
   return utils.encode(res, enc);
 };
 
-},{"../utils":274,"bn.js":275}],270:[function(require,module,exports){
+},{"../utils":276,"bn.js":277}],272:[function(require,module,exports){
 'use strict';
 
 var hash = require('hash.js');
@@ -71195,7 +74235,7 @@ EDDSA.prototype.isPoint = function isPoint(val) {
   return val instanceof this.pointClass;
 };
 
-},{"../curves":266,"../utils":274,"./key":271,"./signature":272,"hash.js":295}],271:[function(require,module,exports){
+},{"../curves":268,"../utils":276,"./key":273,"./signature":274,"hash.js":297}],273:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -71292,7 +74332,7 @@ KeyPair.prototype.getPublic = function getPublic(enc) {
 
 module.exports = KeyPair;
 
-},{"../utils":274}],272:[function(require,module,exports){
+},{"../utils":276}],274:[function(require,module,exports){
 'use strict';
 
 var BN = require('bn.js');
@@ -71359,7 +74399,7 @@ Signature.prototype.toHex = function toHex() {
 
 module.exports = Signature;
 
-},{"../utils":274,"bn.js":275}],273:[function(require,module,exports){
+},{"../utils":276,"bn.js":277}],275:[function(require,module,exports){
 module.exports = {
   doubles: {
     step: 4,
@@ -72141,7 +75181,7 @@ module.exports = {
   }
 };
 
-},{}],274:[function(require,module,exports){
+},{}],276:[function(require,module,exports){
 'use strict';
 
 var utils = exports;
@@ -72262,9 +75302,9 @@ function intFromLE(bytes) {
 utils.intFromLE = intFromLE;
 
 
-},{"bn.js":275,"minimalistic-assert":316,"minimalistic-crypto-utils":317}],275:[function(require,module,exports){
-arguments[4][183][0].apply(exports,arguments)
-},{"buffer":191,"dup":183}],276:[function(require,module,exports){
+},{"bn.js":277,"minimalistic-assert":318,"minimalistic-crypto-utils":319}],277:[function(require,module,exports){
+arguments[4][185][0].apply(exports,arguments)
+},{"buffer":193,"dup":185}],278:[function(require,module,exports){
 module.exports={
   "_from": "elliptic@^6.5.2",
   "_id": "elliptic@6.5.2",
@@ -72353,7 +75393,7 @@ module.exports={
   "version": "6.5.2"
 }
 
-},{}],277:[function(require,module,exports){
+},{}],279:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -72878,7 +75918,7 @@ function functionBindPolyfill(context) {
   };
 }
 
-},{}],278:[function(require,module,exports){
+},{}],280:[function(require,module,exports){
 var Buffer = require('safe-buffer').Buffer
 var MD5 = require('md5.js')
 
@@ -72925,7 +75965,7 @@ function EVP_BytesToKey (password, salt, keyBits, ivLen) {
 
 module.exports = EVP_BytesToKey
 
-},{"md5.js":313,"safe-buffer":372}],279:[function(require,module,exports){
+},{"md5.js":315,"safe-buffer":374}],281:[function(require,module,exports){
 'use strict'
 var Buffer = require('safe-buffer').Buffer
 var Transform = require('readable-stream').Transform
@@ -73022,37 +76062,37 @@ HashBase.prototype._digest = function () {
 
 module.exports = HashBase
 
-},{"inherits":310,"readable-stream":294,"safe-buffer":372}],280:[function(require,module,exports){
-arguments[4][220][0].apply(exports,arguments)
-},{"dup":220}],281:[function(require,module,exports){
-arguments[4][221][0].apply(exports,arguments)
-},{"./_stream_readable":283,"./_stream_writable":285,"_process":342,"dup":221,"inherits":310}],282:[function(require,module,exports){
+},{"inherits":312,"readable-stream":296,"safe-buffer":374}],282:[function(require,module,exports){
 arguments[4][222][0].apply(exports,arguments)
-},{"./_stream_transform":284,"dup":222,"inherits":310}],283:[function(require,module,exports){
+},{"dup":222}],283:[function(require,module,exports){
 arguments[4][223][0].apply(exports,arguments)
-},{"../errors":280,"./_stream_duplex":281,"./internal/streams/async_iterator":286,"./internal/streams/buffer_list":287,"./internal/streams/destroy":288,"./internal/streams/from":290,"./internal/streams/state":292,"./internal/streams/stream":293,"_process":342,"buffer":238,"dup":223,"events":277,"inherits":310,"string_decoder/":401,"util":191}],284:[function(require,module,exports){
+},{"./_stream_readable":285,"./_stream_writable":287,"_process":344,"dup":223,"inherits":312}],284:[function(require,module,exports){
 arguments[4][224][0].apply(exports,arguments)
-},{"../errors":280,"./_stream_duplex":281,"dup":224,"inherits":310}],285:[function(require,module,exports){
+},{"./_stream_transform":286,"dup":224,"inherits":312}],285:[function(require,module,exports){
 arguments[4][225][0].apply(exports,arguments)
-},{"../errors":280,"./_stream_duplex":281,"./internal/streams/destroy":288,"./internal/streams/state":292,"./internal/streams/stream":293,"_process":342,"buffer":238,"dup":225,"inherits":310,"util-deprecate":405}],286:[function(require,module,exports){
+},{"../errors":282,"./_stream_duplex":283,"./internal/streams/async_iterator":288,"./internal/streams/buffer_list":289,"./internal/streams/destroy":290,"./internal/streams/from":292,"./internal/streams/state":294,"./internal/streams/stream":295,"_process":344,"buffer":240,"dup":225,"events":279,"inherits":312,"string_decoder/":403,"util":193}],286:[function(require,module,exports){
 arguments[4][226][0].apply(exports,arguments)
-},{"./end-of-stream":289,"_process":342,"dup":226}],287:[function(require,module,exports){
+},{"../errors":282,"./_stream_duplex":283,"dup":226,"inherits":312}],287:[function(require,module,exports){
 arguments[4][227][0].apply(exports,arguments)
-},{"buffer":238,"dup":227,"util":191}],288:[function(require,module,exports){
+},{"../errors":282,"./_stream_duplex":283,"./internal/streams/destroy":290,"./internal/streams/state":294,"./internal/streams/stream":295,"_process":344,"buffer":240,"dup":227,"inherits":312,"util-deprecate":407}],288:[function(require,module,exports){
 arguments[4][228][0].apply(exports,arguments)
-},{"_process":342,"dup":228}],289:[function(require,module,exports){
+},{"./end-of-stream":291,"_process":344,"dup":228}],289:[function(require,module,exports){
 arguments[4][229][0].apply(exports,arguments)
-},{"../../../errors":280,"dup":229}],290:[function(require,module,exports){
+},{"buffer":240,"dup":229,"util":193}],290:[function(require,module,exports){
 arguments[4][230][0].apply(exports,arguments)
-},{"dup":230}],291:[function(require,module,exports){
+},{"_process":344,"dup":230}],291:[function(require,module,exports){
 arguments[4][231][0].apply(exports,arguments)
-},{"../../../errors":280,"./end-of-stream":289,"dup":231}],292:[function(require,module,exports){
+},{"../../../errors":282,"dup":231}],292:[function(require,module,exports){
 arguments[4][232][0].apply(exports,arguments)
-},{"../../../errors":280,"dup":232}],293:[function(require,module,exports){
+},{"dup":232}],293:[function(require,module,exports){
 arguments[4][233][0].apply(exports,arguments)
-},{"dup":233,"events":277}],294:[function(require,module,exports){
+},{"../../../errors":282,"./end-of-stream":291,"dup":233}],294:[function(require,module,exports){
 arguments[4][234][0].apply(exports,arguments)
-},{"./lib/_stream_duplex.js":281,"./lib/_stream_passthrough.js":282,"./lib/_stream_readable.js":283,"./lib/_stream_transform.js":284,"./lib/_stream_writable.js":285,"./lib/internal/streams/end-of-stream.js":289,"./lib/internal/streams/pipeline.js":291,"dup":234}],295:[function(require,module,exports){
+},{"../../../errors":282,"dup":234}],295:[function(require,module,exports){
+arguments[4][235][0].apply(exports,arguments)
+},{"dup":235,"events":279}],296:[function(require,module,exports){
+arguments[4][236][0].apply(exports,arguments)
+},{"./lib/_stream_duplex.js":283,"./lib/_stream_passthrough.js":284,"./lib/_stream_readable.js":285,"./lib/_stream_transform.js":286,"./lib/_stream_writable.js":287,"./lib/internal/streams/end-of-stream.js":291,"./lib/internal/streams/pipeline.js":293,"dup":236}],297:[function(require,module,exports){
 var hash = exports;
 
 hash.utils = require('./hash/utils');
@@ -73069,7 +76109,7 @@ hash.sha384 = hash.sha.sha384;
 hash.sha512 = hash.sha.sha512;
 hash.ripemd160 = hash.ripemd.ripemd160;
 
-},{"./hash/common":296,"./hash/hmac":297,"./hash/ripemd":298,"./hash/sha":299,"./hash/utils":306}],296:[function(require,module,exports){
+},{"./hash/common":298,"./hash/hmac":299,"./hash/ripemd":300,"./hash/sha":301,"./hash/utils":308}],298:[function(require,module,exports){
 'use strict';
 
 var utils = require('./utils');
@@ -73163,7 +76203,7 @@ BlockHash.prototype._pad = function pad() {
   return res;
 };
 
-},{"./utils":306,"minimalistic-assert":316}],297:[function(require,module,exports){
+},{"./utils":308,"minimalistic-assert":318}],299:[function(require,module,exports){
 'use strict';
 
 var utils = require('./utils');
@@ -73212,7 +76252,7 @@ Hmac.prototype.digest = function digest(enc) {
   return this.outer.digest(enc);
 };
 
-},{"./utils":306,"minimalistic-assert":316}],298:[function(require,module,exports){
+},{"./utils":308,"minimalistic-assert":318}],300:[function(require,module,exports){
 'use strict';
 
 var utils = require('./utils');
@@ -73360,7 +76400,7 @@ var sh = [
   8, 5, 12, 9, 12, 5, 14, 6, 8, 13, 6, 5, 15, 13, 11, 11
 ];
 
-},{"./common":296,"./utils":306}],299:[function(require,module,exports){
+},{"./common":298,"./utils":308}],301:[function(require,module,exports){
 'use strict';
 
 exports.sha1 = require('./sha/1');
@@ -73369,7 +76409,7 @@ exports.sha256 = require('./sha/256');
 exports.sha384 = require('./sha/384');
 exports.sha512 = require('./sha/512');
 
-},{"./sha/1":300,"./sha/224":301,"./sha/256":302,"./sha/384":303,"./sha/512":304}],300:[function(require,module,exports){
+},{"./sha/1":302,"./sha/224":303,"./sha/256":304,"./sha/384":305,"./sha/512":306}],302:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -73445,7 +76485,7 @@ SHA1.prototype._digest = function digest(enc) {
     return utils.split32(this.h, 'big');
 };
 
-},{"../common":296,"../utils":306,"./common":305}],301:[function(require,module,exports){
+},{"../common":298,"../utils":308,"./common":307}],303:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -73477,7 +76517,7 @@ SHA224.prototype._digest = function digest(enc) {
 };
 
 
-},{"../utils":306,"./256":302}],302:[function(require,module,exports){
+},{"../utils":308,"./256":304}],304:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -73584,7 +76624,7 @@ SHA256.prototype._digest = function digest(enc) {
     return utils.split32(this.h, 'big');
 };
 
-},{"../common":296,"../utils":306,"./common":305,"minimalistic-assert":316}],303:[function(require,module,exports){
+},{"../common":298,"../utils":308,"./common":307,"minimalistic-assert":318}],305:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -73621,7 +76661,7 @@ SHA384.prototype._digest = function digest(enc) {
     return utils.split32(this.h.slice(0, 12), 'big');
 };
 
-},{"../utils":306,"./512":304}],304:[function(require,module,exports){
+},{"../utils":308,"./512":306}],306:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -73953,7 +76993,7 @@ function g1_512_lo(xh, xl) {
   return r;
 }
 
-},{"../common":296,"../utils":306,"minimalistic-assert":316}],305:[function(require,module,exports){
+},{"../common":298,"../utils":308,"minimalistic-assert":318}],307:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -74004,7 +77044,7 @@ function g1_256(x) {
 }
 exports.g1_256 = g1_256;
 
-},{"../utils":306}],306:[function(require,module,exports){
+},{"../utils":308}],308:[function(require,module,exports){
 'use strict';
 
 var assert = require('minimalistic-assert');
@@ -74284,7 +77324,7 @@ function shr64_lo(ah, al, num) {
 }
 exports.shr64_lo = shr64_lo;
 
-},{"inherits":310,"minimalistic-assert":316}],307:[function(require,module,exports){
+},{"inherits":312,"minimalistic-assert":318}],309:[function(require,module,exports){
 'use strict';
 
 var hash = require('hash.js');
@@ -74399,7 +77439,7 @@ HmacDRBG.prototype.generate = function generate(len, enc, add, addEnc) {
   return utils.encode(res, enc);
 };
 
-},{"hash.js":295,"minimalistic-assert":316,"minimalistic-crypto-utils":317}],308:[function(require,module,exports){
+},{"hash.js":297,"minimalistic-assert":318,"minimalistic-crypto-utils":319}],310:[function(require,module,exports){
 var http = require('http')
 var url = require('url')
 
@@ -74432,7 +77472,7 @@ function validateParams (params) {
   return params
 }
 
-},{"http":382,"url":403}],309:[function(require,module,exports){
+},{"http":384,"url":405}],311:[function(require,module,exports){
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
   var eLen = (nBytes * 8) - mLen - 1
@@ -74518,7 +77558,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128
 }
 
-},{}],310:[function(require,module,exports){
+},{}],312:[function(require,module,exports){
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -74547,7 +77587,7 @@ if (typeof Object.create === 'function') {
   }
 }
 
-},{}],311:[function(require,module,exports){
+},{}],313:[function(require,module,exports){
 /*!
  * Determine if an object is a Buffer
  *
@@ -74570,14 +77610,14 @@ function isSlowBuffer (obj) {
   return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0))
 }
 
-},{}],312:[function(require,module,exports){
+},{}],314:[function(require,module,exports){
 var toString = {}.toString;
 
 module.exports = Array.isArray || function (arr) {
   return toString.call(arr) == '[object Array]';
 };
 
-},{}],313:[function(require,module,exports){
+},{}],315:[function(require,module,exports){
 'use strict'
 var inherits = require('inherits')
 var HashBase = require('hash-base')
@@ -74725,7 +77765,7 @@ function fnI (a, b, c, d, m, k, s) {
 
 module.exports = MD5
 
-},{"hash-base":279,"inherits":310,"safe-buffer":372}],314:[function(require,module,exports){
+},{"hash-base":281,"inherits":312,"safe-buffer":374}],316:[function(require,module,exports){
 var bn = require('bn.js');
 var brorand = require('brorand');
 
@@ -74842,9 +77882,9 @@ MillerRabin.prototype.getDivisor = function getDivisor(n, k) {
   return false;
 };
 
-},{"bn.js":315,"brorand":190}],315:[function(require,module,exports){
-arguments[4][183][0].apply(exports,arguments)
-},{"buffer":191,"dup":183}],316:[function(require,module,exports){
+},{"bn.js":317,"brorand":192}],317:[function(require,module,exports){
+arguments[4][185][0].apply(exports,arguments)
+},{"buffer":193,"dup":185}],318:[function(require,module,exports){
 module.exports = assert;
 
 function assert(val, msg) {
@@ -74857,7 +77897,7 @@ assert.equal = function assertEqual(l, r, msg) {
     throw new Error(msg || ('Assertion failed: ' + l + ' != ' + r));
 };
 
-},{}],317:[function(require,module,exports){
+},{}],319:[function(require,module,exports){
 'use strict';
 
 var utils = exports;
@@ -74917,7 +77957,7 @@ utils.encode = function encode(arr, enc) {
     return arr;
 };
 
-},{}],318:[function(require,module,exports){
+},{}],320:[function(require,module,exports){
 /*
 object-assign
 (c) Sindre Sorhus
@@ -75009,7 +78049,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 	return to;
 };
 
-},{}],319:[function(require,module,exports){
+},{}],321:[function(require,module,exports){
 'use strict';
 
 
@@ -75116,7 +78156,7 @@ exports.setTyped = function (on) {
 
 exports.setTyped(TYPED_OK);
 
-},{}],320:[function(require,module,exports){
+},{}],322:[function(require,module,exports){
 'use strict';
 
 // Note: adler32 takes 12% for level 0 and 2% for level 6.
@@ -75169,7 +78209,7 @@ function adler32(adler, buf, len, pos) {
 
 module.exports = adler32;
 
-},{}],321:[function(require,module,exports){
+},{}],323:[function(require,module,exports){
 'use strict';
 
 // (C) 1995-2013 Jean-loup Gailly and Mark Adler
@@ -75239,7 +78279,7 @@ module.exports = {
   //Z_NULL:                 null // Use -1 or null inline, depending on var type
 };
 
-},{}],322:[function(require,module,exports){
+},{}],324:[function(require,module,exports){
 'use strict';
 
 // Note: we can't get significant speed boost here.
@@ -75300,7 +78340,7 @@ function crc32(crc, buf, len, pos) {
 
 module.exports = crc32;
 
-},{}],323:[function(require,module,exports){
+},{}],325:[function(require,module,exports){
 'use strict';
 
 // (C) 1995-2013 Jean-loup Gailly and Mark Adler
@@ -77176,7 +80216,7 @@ exports.deflatePrime = deflatePrime;
 exports.deflateTune = deflateTune;
 */
 
-},{"../utils/common":319,"./adler32":320,"./crc32":322,"./messages":327,"./trees":328}],324:[function(require,module,exports){
+},{"../utils/common":321,"./adler32":322,"./crc32":324,"./messages":329,"./trees":330}],326:[function(require,module,exports){
 'use strict';
 
 // (C) 1995-2013 Jean-loup Gailly and Mark Adler
@@ -77523,7 +80563,7 @@ module.exports = function inflate_fast(strm, start) {
   return;
 };
 
-},{}],325:[function(require,module,exports){
+},{}],327:[function(require,module,exports){
 'use strict';
 
 // (C) 1995-2013 Jean-loup Gailly and Mark Adler
@@ -79081,7 +82121,7 @@ exports.inflateSyncPoint = inflateSyncPoint;
 exports.inflateUndermine = inflateUndermine;
 */
 
-},{"../utils/common":319,"./adler32":320,"./crc32":322,"./inffast":324,"./inftrees":326}],326:[function(require,module,exports){
+},{"../utils/common":321,"./adler32":322,"./crc32":324,"./inffast":326,"./inftrees":328}],328:[function(require,module,exports){
 'use strict';
 
 // (C) 1995-2013 Jean-loup Gailly and Mark Adler
@@ -79426,7 +82466,7 @@ module.exports = function inflate_table(type, lens, lens_index, codes, table, ta
   return 0;
 };
 
-},{"../utils/common":319}],327:[function(require,module,exports){
+},{"../utils/common":321}],329:[function(require,module,exports){
 'use strict';
 
 // (C) 1995-2013 Jean-loup Gailly and Mark Adler
@@ -79460,7 +82500,7 @@ module.exports = {
   '-6':   'incompatible version' /* Z_VERSION_ERROR (-6) */
 };
 
-},{}],328:[function(require,module,exports){
+},{}],330:[function(require,module,exports){
 'use strict';
 
 // (C) 1995-2013 Jean-loup Gailly and Mark Adler
@@ -80684,7 +83724,7 @@ exports._tr_flush_block  = _tr_flush_block;
 exports._tr_tally = _tr_tally;
 exports._tr_align = _tr_align;
 
-},{"../utils/common":319}],329:[function(require,module,exports){
+},{"../utils/common":321}],331:[function(require,module,exports){
 'use strict';
 
 // (C) 1995-2013 Jean-loup Gailly and Mark Adler
@@ -80733,7 +83773,7 @@ function ZStream() {
 
 module.exports = ZStream;
 
-},{}],330:[function(require,module,exports){
+},{}],332:[function(require,module,exports){
 module.exports={"2.16.840.1.101.3.4.1.1": "aes-128-ecb",
 "2.16.840.1.101.3.4.1.2": "aes-128-cbc",
 "2.16.840.1.101.3.4.1.3": "aes-128-ofb",
@@ -80747,7 +83787,7 @@ module.exports={"2.16.840.1.101.3.4.1.1": "aes-128-ecb",
 "2.16.840.1.101.3.4.1.43": "aes-256-ofb",
 "2.16.840.1.101.3.4.1.44": "aes-256-cfb"
 }
-},{}],331:[function(require,module,exports){
+},{}],333:[function(require,module,exports){
 // from https://github.com/indutny/self-signed/blob/gh-pages/lib/asn1.js
 // Fedor, you are amazing.
 'use strict'
@@ -80871,7 +83911,7 @@ exports.signature = asn1.define('signature', function () {
   )
 })
 
-},{"./certificate":332,"asn1.js":169}],332:[function(require,module,exports){
+},{"./certificate":334,"asn1.js":171}],334:[function(require,module,exports){
 // from https://github.com/Rantanen/node-dtls/blob/25a7dc861bda38cfeac93a723500eea4f0ac2e86/Certificate.js
 // thanks to @Rantanen
 
@@ -80962,7 +84002,7 @@ var X509Certificate = asn.define('X509Certificate', function () {
 
 module.exports = X509Certificate
 
-},{"asn1.js":169}],333:[function(require,module,exports){
+},{"asn1.js":171}],335:[function(require,module,exports){
 // adapted from https://github.com/apatil/pemstrip
 var findProc = /Proc-Type: 4,ENCRYPTED[\n\r]+DEK-Info: AES-((?:128)|(?:192)|(?:256))-CBC,([0-9A-H]+)[\n\r]+([0-9A-z\n\r\+\/\=]+)[\n\r]+/m
 var startRegex = /^-----BEGIN ((?:.*? KEY)|CERTIFICATE)-----/m
@@ -80995,7 +84035,7 @@ module.exports = function (okey, password) {
   }
 }
 
-},{"browserify-aes":194,"evp_bytestokey":278,"safe-buffer":372}],334:[function(require,module,exports){
+},{"browserify-aes":196,"evp_bytestokey":280,"safe-buffer":374}],336:[function(require,module,exports){
 var asn1 = require('./asn1')
 var aesid = require('./aesid.json')
 var fixProc = require('./fixProc')
@@ -81104,7 +84144,7 @@ function decrypt (data, password) {
   return Buffer.concat(out)
 }
 
-},{"./aesid.json":330,"./asn1":331,"./fixProc":333,"browserify-aes":194,"pbkdf2":336,"safe-buffer":372}],335:[function(require,module,exports){
+},{"./aesid.json":332,"./asn1":333,"./fixProc":335,"browserify-aes":196,"pbkdf2":338,"safe-buffer":374}],337:[function(require,module,exports){
 (function (process){
 // .dirname, .basename, and .extname methods are extracted from Node.js v8.11.1,
 // backported and transplited with Babel, with backwards-compat fixes
@@ -81410,11 +84450,11 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 }).call(this,require('_process'))
-},{"_process":342}],336:[function(require,module,exports){
+},{"_process":344}],338:[function(require,module,exports){
 exports.pbkdf2 = require('./lib/async')
 exports.pbkdf2Sync = require('./lib/sync')
 
-},{"./lib/async":337,"./lib/sync":340}],337:[function(require,module,exports){
+},{"./lib/async":339,"./lib/sync":342}],339:[function(require,module,exports){
 (function (process,global){
 var checkParameters = require('./precondition')
 var defaultEncoding = require('./default-encoding')
@@ -81518,7 +84558,7 @@ module.exports = function (password, salt, iterations, keylen, digest, callback)
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./default-encoding":338,"./precondition":339,"./sync":340,"_process":342,"safe-buffer":372}],338:[function(require,module,exports){
+},{"./default-encoding":340,"./precondition":341,"./sync":342,"_process":344,"safe-buffer":374}],340:[function(require,module,exports){
 (function (process){
 var defaultEncoding
 /* istanbul ignore next */
@@ -81532,7 +84572,7 @@ if (process.browser) {
 module.exports = defaultEncoding
 
 }).call(this,require('_process'))
-},{"_process":342}],339:[function(require,module,exports){
+},{"_process":344}],341:[function(require,module,exports){
 (function (Buffer){
 var MAX_ALLOC = Math.pow(2, 30) - 1 // default in iojs
 
@@ -81564,7 +84604,7 @@ module.exports = function (password, salt, iterations, keylen) {
 }
 
 }).call(this,{"isBuffer":require("../../is-buffer/index.js")})
-},{"../../is-buffer/index.js":311}],340:[function(require,module,exports){
+},{"../../is-buffer/index.js":313}],342:[function(require,module,exports){
 var md5 = require('create-hash/md5')
 var RIPEMD160 = require('ripemd160')
 var sha = require('sha.js')
@@ -81670,7 +84710,7 @@ function pbkdf2 (password, salt, iterations, keylen, digest) {
 
 module.exports = pbkdf2
 
-},{"./default-encoding":338,"./precondition":339,"create-hash/md5":245,"ripemd160":371,"safe-buffer":372,"sha.js":374}],341:[function(require,module,exports){
+},{"./default-encoding":340,"./precondition":341,"create-hash/md5":247,"ripemd160":373,"safe-buffer":374,"sha.js":376}],343:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -81719,7 +84759,7 @@ function nextTick(fn, arg1, arg2, arg3) {
 
 
 }).call(this,require('_process'))
-},{"_process":342}],342:[function(require,module,exports){
+},{"_process":344}],344:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -81905,7 +84945,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],343:[function(require,module,exports){
+},{}],345:[function(require,module,exports){
 exports.publicEncrypt = require('./publicEncrypt')
 exports.privateDecrypt = require('./privateDecrypt')
 
@@ -81917,7 +84957,7 @@ exports.publicDecrypt = function publicDecrypt (key, buf) {
   return exports.privateDecrypt(key, buf, true)
 }
 
-},{"./privateDecrypt":346,"./publicEncrypt":347}],344:[function(require,module,exports){
+},{"./privateDecrypt":348,"./publicEncrypt":349}],346:[function(require,module,exports){
 var createHash = require('create-hash')
 var Buffer = require('safe-buffer').Buffer
 
@@ -81938,9 +84978,9 @@ function i2ops (c) {
   return out
 }
 
-},{"create-hash":244,"safe-buffer":372}],345:[function(require,module,exports){
-arguments[4][183][0].apply(exports,arguments)
-},{"buffer":191,"dup":183}],346:[function(require,module,exports){
+},{"create-hash":246,"safe-buffer":374}],347:[function(require,module,exports){
+arguments[4][185][0].apply(exports,arguments)
+},{"buffer":193,"dup":185}],348:[function(require,module,exports){
 var parseKeys = require('parse-asn1')
 var mgf = require('./mgf')
 var xor = require('./xor')
@@ -82047,7 +85087,7 @@ function compare (a, b) {
   return dif
 }
 
-},{"./mgf":344,"./withPublic":348,"./xor":349,"bn.js":345,"browserify-rsa":212,"create-hash":244,"parse-asn1":334,"safe-buffer":372}],347:[function(require,module,exports){
+},{"./mgf":346,"./withPublic":350,"./xor":351,"bn.js":347,"browserify-rsa":214,"create-hash":246,"parse-asn1":336,"safe-buffer":374}],349:[function(require,module,exports){
 var parseKeys = require('parse-asn1')
 var randomBytes = require('randombytes')
 var createHash = require('create-hash')
@@ -82137,7 +85177,7 @@ function nonZero (len) {
   return out
 }
 
-},{"./mgf":344,"./withPublic":348,"./xor":349,"bn.js":345,"browserify-rsa":212,"create-hash":244,"parse-asn1":334,"randombytes":354,"safe-buffer":372}],348:[function(require,module,exports){
+},{"./mgf":346,"./withPublic":350,"./xor":351,"bn.js":347,"browserify-rsa":214,"create-hash":246,"parse-asn1":336,"randombytes":356,"safe-buffer":374}],350:[function(require,module,exports){
 var BN = require('bn.js')
 var Buffer = require('safe-buffer').Buffer
 
@@ -82151,7 +85191,7 @@ function withPublic (paddedMsg, key) {
 
 module.exports = withPublic
 
-},{"bn.js":345,"safe-buffer":372}],349:[function(require,module,exports){
+},{"bn.js":347,"safe-buffer":374}],351:[function(require,module,exports){
 module.exports = function xor (a, b) {
   var len = a.length
   var i = -1
@@ -82161,7 +85201,7 @@ module.exports = function xor (a, b) {
   return a
 }
 
-},{}],350:[function(require,module,exports){
+},{}],352:[function(require,module,exports){
 (function (global){
 /*! https://mths.be/punycode v1.4.1 by @mathias */
 ;(function(root) {
@@ -82698,7 +85738,7 @@ module.exports = function xor (a, b) {
 }(this));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],351:[function(require,module,exports){
+},{}],353:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -82784,7 +85824,7 @@ var isArray = Array.isArray || function (xs) {
   return Object.prototype.toString.call(xs) === '[object Array]';
 };
 
-},{}],352:[function(require,module,exports){
+},{}],354:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -82871,13 +85911,13 @@ var objectKeys = Object.keys || function (obj) {
   return res;
 };
 
-},{}],353:[function(require,module,exports){
+},{}],355:[function(require,module,exports){
 'use strict';
 
 exports.decode = exports.parse = require('./decode');
 exports.encode = exports.stringify = require('./encode');
 
-},{"./decode":351,"./encode":352}],354:[function(require,module,exports){
+},{"./decode":353,"./encode":354}],356:[function(require,module,exports){
 (function (process,global){
 'use strict'
 
@@ -82931,7 +85971,7 @@ function randomBytes (size, cb) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":342,"safe-buffer":372}],355:[function(require,module,exports){
+},{"_process":344,"safe-buffer":374}],357:[function(require,module,exports){
 (function (process,global){
 'use strict'
 
@@ -83043,10 +86083,10 @@ function randomFillSync (buf, offset, size) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":342,"randombytes":354,"safe-buffer":372}],356:[function(require,module,exports){
+},{"_process":344,"randombytes":356,"safe-buffer":374}],358:[function(require,module,exports){
 module.exports = require('./lib/_stream_duplex.js');
 
-},{"./lib/_stream_duplex.js":357}],357:[function(require,module,exports){
+},{"./lib/_stream_duplex.js":359}],359:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -83178,7 +86218,7 @@ Duplex.prototype._destroy = function (err, cb) {
 
   pna.nextTick(cb, err);
 };
-},{"./_stream_readable":359,"./_stream_writable":361,"core-util-is":241,"inherits":310,"process-nextick-args":341}],358:[function(require,module,exports){
+},{"./_stream_readable":361,"./_stream_writable":363,"core-util-is":243,"inherits":312,"process-nextick-args":343}],360:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -83226,7 +86266,7 @@ function PassThrough(options) {
 PassThrough.prototype._transform = function (chunk, encoding, cb) {
   cb(null, chunk);
 };
-},{"./_stream_transform":360,"core-util-is":241,"inherits":310}],359:[function(require,module,exports){
+},{"./_stream_transform":362,"core-util-is":243,"inherits":312}],361:[function(require,module,exports){
 (function (process,global){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -84248,7 +87288,7 @@ function indexOf(xs, x) {
   return -1;
 }
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./_stream_duplex":357,"./internal/streams/BufferList":362,"./internal/streams/destroy":363,"./internal/streams/stream":364,"_process":342,"core-util-is":241,"events":277,"inherits":310,"isarray":312,"process-nextick-args":341,"safe-buffer":365,"string_decoder/":366,"util":191}],360:[function(require,module,exports){
+},{"./_stream_duplex":359,"./internal/streams/BufferList":364,"./internal/streams/destroy":365,"./internal/streams/stream":366,"_process":344,"core-util-is":243,"events":279,"inherits":312,"isarray":314,"process-nextick-args":343,"safe-buffer":367,"string_decoder/":368,"util":193}],362:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -84463,7 +87503,7 @@ function done(stream, er, data) {
 
   return stream.push(null);
 }
-},{"./_stream_duplex":357,"core-util-is":241,"inherits":310}],361:[function(require,module,exports){
+},{"./_stream_duplex":359,"core-util-is":243,"inherits":312}],363:[function(require,module,exports){
 (function (process,global,setImmediate){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -85153,7 +88193,7 @@ Writable.prototype._destroy = function (err, cb) {
   cb(err);
 };
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("timers").setImmediate)
-},{"./_stream_duplex":357,"./internal/streams/destroy":363,"./internal/streams/stream":364,"_process":342,"core-util-is":241,"inherits":310,"process-nextick-args":341,"safe-buffer":365,"timers":402,"util-deprecate":405}],362:[function(require,module,exports){
+},{"./_stream_duplex":359,"./internal/streams/destroy":365,"./internal/streams/stream":366,"_process":344,"core-util-is":243,"inherits":312,"process-nextick-args":343,"safe-buffer":367,"timers":404,"util-deprecate":407}],364:[function(require,module,exports){
 'use strict';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -85233,7 +88273,7 @@ if (util && util.inspect && util.inspect.custom) {
     return this.constructor.name + ' ' + obj;
   };
 }
-},{"safe-buffer":365,"util":191}],363:[function(require,module,exports){
+},{"safe-buffer":367,"util":193}],365:[function(require,module,exports){
 'use strict';
 
 /*<replacement>*/
@@ -85308,11 +88348,11 @@ module.exports = {
   destroy: destroy,
   undestroy: undestroy
 };
-},{"process-nextick-args":341}],364:[function(require,module,exports){
-arguments[4][233][0].apply(exports,arguments)
-},{"dup":233,"events":277}],365:[function(require,module,exports){
-arguments[4][127][0].apply(exports,arguments)
-},{"buffer":238,"dup":127}],366:[function(require,module,exports){
+},{"process-nextick-args":343}],366:[function(require,module,exports){
+arguments[4][235][0].apply(exports,arguments)
+},{"dup":235,"events":279}],367:[function(require,module,exports){
+arguments[4][128][0].apply(exports,arguments)
+},{"buffer":240,"dup":128}],368:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -85609,10 +88649,10 @@ function simpleWrite(buf) {
 function simpleEnd(buf) {
   return buf && buf.length ? this.write(buf) : '';
 }
-},{"safe-buffer":365}],367:[function(require,module,exports){
+},{"safe-buffer":367}],369:[function(require,module,exports){
 module.exports = require('./readable').PassThrough
 
-},{"./readable":368}],368:[function(require,module,exports){
+},{"./readable":370}],370:[function(require,module,exports){
 exports = module.exports = require('./lib/_stream_readable.js');
 exports.Stream = exports;
 exports.Readable = exports;
@@ -85621,13 +88661,13 @@ exports.Duplex = require('./lib/_stream_duplex.js');
 exports.Transform = require('./lib/_stream_transform.js');
 exports.PassThrough = require('./lib/_stream_passthrough.js');
 
-},{"./lib/_stream_duplex.js":357,"./lib/_stream_passthrough.js":358,"./lib/_stream_readable.js":359,"./lib/_stream_transform.js":360,"./lib/_stream_writable.js":361}],369:[function(require,module,exports){
+},{"./lib/_stream_duplex.js":359,"./lib/_stream_passthrough.js":360,"./lib/_stream_readable.js":361,"./lib/_stream_transform.js":362,"./lib/_stream_writable.js":363}],371:[function(require,module,exports){
 module.exports = require('./readable').Transform
 
-},{"./readable":368}],370:[function(require,module,exports){
+},{"./readable":370}],372:[function(require,module,exports){
 module.exports = require('./lib/_stream_writable.js');
 
-},{"./lib/_stream_writable.js":361}],371:[function(require,module,exports){
+},{"./lib/_stream_writable.js":363}],373:[function(require,module,exports){
 'use strict'
 var Buffer = require('buffer').Buffer
 var inherits = require('inherits')
@@ -85792,7 +88832,7 @@ function fn5 (a, b, c, d, e, m, k, s) {
 
 module.exports = RIPEMD160
 
-},{"buffer":238,"hash-base":279,"inherits":310}],372:[function(require,module,exports){
+},{"buffer":240,"hash-base":281,"inherits":312}],374:[function(require,module,exports){
 /*! safe-buffer. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
 /* eslint-disable node/no-deprecated-api */
 var buffer = require('buffer')
@@ -85859,7 +88899,7 @@ SafeBuffer.allocUnsafeSlow = function (size) {
   return buffer.SlowBuffer(size)
 }
 
-},{"buffer":238}],373:[function(require,module,exports){
+},{"buffer":240}],375:[function(require,module,exports){
 var Buffer = require('safe-buffer').Buffer
 
 // prototype class for hash functions
@@ -85942,7 +88982,7 @@ Hash.prototype._update = function () {
 
 module.exports = Hash
 
-},{"safe-buffer":372}],374:[function(require,module,exports){
+},{"safe-buffer":374}],376:[function(require,module,exports){
 var exports = module.exports = function SHA (algorithm) {
   algorithm = algorithm.toLowerCase()
 
@@ -85959,7 +88999,7 @@ exports.sha256 = require('./sha256')
 exports.sha384 = require('./sha384')
 exports.sha512 = require('./sha512')
 
-},{"./sha":375,"./sha1":376,"./sha224":377,"./sha256":378,"./sha384":379,"./sha512":380}],375:[function(require,module,exports){
+},{"./sha":377,"./sha1":378,"./sha224":379,"./sha256":380,"./sha384":381,"./sha512":382}],377:[function(require,module,exports){
 /*
  * A JavaScript implementation of the Secure Hash Algorithm, SHA-0, as defined
  * in FIPS PUB 180-1
@@ -86055,7 +89095,7 @@ Sha.prototype._hash = function () {
 
 module.exports = Sha
 
-},{"./hash":373,"inherits":310,"safe-buffer":372}],376:[function(require,module,exports){
+},{"./hash":375,"inherits":312,"safe-buffer":374}],378:[function(require,module,exports){
 /*
  * A JavaScript implementation of the Secure Hash Algorithm, SHA-1, as defined
  * in FIPS PUB 180-1
@@ -86156,7 +89196,7 @@ Sha1.prototype._hash = function () {
 
 module.exports = Sha1
 
-},{"./hash":373,"inherits":310,"safe-buffer":372}],377:[function(require,module,exports){
+},{"./hash":375,"inherits":312,"safe-buffer":374}],379:[function(require,module,exports){
 /**
  * A JavaScript implementation of the Secure Hash Algorithm, SHA-256, as defined
  * in FIPS 180-2
@@ -86211,7 +89251,7 @@ Sha224.prototype._hash = function () {
 
 module.exports = Sha224
 
-},{"./hash":373,"./sha256":378,"inherits":310,"safe-buffer":372}],378:[function(require,module,exports){
+},{"./hash":375,"./sha256":380,"inherits":312,"safe-buffer":374}],380:[function(require,module,exports){
 /**
  * A JavaScript implementation of the Secure Hash Algorithm, SHA-256, as defined
  * in FIPS 180-2
@@ -86348,7 +89388,7 @@ Sha256.prototype._hash = function () {
 
 module.exports = Sha256
 
-},{"./hash":373,"inherits":310,"safe-buffer":372}],379:[function(require,module,exports){
+},{"./hash":375,"inherits":312,"safe-buffer":374}],381:[function(require,module,exports){
 var inherits = require('inherits')
 var SHA512 = require('./sha512')
 var Hash = require('./hash')
@@ -86407,7 +89447,7 @@ Sha384.prototype._hash = function () {
 
 module.exports = Sha384
 
-},{"./hash":373,"./sha512":380,"inherits":310,"safe-buffer":372}],380:[function(require,module,exports){
+},{"./hash":375,"./sha512":382,"inherits":312,"safe-buffer":374}],382:[function(require,module,exports){
 var inherits = require('inherits')
 var Hash = require('./hash')
 var Buffer = require('safe-buffer').Buffer
@@ -86669,7 +89709,7 @@ Sha512.prototype._hash = function () {
 
 module.exports = Sha512
 
-},{"./hash":373,"inherits":310,"safe-buffer":372}],381:[function(require,module,exports){
+},{"./hash":375,"inherits":312,"safe-buffer":374}],383:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -86798,7 +89838,7 @@ Stream.prototype.pipe = function(dest, options) {
   return dest;
 };
 
-},{"events":277,"inherits":310,"readable-stream/duplex.js":356,"readable-stream/passthrough.js":367,"readable-stream/readable.js":368,"readable-stream/transform.js":369,"readable-stream/writable.js":370}],382:[function(require,module,exports){
+},{"events":279,"inherits":312,"readable-stream/duplex.js":358,"readable-stream/passthrough.js":369,"readable-stream/readable.js":370,"readable-stream/transform.js":371,"readable-stream/writable.js":372}],384:[function(require,module,exports){
 (function (global){
 var ClientRequest = require('./lib/request')
 var response = require('./lib/response')
@@ -86886,7 +89926,7 @@ http.METHODS = [
 	'UNSUBSCRIBE'
 ]
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./lib/request":384,"./lib/response":385,"builtin-status-codes":239,"url":403,"xtend":410}],383:[function(require,module,exports){
+},{"./lib/request":386,"./lib/response":387,"builtin-status-codes":241,"url":405,"xtend":412}],385:[function(require,module,exports){
 (function (global){
 exports.fetch = isFunction(global.fetch) && isFunction(global.ReadableStream)
 
@@ -86949,7 +89989,7 @@ function isFunction (value) {
 xhr = null // Help gc
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],384:[function(require,module,exports){
+},{}],386:[function(require,module,exports){
 (function (process,global,Buffer){
 var capability = require('./capability')
 var inherits = require('inherits')
@@ -87267,7 +90307,7 @@ var unsafeHeaders = [
 ]
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer)
-},{"./capability":383,"./response":385,"_process":342,"buffer":238,"inherits":310,"readable-stream":400}],385:[function(require,module,exports){
+},{"./capability":385,"./response":387,"_process":344,"buffer":240,"inherits":312,"readable-stream":402}],387:[function(require,module,exports){
 (function (process,global,Buffer){
 var capability = require('./capability')
 var inherits = require('inherits')
@@ -87478,39 +90518,39 @@ IncomingMessage.prototype._onXHRProgress = function () {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer)
-},{"./capability":383,"_process":342,"buffer":238,"inherits":310,"readable-stream":400}],386:[function(require,module,exports){
-arguments[4][220][0].apply(exports,arguments)
-},{"dup":220}],387:[function(require,module,exports){
-arguments[4][221][0].apply(exports,arguments)
-},{"./_stream_readable":389,"./_stream_writable":391,"_process":342,"dup":221,"inherits":310}],388:[function(require,module,exports){
+},{"./capability":385,"_process":344,"buffer":240,"inherits":312,"readable-stream":402}],388:[function(require,module,exports){
 arguments[4][222][0].apply(exports,arguments)
-},{"./_stream_transform":390,"dup":222,"inherits":310}],389:[function(require,module,exports){
+},{"dup":222}],389:[function(require,module,exports){
 arguments[4][223][0].apply(exports,arguments)
-},{"../errors":386,"./_stream_duplex":387,"./internal/streams/async_iterator":392,"./internal/streams/buffer_list":393,"./internal/streams/destroy":394,"./internal/streams/from":396,"./internal/streams/state":398,"./internal/streams/stream":399,"_process":342,"buffer":238,"dup":223,"events":277,"inherits":310,"string_decoder/":401,"util":191}],390:[function(require,module,exports){
+},{"./_stream_readable":391,"./_stream_writable":393,"_process":344,"dup":223,"inherits":312}],390:[function(require,module,exports){
 arguments[4][224][0].apply(exports,arguments)
-},{"../errors":386,"./_stream_duplex":387,"dup":224,"inherits":310}],391:[function(require,module,exports){
+},{"./_stream_transform":392,"dup":224,"inherits":312}],391:[function(require,module,exports){
 arguments[4][225][0].apply(exports,arguments)
-},{"../errors":386,"./_stream_duplex":387,"./internal/streams/destroy":394,"./internal/streams/state":398,"./internal/streams/stream":399,"_process":342,"buffer":238,"dup":225,"inherits":310,"util-deprecate":405}],392:[function(require,module,exports){
+},{"../errors":388,"./_stream_duplex":389,"./internal/streams/async_iterator":394,"./internal/streams/buffer_list":395,"./internal/streams/destroy":396,"./internal/streams/from":398,"./internal/streams/state":400,"./internal/streams/stream":401,"_process":344,"buffer":240,"dup":225,"events":279,"inherits":312,"string_decoder/":403,"util":193}],392:[function(require,module,exports){
 arguments[4][226][0].apply(exports,arguments)
-},{"./end-of-stream":395,"_process":342,"dup":226}],393:[function(require,module,exports){
+},{"../errors":388,"./_stream_duplex":389,"dup":226,"inherits":312}],393:[function(require,module,exports){
 arguments[4][227][0].apply(exports,arguments)
-},{"buffer":238,"dup":227,"util":191}],394:[function(require,module,exports){
+},{"../errors":388,"./_stream_duplex":389,"./internal/streams/destroy":396,"./internal/streams/state":400,"./internal/streams/stream":401,"_process":344,"buffer":240,"dup":227,"inherits":312,"util-deprecate":407}],394:[function(require,module,exports){
 arguments[4][228][0].apply(exports,arguments)
-},{"_process":342,"dup":228}],395:[function(require,module,exports){
+},{"./end-of-stream":397,"_process":344,"dup":228}],395:[function(require,module,exports){
 arguments[4][229][0].apply(exports,arguments)
-},{"../../../errors":386,"dup":229}],396:[function(require,module,exports){
+},{"buffer":240,"dup":229,"util":193}],396:[function(require,module,exports){
 arguments[4][230][0].apply(exports,arguments)
-},{"dup":230}],397:[function(require,module,exports){
+},{"_process":344,"dup":230}],397:[function(require,module,exports){
 arguments[4][231][0].apply(exports,arguments)
-},{"../../../errors":386,"./end-of-stream":395,"dup":231}],398:[function(require,module,exports){
+},{"../../../errors":388,"dup":231}],398:[function(require,module,exports){
 arguments[4][232][0].apply(exports,arguments)
-},{"../../../errors":386,"dup":232}],399:[function(require,module,exports){
+},{"dup":232}],399:[function(require,module,exports){
 arguments[4][233][0].apply(exports,arguments)
-},{"dup":233,"events":277}],400:[function(require,module,exports){
+},{"../../../errors":388,"./end-of-stream":397,"dup":233}],400:[function(require,module,exports){
 arguments[4][234][0].apply(exports,arguments)
-},{"./lib/_stream_duplex.js":387,"./lib/_stream_passthrough.js":388,"./lib/_stream_readable.js":389,"./lib/_stream_transform.js":390,"./lib/_stream_writable.js":391,"./lib/internal/streams/end-of-stream.js":395,"./lib/internal/streams/pipeline.js":397,"dup":234}],401:[function(require,module,exports){
-arguments[4][366][0].apply(exports,arguments)
-},{"dup":366,"safe-buffer":372}],402:[function(require,module,exports){
+},{"../../../errors":388,"dup":234}],401:[function(require,module,exports){
+arguments[4][235][0].apply(exports,arguments)
+},{"dup":235,"events":279}],402:[function(require,module,exports){
+arguments[4][236][0].apply(exports,arguments)
+},{"./lib/_stream_duplex.js":389,"./lib/_stream_passthrough.js":390,"./lib/_stream_readable.js":391,"./lib/_stream_transform.js":392,"./lib/_stream_writable.js":393,"./lib/internal/streams/end-of-stream.js":397,"./lib/internal/streams/pipeline.js":399,"dup":236}],403:[function(require,module,exports){
+arguments[4][368][0].apply(exports,arguments)
+},{"dup":368,"safe-buffer":374}],404:[function(require,module,exports){
 (function (setImmediate,clearImmediate){
 var nextTick = require('process/browser.js').nextTick;
 var apply = Function.prototype.apply;
@@ -87589,7 +90629,7 @@ exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate :
   delete immediateIds[id];
 };
 }).call(this,require("timers").setImmediate,require("timers").clearImmediate)
-},{"process/browser.js":342,"timers":402}],403:[function(require,module,exports){
+},{"process/browser.js":344,"timers":404}],405:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -88323,7 +91363,7 @@ Url.prototype.parseHost = function() {
   if (host) this.hostname = host;
 };
 
-},{"./util":404,"punycode":350,"querystring":353}],404:[function(require,module,exports){
+},{"./util":406,"punycode":352,"querystring":355}],406:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -88341,7 +91381,7 @@ module.exports = {
   }
 };
 
-},{}],405:[function(require,module,exports){
+},{}],407:[function(require,module,exports){
 (function (global){
 
 /**
@@ -88412,13 +91452,13 @@ function config (name) {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],406:[function(require,module,exports){
-arguments[4][185][0].apply(exports,arguments)
-},{"dup":185}],407:[function(require,module,exports){
-arguments[4][186][0].apply(exports,arguments)
-},{"dup":186}],408:[function(require,module,exports){
+},{}],408:[function(require,module,exports){
 arguments[4][187][0].apply(exports,arguments)
-},{"./support/isBuffer":407,"_process":342,"dup":187,"inherits":406}],409:[function(require,module,exports){
+},{"dup":187}],409:[function(require,module,exports){
+arguments[4][188][0].apply(exports,arguments)
+},{"dup":188}],410:[function(require,module,exports){
+arguments[4][189][0].apply(exports,arguments)
+},{"./support/isBuffer":409,"_process":344,"dup":189,"inherits":408}],411:[function(require,module,exports){
 var indexOf = function (xs, item) {
     if (xs.indexOf) return xs.indexOf(item);
     else for (var i = 0; i < xs.length; i++) {
@@ -88569,7 +91609,7 @@ exports.createContext = Script.createContext = function (context) {
     return copy;
 };
 
-},{}],410:[function(require,module,exports){
+},{}],412:[function(require,module,exports){
 module.exports = extend
 
 var hasOwnProperty = Object.prototype.hasOwnProperty;

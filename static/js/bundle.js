@@ -11,7 +11,6 @@ var matches = [];
 var selectedArtists = [];
 var trackRecQueryParams = {};
 var currentPlaylist = [];
-var userID = "";
 
 // Fetch artists from Spotify
 const fetchArtists = async (searchText) => {
@@ -179,10 +178,10 @@ $(document).ready(function() {
     $('#create-playlist-button').click(() => {
 
         var playlistName = $('#playlist-name-form').val();
-        console.log(playlistName);
+        var userID = "";
 
         // Need to fetch user ID
-        if (userID === "") {
+        if (currentPlaylist.length !== 0) {
 
             var getMeOptions = {
                 uri: 'https://api.spotify.com/v1/me',
@@ -192,13 +191,36 @@ $(document).ready(function() {
 
             request.get(getMeOptions, function(error, response, body) {
                 if (!error && response.statusCode === 200) {
-
-                    console.log(body.id);
-                    console.log(body);
+                    userID = body.id;
                 }
+
+                console.log(userID);
+
+                var uri = "https://api.spotify.com/v1/users/" + userID + "/playlists";
+                console.log(uri);
+                var playlistID = "";
+
+                var createPlaylistOptions = {
+                    uri: uri,
+                    body: {
+                        name: playlistName,
+                        public: true,
+                        collaborative: false,
+                        description: "Created using SpotRex"
+                    },
+                    headers: {'Authorization': 'Bearer ' + accessToken },
+                    json: true
+                }
+
+                request.post(createPlaylistOptions, function(error, response, body) {
+                    if (!error && response.statusCode === 200) {
+                        playlistID = body.id;
+                    }
+                });
+
+                console.log(playlistID);
             });
         }
-
 
     });
 

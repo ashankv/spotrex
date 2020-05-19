@@ -10,6 +10,7 @@ var matches = [];
 var selectedArtists = [];
 var trackRecQueryParams = {};
 var currentPlaylist = [];
+var userID = "";
 
 // Fetch artists from Spotify
 const fetchArtists = async (searchText) => {
@@ -174,13 +175,28 @@ $(document).ready(function() {
         $("#match-list").show();
     });
 
-    // Sliders
+    $('#create-playlist-button').click(() => {
 
-    var fill = $(".bar .fill");
+        var playlistName = $('#playlist-name-form').val();
+        console.log(playlistName);
 
-    $("#number-track-slider").on("input", () => {
-        $(".bar .fill").css("width", $("#number-track-slider").val() + "%");
+        // Need to fetch user ID
+        if (userID === "") {
+
+            var getMeOptions = {
+                uri: 'https://api.spotify.com/v1/me',
+                headers: {'Authorization': 'Bearer ' + accessToken },
+                json: true
+            }
+
+            request.get(getMeOptions, function(error, response, body) {
+                if (!error && response.statusCode === 200) {
+                    userID = body.id;
+                }
+            });
+        }
     });
+
 
 
 });

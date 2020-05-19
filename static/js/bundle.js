@@ -10,6 +10,7 @@ const tagList = document.getElementById('artist-tag-list');
 var matches = [];
 var selectedArtists = [];
 var trackRecQueryParams = {};
+var currentPlaylist = [];
 
 // Fetch artists from Spotify
 const fetchArtists = async (searchText) => {
@@ -41,7 +42,7 @@ const fetchArtists = async (searchText) => {
                 var image = null;
 
                 if (artist.images.length > 0) {
-                    var image = artist.images[0].url;
+                    image = artist.images[0].url;
                 }
 
                 var newArtist = {
@@ -257,7 +258,43 @@ const fetchPlaylistRecommendation = async () => {
     }
 
     await request.get(getRecsOptions, function(error, response, body) {
-        console.log(body);
+        if (!error && response.statusCode === 200) {
+            console.log(body);
+
+            currentPlaylist = body.tracks.map(track => {
+
+                var trackArtists = track.artists.map(artist => {
+                    var newArtist = {
+                        'name': artist.name,
+                        'uri': artist.uri,
+                        'id': artist.id
+                    }
+
+                    return newArtist;
+                })
+
+                var image = null;
+
+                if (track.album.images.length > 0) {
+                    image = track.album.images[0].url;
+                }
+
+                var newTrack = {
+                    name: track.name,
+                    artists: trackArtists,
+                    image: image,
+                    href: track.href,
+                    id: track.id,
+                    preview_url: track.preview_url,
+                    uri: track.uri,
+                    external_url: track.external_urls.spotify
+                }
+
+                return newTrack;
+            });
+
+            console.log(currentPlaylist);
+        }
     });
 }
 

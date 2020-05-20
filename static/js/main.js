@@ -5,6 +5,7 @@ const request = require("request");
 const search = document.getElementById('search');
 const matchList = document.getElementById('match-list');
 const tagList = document.getElementById('artist-tag-list');
+const recommendationList = document.getElementById('recommendation-list');
 
 var matches = [];
 var selectedArtists = [];
@@ -68,7 +69,7 @@ function outputSearchResultHtml(matches) {
     if (matches.length > 0) {
         html = matches.map(match => {
             return `<button class="list-group-item list-group-item-action d-flex" id="search-result">
-                        <img src=${match.image} width="40" height="40"> </img>
+                        <img src=${match.image} class="search" width="40" height="40"> </img>
                         <div class="pt-2 pl-2 text-left"> <p>${match.name}</p> </div>
                     </button>`
         }).join('');
@@ -94,6 +95,32 @@ function outputArtistTagsHtml() {
     }
 
     tagList.innerHTML = html;
+}
+
+function outputRecommendationsHtml() {
+
+    console.log("Outputting recommendations html");
+
+    var html = ``;
+
+    if (currentPlaylist.length > 0) {
+        html = currentPlaylist.map(track => {
+            return `<button class="list-group-item list-group-item-action" id="recommendation-list">
+                        <div class="row">
+                            <div class="col-lg-2" >
+                                <img src="${track.image}" class="track" width="100" height="100"> </img>
+                            </div>
+
+                            <div class="col-lg-9 pt-3 text-left">
+                                <h5> ${track.name} </h5>
+                                <p> ${track.artists.map(artist => artist.name).join(", ")} </p>
+                            </div>
+                        </div>
+                    </button>`
+        }).join('');
+    }
+
+    recommendationList.innerHTML = html;
 }
 
 // Add search listener query
@@ -343,7 +370,10 @@ const fetchPlaylistRecommendation = async () => {
             });
 
             console.log(currentPlaylist);
+            outputRecommendationsHtml();
         }
+
+
     });
 }
 

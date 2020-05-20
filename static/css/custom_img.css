@@ -1,0 +1,21 @@
+img.search {
+    border-radius: 8px;
+}
+
+img.track {
+    border-radius: 8px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    transition: transform .2s;
+}
+
+img.track:hover {
+    transform: scale(1.1);
+}
+
+h5.track {
+    transition: transform .2s;
+}
+
+h5.track:hover {
+    transform: scale(1.1);
+}

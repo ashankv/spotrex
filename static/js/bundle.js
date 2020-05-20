@@ -165,7 +165,6 @@ $(document).ready(function() {
     // Clicked outside of the search bar
     $('html').click((element) => {
         if (element.target.id != "search" && !$("#match-list").is(":hidden")) {
-            console.log("hidden");
             $("#match-list").hide();
         }
     });
@@ -194,14 +193,11 @@ $(document).ready(function() {
                     userID = body.id;
                 }
 
-                console.log(userID);
-
-                var uri = "https://api.spotify.com/v1/users/" + userID + "/playlists";
-                console.log(uri);
+                var getUserUri = "https://api.spotify.com/v1/users/" + userID + "/playlists";
                 var playlistID = "";
 
                 var createPlaylistOptions = {
-                    uri: uri,
+                    uri: getUserUri,
                     body: {
                         name: playlistName,
                         public: true,
@@ -213,19 +209,32 @@ $(document).ready(function() {
                 }
 
                 request.post(createPlaylistOptions, function(error, response, body) {
-                    if (!error && response.statusCode === 200) {
+                    if (!error && response.statusCode === 201) {
+
                         playlistID = body.id;
+                        var addToPlaylistUri = "https://api.spotify.com/v1/playlists/" + playlistID + "/tracks";
+
+                        var addToPlaylistOptions = {
+                            uri: addToPlaylistUri,
+                            qs: {
+                                uris: currentPlaylist.map(track => track.uri).join()
+                            },
+                            headers: {'Authorization': 'Bearer ' + accessToken },
+                            json: true
+                        }
+
+                        request.post(addToPlaylistOptions, function(error, response, body) {
+                            if (!error && response.statusCode === 201) {
+                                console.log('Successfully created the playlist: ' + playlistName);
+                            } else {
+                                console.log(error);
+                            }
+                        });
                     }
                 });
-
-                console.log(playlistID);
             });
         }
-
     });
-
-
-
 });
 
 var numberSlider = document.getElementById("number-slider");
@@ -301,7 +310,6 @@ const fetchPlaylistRecommendation = async () => {
 
     await request.get(getRecsOptions, function(error, response, body) {
         if (!error && response.statusCode === 200) {
-            console.log(body);
 
             currentPlaylist = body.tracks.map(track => {
 

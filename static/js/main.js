@@ -99,8 +99,6 @@ function outputArtistTagsHtml() {
 
 function outputRecommendationsHtml() {
 
-    console.log("Outputting recommendations html");
-
     var html = ``;
 
     if (currentPlaylist.length > 0) {
@@ -158,10 +156,10 @@ $(document).ready(function() {
 
         // Get playlist recomendations
         trackRecQueryParams['seed_artists'] = selectedArtists.map(artist => artist.id).join();
-        console.log(trackRecQueryParams);
         fetchPlaylistRecommendation();
+        $("#recommendation-header").show();
 
-
+        console.log(trackRecQueryParams);
         console.log(selectedArtists);
 
         // Remove current matches
@@ -190,9 +188,11 @@ $(document).ready(function() {
         // Delete songs from current playlist if there are no selected artists
         if (selectedArtists.length !== 0) {
             fetchPlaylistRecommendation();
+            $("#recommendation-header").show();
         } else {
             currentPlaylist = [];
             outputRecommendationsHtml();
+            $("#recommendation-header").hide();
         }
 
         if (selectedArtists.length < 5) {

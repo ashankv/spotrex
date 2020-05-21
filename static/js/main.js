@@ -145,10 +145,15 @@ function outputRecommendationsHtml() {
         }).join('');
 
         $('#recommendation-header').html("Your Recommendations");
+        $("#play-info").html(currentPlaylist.length + " songs, " + msToTime(currentPlaylist.map(track => track.duration).reduce((acc, curr) => acc + curr, 0)));
+        $("#play-info").show();
 
     } else {
         $('#recommendation-header').html("No Recommendations Found");
+        $('#play-info').hide();
     }
+
+    $("#recommendation-header").show();
 
     recommendationList.innerHTML = html;
 }
@@ -208,7 +213,6 @@ $(document).ready(function() {
         trackRecQueryParams['seed_genres'] = selectedGenres.map(genre => genre.id).join();
 
         fetchPlaylistRecommendation();
-        $("#recommendation-header").show();
 
         console.log(selectedTags);
 
@@ -250,11 +254,11 @@ $(document).ready(function() {
         // Delete songs from current playlist if there are no selected artists
         if (selectedTags.length !== 0) {
             fetchPlaylistRecommendation();
-            $("#recommendation-header").show();
         } else {
             currentPlaylist = [];
             outputRecommendationsHtml();
             $("#recommendation-header").hide();
+            $("#play-info").hide();
         }
 
         if (selectedTags.length < 5) {
@@ -461,7 +465,9 @@ const fetchPlaylistRecommendation = async () => {
                     id: track.id,
                     preview_url: track.preview_url,
                     uri: track.uri,
-                    external_url: track.external_urls.spotify
+                    external_url: track.external_urls.spotify,
+                    duration: track.duration_ms,
+                    explicit: track.explicit
                 }
 
                 return newTrack;
@@ -470,8 +476,6 @@ const fetchPlaylistRecommendation = async () => {
             console.log(currentPlaylist);
             outputRecommendationsHtml();
         }
-
-
     });
 }
 
@@ -509,6 +513,20 @@ vocalSlider.noUiSlider.on('change', (values) => {
     trackRecQueryParams['max_speechiness'] = values[1];
     fetchPlaylistRecommendation();
 });
+
+function msToTime(duration) {
+    var seconds = Math.floor((duration / 1000) % 60);
+    var minutes = Math.floor((duration / (1000 * 60)) % 60);
+    var hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+
+    console.log(minutes);
+    console.log(hours);
+
+    hours = (hours < 1) ? "" : hours + " hr ";
+    minutes = (minutes < 1) ? "" : minutes + " min";
+
+    return hours + minutes;
+}
 
 trackRecQueryParams = {
     'limit':           parseInt(numberSlider.noUiSlider.get()),

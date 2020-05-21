@@ -7,56 +7,82 @@ const matchList = document.getElementById('match-list');
 const tagList = document.getElementById('artist-tag-list');
 const recommendationList = document.getElementById('recommendation-list');
 
-var artistMatches = [];
+var searchMatches = [];
+var selectedTags = [];
+
 var selectedArtists = [];
+var selectedTracks = [];
+var selectedGenres = [];
+
 var trackRecQueryParams = {};
 var currentPlaylist = [];
 
 // Fetch artists from Spotify
-const fetchArtists = async (searchText) => {
+const fetchArtistsOrTracks = async (searchText) => {
 
-    let newMatches = []
+    let type = "";
+    let newMatches = [];
+
+    if ($('#dropdown-btn').text().trim() == "Artists") {
+        type = "artist";
+    } else {
+        type = "track";
+    }
 
     if (searchText.length <= 0) {
-        artistMatches = newMatches;
+        searchMatches = newMatches;
         matchList.innerHTML = '';
         return;
     }
 
-    var getArtistOptions = {
+    var getSearchOptions = {
         uri: 'https://api.spotify.com/v1/search',
         qs: {
             q: searchText,
-            type: 'artist',
+            type: type,
             limit: '5'
         },
         headers: {'Authorization': 'Bearer ' + accessToken },
         json: true
     }
 
-    await request.get(getArtistOptions, function(error, response, body) {
+    await request.get(getSearchOptions, function(error, response, body) {
         if (!error && response.statusCode === 200) {
+            // console.log(body);
+            var newBody = [];
 
-            newMatches = body.artists.items.map(artist => {
+            if (type == "artist") {
+                newBody = body.artists;
+            } else {
+                newBody = body.tracks;
+            }
+
+            newMatches = newBody.items.map(match => {
 
                 var image = null;
 
-                if (artist.images.length > 0) {
-                    image = artist.images[0].url;
+                if (type == "artist") {
+                    if (match.images.length > 0) {
+                        image = match.images[0].url;
+                    }
+                } else {
+                    if (match.album.images.length > 0) {
+                        image = match.album.images[0].url;
+                    }
                 }
 
-                var newArtist = {
-                    name: artist.name,
+                var newMatch = {
+                    name: match.name,
                     image: image,
-                    id: artist.id
+                    id: match.id,
+                    type: type
                 }
 
-                return newArtist;
+                return newMatch;
             });
 
-            artistMatches = newMatches;
-
-            outputSearchResultHtml(artistMatches);
+            searchMatches = newMatches;
+            outputSearchResultHtml(searchMatches);
         }
     });
 }
@@ -66,8 +92,8 @@ function outputSearchResultHtml(matches) {
 
     var html = ``;
 
-    if (artistMatches.length > 0) {
-        html = artistMatches.map(match => {
+    if (matches.length > 0) {
+        html = matches.map(match => {
             return `<button class="list-group-item list-group-item-action d-flex" id="search-result">
                         <img src=${match.image} class="search" width="40" height="40"> </img>
                         <div class="pt-2 pl-2 text-left"> <p>${match.name}</p> </div>
@@ -79,18 +105,20 @@ function outputSearchResultHtml(matches) {
 }
 
 // Output selected artist tags HTML
-function outputArtistTagsHtml() {
+function outputSelectedTagsHtml() {
 
     var html = ``;
 
-    if (selectedArtists.length > 0) {
-        html = selectedArtists.map(selectedArtist => {
+    if (selectedTags.length > 0) {
+        html = selectedTags.map(selectedTag => {
+
+            var modifiedName = selectedTag.name.replace(/ *\([^)]*\) */g, "");
+
             return `<div class="chip relpos zstackchip ml-1">
-                        <img src=${selectedArtist.image} width="96" height="96"> </img>
-                        ${selectedArtist.name}
+                        <img src=${selectedTag.image} width="96" height="96"> </img>
+                        ${modifiedName}
                         <span class="closebtn">&times;</span>
                     </div>`
-
         }).join('');
     }
 
@@ -134,7 +162,7 @@ search.addEventListener('keyup', () => {
     // clearTimeout(timeout)
 
     // timeout = setTimeout(() => {
-    fetchArtists(search.value);
+    fetchArtistsOrTracks(search.value);
     // }, 500);
 });
 
@@ -156,50 +184,72 @@ $(document).ready(function() {
             return;
         }
 
-        var artistName = $(this).find("p").text();
+        var tagName = $(this).find("p").text();
 
-        if (selectedArtists.find(match => match.name === artistName)) {
+        if (selectedTags.find(match => match.name === tagName)) {
             return;
         }
 
-        var selectedArtist = artistMatches.find(match => match.name == artistName);
+        var selectedTag = searchMatches.find(match => match.name == tagName);
 
-        selectedArtists.push(selectedArtist);
-        outputArtistTagsHtml();
+        if (selectedTag.type === "artist") {
+            selectedArtists.push(selectedTag);
+        } else if (selectedTag.type === "track") {
+            selectedTracks.push(selectedTag);
+        } else if (selectedTag.type === "genre") {
+            selectedGenres.push(selectedTag);
+        }
 
-        // Get playlist recomendations
+        selectedTags.push(selectedTag);
+        outputSelectedTagsHtml();
+
+        // Get playlist recommendations
         trackRecQueryParams['seed_artists'] = selectedArtists.map(artist => artist.id).join();
+        trackRecQueryParams['seed_tracks'] = selectedTracks.map(track => track.id).join();
+        trackRecQueryParams['seed_genres'] = selectedGenres.map(genre => genre.id).join();
+
         fetchPlaylistRecommendation();
         $("#recommendation-header").show();
 
-        console.log(trackRecQueryParams);
-        console.log(selectedArtists);
+        console.log(selectedTags);
 
         // Remove current matches
         $('#search').val("");
-        artistMatches = [];
+        searchMatches = [];
         matchList.innerHTML = ``;
 
-        if (selectedArtists.length === 5) {
+        if (selectedTags.length === 5) {
             $('#search').prop("disabled", true);
             $('#search').attr("placeholder", "Maximum selections reached");
         }
     });
 
     // Clicked Close Btn on Tag
-    $('body').on('click', '.closebtn', function() {
-        var artistClicked = $(this).parent().text().replace('×', '').trim();
-        console.log(artistClicked + " removed");
+    $('#artist-tag-list').on('click', '.closebtn', function() {
 
-        selectedArtists = selectedArtists.filter((artist) => artist.name !== artistClicked);
-        outputArtistTagsHtml();
+        var tagIndex = $(this).parent().index();
+        var tagToRemove = selectedTags[tagIndex];
 
-        // Update Playlist Fetch Params
-        trackRecQueryParams['seed_artists'] = selectedArtists.map(artist => artist.id).join();
-        console.log(trackRecQueryParams);
+        console.log(tagToRemove.name + " removed");
+
+        selectedTags = selectedTags.filter((tag) => tag.name !== tagToRemove.name && tag.id !== tagToRemove.id);
+
+        // Update Playlist Fetch Params and Selected Tags
+        if (tagToRemove.type === "artist") {
+            selectedArtists = selectedArtists.filter((tag) => tag.name !== tagToRemove.name && tag.id !== tagToRemove.id);
+            trackRecQueryParams['seed_artists'] = selectedArtists.map(artist => artist.id).join();
+        } else if (tagToRemove.type === "track") {
+            selectedTracks = selectedTracks.filter((tag) => tag.name !== tagToRemove.name && tag.id !== tagToRemove.id);
+            trackRecQueryParams['seed_tracks'] = selectedTracks.map(track => track.id).join();
+        } else if (tagToRemove.type === "genre") {
+            selectedGenres = selectedGenres.filter((tag) => tag.name !== tagToRemove.name && tag.id !== tagToRemove.id);
+            trackRecQueryParams['seed_genres'] = selectedGenres.map(genre => genre.id).join();
+        }
+
+        outputSelectedTagsHtml();
 
         // Delete songs from current playlist if there are no selected artists
-        if (selectedArtists.length !== 0) {
+        if (selectedTags.length !== 0) {
             fetchPlaylistRecommendation();
             $("#recommendation-header").show();
         } else {
@@ -208,34 +258,21 @@ $(document).ready(function() {
             $("#recommendation-header").hide();
         }
 
-        if (selectedArtists.length < 5) {
+        if (selectedTags.length < 5) {
             $('#search').prop("disabled", false);
-            $('#search').attr("placeholder", "Search for artists");
+            $('#search').attr("placeholder", "Search for " + $("#dropdown-btn").text().toLowerCase().trim());
         }
 
-        console.log(selectedArtists);
+        console.log(selectedTags);
     });
 
     $('.dropdown-item').click((event) => {
         var selector = "#" + event.target.id;
         $('#search').attr("placeholder", "Search for " + $(selector).text().toLowerCase());
+        $('#dropdown-btn').text($(selector).text());
+        $('#search').val('');
+        outputSearchResultHtml([]);
     });
-
-    // $('#dropdown-artist').click(() => {
-    //     $('#dropdown-btn').text("Artists");
-    //     $('#search').attr("placeholder", "Search for artists");
-    // });
-    //
-    // $('#dropdown-track').click(() => {
-    //     $('#dropdown-btn').text("Tracks");
-    //     $('#search').attr("placeholder", "Search for tracks");
-    // });
-    //
-    // $('#dropdown-genre').click(() => {
-    //     $('#dropdown-btn').text("Genres");
-    //     $('#search').attr("placeholder", "Search for genres");
-    // });
-
 
     // Clicked outside of the search bar
     $('html').click((element) => {
@@ -376,9 +413,22 @@ nouislider.create(vocalSlider, {
 
 const fetchPlaylistRecommendation = async () => {
 
+    console.log(trackRecQueryParams);
+
+    // Clean up null values
+    var newTrackRecQueryParams = {};
+
+    for (var property in trackRecQueryParams) {
+        if (trackRecQueryParams[property] != null && trackRecQueryParams[property] != "") {
+            newTrackRecQueryParams[property] = trackRecQueryParams[property];
+        }
+    }
+
+    console.log(newTrackRecQueryParams);
+
     var getRecsOptions = {
         uri: 'https://api.spotify.com/v1/recommendations',
-        qs: trackRecQueryParams,
+        qs: newTrackRecQueryParams,
         headers: {'Authorization': 'Bearer ' + accessToken },
         json: true
     }
@@ -428,48 +478,44 @@ const fetchPlaylistRecommendation = async () => {
 
 numberSlider.noUiSlider.on('change', (values) => {
     trackRecQueryParams['limit'] = parseInt(values[0]);
-    console.log(trackRecQueryParams);
     fetchPlaylistRecommendation();
 });
 
 popularitySlider.noUiSlider.on('change', (values) => {
     trackRecQueryParams['min_popularity'] = parseInt(values[0]);
     trackRecQueryParams['max_popularity'] = parseInt(values[1]);
-    console.log(trackRecQueryParams);
     fetchPlaylistRecommendation();
 });
 
 moodSlider.noUiSlider.on('change', (values) => {
     trackRecQueryParams['min_valence'] = values[0];
     trackRecQueryParams['max_valence'] = values[1];
-    console.log(trackRecQueryParams);
     fetchPlaylistRecommendation();
 });
 
 energySlider.noUiSlider.on('change', (values) => {
     trackRecQueryParams['min_energy'] = values[0];
     trackRecQueryParams['max_energy'] = values[1];
-    console.log(trackRecQueryParams);
     fetchPlaylistRecommendation();
 });
 
 tempoSlider.noUiSlider.on('change', (values) => {
     trackRecQueryParams['min_tempo'] = parseInt(values[0]);
     trackRecQueryParams['max_tempo'] = parseInt(values[1]);
-    console.log(trackRecQueryParams);
     fetchPlaylistRecommendation();
 });
 
 vocalSlider.noUiSlider.on('change', (values) => {
     trackRecQueryParams['min_speechiness'] = values[0];
     trackRecQueryParams['max_speechiness'] = values[1];
-    console.log(trackRecQueryParams);
     fetchPlaylistRecommendation();
 });
 
 trackRecQueryParams = {
     'limit':           parseInt(numberSlider.noUiSlider.get()),
     'seed_artists':    selectedArtists.map(artist => artist.id).join(),
+    'seed_tracks':     selectedTracks.map(track => track.id).join(),
+    'seed_genres':     selectedGenres.map(genre => genre.id).join(),
     'min_popularity':  parseInt(popularitySlider.noUiSlider.get()[0]),
     'max_popularity':  parseInt(popularitySlider.noUiSlider.get()[1]),
     'min_valence':     moodSlider.noUiSlider.get()[0],

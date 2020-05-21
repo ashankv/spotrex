@@ -103,7 +103,7 @@ function outputRecommendationsHtml() {
 
     if (currentPlaylist.length > 0) {
         html = currentPlaylist.map(track => {
-            return `<button class="list-group-item list-group-item-action">
+            return `<button class="list-group-item list-group-item-action" id="rec-item">
                         <div class="row">
                             <div class="col-lg-2" >
                                 <img src="${track.image}" class="track" width="100" height="100"> </img>
@@ -118,11 +118,10 @@ function outputRecommendationsHtml() {
         }).join('');
 
         $('#recommendation-header').html("Your Recommendations");
-        
+
     } else {
         $('#recommendation-header').html("No Recommendations Found");
     }
-
 
     recommendationList.innerHTML = html;
 }
@@ -144,6 +143,14 @@ $(document).ready(function() {
 
     // Clicked Search Result
     $('.list-group').on('click', '.list-group-item', function() {
+
+        // Clicked on playlist item
+        if ($(this).attr("id") === "rec-item") {
+            var clickedIndex = $(this).index('button.list-group-item.list-group-item-action');
+            var win = window.open(currentPlaylist[clickedIndex].external_url);
+
+            if (win) { win.focus(); } else { alert('Please allow popups for this website!') }
+        }
 
         if ($(this).attr("id") !== 'search-result') {
             return;

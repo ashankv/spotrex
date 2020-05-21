@@ -106,7 +106,7 @@ function outputRecommendationsHtml() {
 
     if (currentPlaylist.length > 0) {
         html = currentPlaylist.map(track => {
-            return `<button class="list-group-item list-group-item-action" id="recommendation-list">
+            return `<button class="list-group-item list-group-item-action">
                         <div class="row">
                             <div class="col-lg-2" >
                                 <img src="${track.image}" class="track" width="100" height="100"> </img>
@@ -157,8 +157,11 @@ $(document).ready(function() {
         selectedArtists.push(selectedArtist);
         outputArtistTagsHtml();
 
+        // Get playlist recomendations
         trackRecQueryParams['seed_artists'] = selectedArtists.map(artist => artist.id).join();
         console.log(trackRecQueryParams);
+        fetchPlaylistRecommendation();
+
 
         console.log(selectedArtists);
 
@@ -167,7 +170,7 @@ $(document).ready(function() {
         matches = [];
         matchList.innerHTML = ``;
 
-        if (selectedArtists.length == 5) {
+        if (selectedArtists.length === 5) {
             $('#search').prop("disabled", true);
             $('#search').attr("placeholder", "Maximum selected artists reached");
         }
@@ -180,6 +183,18 @@ $(document).ready(function() {
 
         selectedArtists = selectedArtists.filter((artist) => artist.name !== artistClicked);
         outputArtistTagsHtml();
+
+        // Update Playlist Fetch Params
+        trackRecQueryParams['seed_artists'] = selectedArtists.map(artist => artist.id).join();
+        console.log(trackRecQueryParams);
+
+        // Delete songs from current playlist if there are no selected artists
+        if (selectedArtists.length !== 0) {
+            fetchPlaylistRecommendation();
+        } else {
+            currentPlaylist = [];
+            outputRecommendationsHtml();
+        }
 
         if (selectedArtists.length < 5) {
             $('#search').prop("disabled", false);

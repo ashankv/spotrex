@@ -19,3 +19,7 @@ h5.track {
 h5.track:hover {
     transform: scale(1.1);
 }
+
+.list-group-item:hover img {
+    transform: scale(1.1);
+}

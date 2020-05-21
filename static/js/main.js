@@ -1,4 +1,3 @@
-
 const nouislider = require('nouislider');
 const wnumb = require('wnumb');
 const request = require("request");
@@ -116,6 +115,11 @@ function outputRecommendationsHtml() {
                         </div>
                     </button>`
         }).join('');
+
+        $('#recommendation-header').html("Your Recommendations");
+
+    } else {
+        $('#recommendation-header').html("No Recommendations Found");
     }
 
     recommendationList.innerHTML = html;

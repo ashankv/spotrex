@@ -6,6 +6,8 @@ const matchList = document.getElementById('match-list');
 const tagList = document.getElementById('artist-tag-list');
 const recommendationList = document.getElementById('recommendation-list');
 
+var genreSeeds = [];
+
 var searchMatches = [];
 var selectedTags = [];
 
@@ -17,22 +19,44 @@ var trackRecQueryParams = {};
 var currentPlaylist = [];
 
 // Fetch artists from Spotify
-const fetchArtistsOrTracks = async (searchText) => {
+const fetchSearchMatches = async (searchText) => {
 
-    let type = "";
     let newMatches = [];
-
-    if ($('#dropdown-btn').text().trim() == "Artists") {
-        type = "artist";
-    } else {
-        type = "track";
-    }
 
     if (searchText.length <= 0) {
         searchMatches = newMatches;
         matchList.innerHTML = '';
         return;
     }
+
+    let type = "";
+    var dropdownText = $('#dropdown-btn').text().trim();
+
+    if (dropdownText === "Artists") {
+        type = "artist";
+    } else if (dropdownText === "Tracks") {
+        type = "track";
+    } else if (dropdownText === "Genres") {
+        fetchGenreMatches();
+
+        // Get matches to genre seeds
+        var count = 0;
+
+        newMatches = genreSeeds.filter(genre => {
+            const regex = new RegExp(`^${searchText}`, 'gi');
+            return genre.name.match(regex) || genre.id.match(regex) || genre.id.replace('-', '').match(regex) || genre.id.replace('-', ' ').match(regex);
+        });
+
+        if (newMatches.length > 5) {
+            newMatches = newMatches.slice(0, 5);
+        }
+
+        // console.log(newMatches);
+        searchMatches = newMatches;
+        outputSearchResultHtml(searchMatches);
+        return;
+    }
+
 
     var getSearchOptions = {
         uri: 'https://api.spotify.com/v1/search',
@@ -85,6 +109,64 @@ const fetchArtistsOrTracks = async (searchText) => {
         }
     });
 }
+
+const fetchGenreMatches = async () => {
+
+    // Need to retrieve genre seeds from Spotify
+    if (genreSeeds.length === 0) {
+
+        var getGenreOptions = {
+            uri: 'https://api.spotify.com/v1/recommendations/available-genre-seeds',
+            headers: {'Authorization': 'Bearer ' + accessToken },
+            json: true
+        }
+
+        await request.get(getGenreOptions, function(error, response, body) {
+            if (!error && response.statusCode === 200) {
+                genreSeeds = body.genres.map(genre => {
+
+                    var newGenreName = genre.split('-').map(word => {
+
+                        var newWord = word.charAt(0).toUpperCase();
+
+                        if (word.length > 1) {
+                            newWord += word.slice(1);
+                        }
+
+                        return newWord;
+                    }).join(' ');
+
+                    if (newGenreName === "R N B") {
+                        newGenreName = "RnB";
+                    } else if (newGenreName === "Rock N Roll") {
+                        newGenreName = "Rock 'n' Roll";
+                    } else if (newGenreName === "K Pop") {
+                        newGenreName = "K-pop";
+                    } else if (newGenreName === "J Idol") {
+                        newGenreName = "J-idol";
+                    } else if (newGenreName === "J Pop") {
+                        newGenreName = "J-pop";
+                    } else if (newGenreName === "J Rock") {
+                        newGenreName = "J-rock";
+                    } else if (newGenreName === "J Dance") {
+                        newGenreName = "J-dance";
+                    }
+
+                    var genreObj = {
+                        name: newGenreName,
+                        image: "https://spotrex.s3-us-west-1.amazonaws.com/genre_icon.jpg",
+                        id: genre,
+                        type: "genre"
+                    }
+
+                    return genreObj;
+                });
+            }
+        });
+    }
+}
+
+fetchGenreMatches();
 
 // Output search results HTML
 function outputSearchResultHtml(matches) {
@@ -166,7 +248,7 @@ search.addEventListener('keyup', () => {
     // clearTimeout(timeout)
 
     // timeout = setTimeout(() => {
-    fetchArtistsOrTracks(search.value);
+    fetchSearchMatches(search.value);
     // }, 500);
 });
 
@@ -518,9 +600,6 @@ function msToTime(duration) {
     var seconds = Math.floor((duration / 1000) % 60);
     var minutes = Math.floor((duration / (1000 * 60)) % 60);
     var hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
-
-    console.log(minutes);
-    console.log(hours);
 
     hours = (hours < 1) ? "" : hours + " hr ";
     minutes = (minutes < 1) ? "" : minutes + " min";

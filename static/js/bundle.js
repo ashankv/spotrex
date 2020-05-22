@@ -271,6 +271,8 @@ $(document).ready(function() {
             return;
         }
 
+        turnOnSlidersAndButtons();
+
         var tagName = $(this).find("p").text();
 
         if (selectedTags.find(match => match.name === tagName)) {
@@ -340,6 +342,7 @@ $(document).ready(function() {
         } else {
             currentPlaylist = [];
             outputRecommendationsHtml();
+            turnOffSlidersAndButtons();
             $("#recommendation-header").hide();
             $("#play-info").hide();
         }
@@ -431,6 +434,13 @@ $(document).ready(function() {
                     }
                 });
             });
+        }
+    });
+
+    $(window).keydown((event) => {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            return false;
         }
     });
 });
@@ -596,6 +606,30 @@ vocalSlider.noUiSlider.on('change', (values) => {
     trackRecQueryParams['max_speechiness'] = values[1];
     fetchPlaylistRecommendation();
 });
+
+function turnOffSlidersAndButtons() {
+    numberSlider.setAttribute('disabled', true);
+    popularitySlider.setAttribute('disabled', true);
+    moodSlider.setAttribute('disabled', true);
+    energySlider.setAttribute('disabled', true);
+    tempoSlider.setAttribute('disabled', true);
+    vocalSlider.setAttribute('disabled', true);
+
+    $('#create-playlist-button').prop("disabled", true);
+}
+
+function turnOnSlidersAndButtons() {
+    numberSlider.removeAttribute('disabled');
+    popularitySlider.removeAttribute('disabled');
+    moodSlider.removeAttribute('disabled');
+    energySlider.removeAttribute('disabled');
+    tempoSlider.removeAttribute('disabled');
+    vocalSlider.removeAttribute('disabled');
+
+    $('#create-playlist-button').prop("disabled", false);
+}
+
+turnOffSlidersAndButtons(true);
 
 function msToTime(duration) {
     var seconds = Math.floor((duration / 1000) % 60);

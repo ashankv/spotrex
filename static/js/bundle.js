@@ -397,13 +397,16 @@ $(document).ready(function() {
                 var getUserUri = "https://api.spotify.com/v1/users/" + userID + "/playlists";
                 var playlistID = "";
 
+                var description = "A SpotRex Playlist Inspired By: ";
+                description = description.concat(selectedTags.map(tag => tag.name).join(", "));
+
                 var createPlaylistOptions = {
                     uri: getUserUri,
                     body: {
                         name: playlistName,
                         public: true,
                         collaborative: false,
-                        description: "Created using SpotRex"
+                        description: description
                     },
                     headers: {'Authorization': 'Bearer ' + accessToken },
                     json: true
@@ -447,13 +450,13 @@ $(document).ready(function() {
 
 var numberSlider = document.getElementById("number-slider");
 nouislider.create(numberSlider, {
-    start: [30],
+    start: [55],
     connect: 'lower',
     step: 5,
     tooltips: [wnumb({ decimals: 0 })],
     range: {
         'min': 5,
-        'max': 55
+        'max': 100
     }
 });
 

@@ -9,7 +9,7 @@ app = Flask(__name__)
 CLIENT_ID = "6f63cd77e5e643c1b48714c67348e2f3"
 CLIENT_SECRET = "929bccc2b1ef4747849b63b50a1d6bc2"
 REDIRECT_URI = "http://www.spotrex.com/callback"
-# REDIRECT_URI = "https://localhost:5000/callback"
+REDIRECT_URI = "https://localhost:5000/callback"
 
 access_token = None
 
@@ -78,5 +78,5 @@ def generate_random_string(length):
 
     return text
 
-# if __name__ == "__main__":
-#     app.run(debug=True, ssl_context='adhoc')
+if __name__ == "__main__":
+    app.run(debug=True, ssl_context='adhoc')

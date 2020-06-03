@@ -419,8 +419,8 @@ $(document).ready(function() {
 
                         var addToPlaylistOptions = {
                             uri: addToPlaylistUri,
-                            qs: {
-                                uris: currentPlaylist.map(track => track.uri).join()
+                            body: {
+                                uris: currentPlaylist.map(track => track.uri)
                             },
                             headers: {'Authorization': 'Bearer ' + accessToken },
                             json: true

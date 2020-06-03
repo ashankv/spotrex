@@ -449,7 +449,7 @@ $(document).ready(function() {
 
 var numberSlider = document.getElementById("number-slider");
 nouislider.create(numberSlider, {
-    start: [55],
+    start: [50],
     connect: 'lower',
     step: 5,
     tooltips: [wnumb({ decimals: 0 })],

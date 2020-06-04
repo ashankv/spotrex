@@ -24,6 +24,16 @@ img.bg {
     font-size: 5vw;
 }
 
+@media screen and (min-width: 1280px) {
+    #title {
+        font-size: 128px;
+    }
+
+    #subtitle {
+        font-size: 64px;
+    }
+}
+
 @media screen and (max-width: 1024px) { /* Specific to this particular image */
   img.bg {
     left: 50%;

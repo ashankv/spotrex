@@ -24,6 +24,16 @@ img.bg {
     font-size: 5vw;
 }
 
+#login-btn {
+    font-size: 2vw;
+}
+
+@media screen and (max-width: 800px) {
+    #login-btn {
+        font-size: 16px;
+    }
+}
+
 @media screen and (min-width: 1280px) {
     #title {
         font-size: 128px;
@@ -31,6 +41,10 @@ img.bg {
 
     #subtitle {
         font-size: 64px;
+    }
+
+    #login-btn {
+        font-size: 25.6px
     }
 }
 

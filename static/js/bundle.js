@@ -632,7 +632,7 @@ function turnOnSlidersAndButtons() {
     $('#create-playlist-button').prop("disabled", false);
 }
 
-turnOffSlidersAndButtons(true);
+turnOffSlidersAndButtons();
 
 function msToTime(duration) {
     var seconds = Math.floor((duration / 1000) % 60);

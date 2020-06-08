@@ -1,7 +1,7 @@
 .chip {
     display: inline-block;
     padding: 0 25px;
-    padding-top: 25px
+    padding-top: 25px;
     height: 50px;
     font-size: 14px;
     line-height: 50px;
@@ -32,4 +32,8 @@
 
 .closebtn:hover {
   color: #000;
+}
+
+.container.mt-5.remove-margin {
+    margin: 0 ! important;
 }

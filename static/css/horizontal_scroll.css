@@ -1,0 +1,5 @@
+.scroll-view {
+    overflow-x: auto;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+}

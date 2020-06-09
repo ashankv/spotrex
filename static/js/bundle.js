@@ -192,15 +192,24 @@ function outputSelectedTagsHtml() {
     var html = ``;
 
     if (selectedTags.length > 0) {
-        html = selectedTags.map(selectedTag => {
+        html = selectedTags.map((selectedTag, index) => {
 
+            // Remove [feat.]
             var modifiedName = selectedTag.name.replace(/ *\([^)]*\) */g, "");
 
-            return `<div class="chip relpos zstackchip ml-1">
-                        <img src=${selectedTag.image} width="96" height="96"> </img>
-                        ${modifiedName}
-                        <span class="closebtn">&times;</span>
-                    </div>`
+            if (index === 0) {
+                return `<div class="chip relpos zstackchip">
+                            <img src=${selectedTag.image} width="96" height="96"> </img>
+                            ${modifiedName}
+                            <span class="closebtn">&times;</span>
+                        </div>`
+            } else {
+                return `<div class="chip relpos zstackchip ml-1">
+                            <img src=${selectedTag.image} width="96" height="96"> </img>
+                            ${modifiedName}
+                            <span class="closebtn">&times;</span>
+                        </div>`
+            }
         }).join('');
     }
 
@@ -308,7 +317,7 @@ $(document).ready(function() {
 
         if (selectedTags.length === 5) {
             $('#search').prop("disabled", true);
-            $('#search').attr("placeholder", "Maximum selections reached");
+            $('#search').attr("placeholder", "Max selections reached");
         }
     });
 

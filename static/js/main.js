@@ -449,6 +449,7 @@ $(document).ready(function() {
         }
     });
 
+    // Prevent form from submitting when enter is pressed
     $(window).keydown((event) => {
         if (event.keyCode == 13) {
             event.preventDefault();
@@ -456,23 +457,24 @@ $(document).ready(function() {
         }
     });
 
+    // Pin sidebar on the left when scrolling
     $(window).on('scroll', () => {
         var top = $(window).scrollTop(),
             divBottom = $('#playlist-name-card').offset().top + $('#playlist-name-card').outerHeight();
         if (divBottom > top) {
+            // Scroll into of view
             $('#playlist-settings-card').css('position', 'relative');
-            console.log("scrolled into of view");
             $('#playlist-settings-card').width($('#playlist-settings-card').width());
 
         } else {
+            // Scroll out of view
             $('#playlist-settings-card').css('position', 'fixed');
             $('#playlist-settings-card').css('top', 0);
-            // $('#playlist-settings-card').css('left', 0);
-            console.log("scrolled out of view");
         }
     });
 });
 
+// Slider Initialization
 var numberSlider = document.getElementById("number-slider");
 nouislider.create(numberSlider, {
     start: [50],
@@ -600,6 +602,7 @@ const fetchPlaylistRecommendation = async () => {
     });
 }
 
+// On Slider Change
 numberSlider.noUiSlider.on('change', (values) => {
     trackRecQueryParams['limit'] = parseInt(values[0]);
     fetchPlaylistRecommendation();
@@ -657,6 +660,7 @@ function turnOnSlidersAndButtons() {
     $('#create-playlist-button').prop("disabled", false);
 }
 
+// Sliders and Buttons are initially turned off
 turnOffSlidersAndButtons();
 
 function msToTime(duration) {

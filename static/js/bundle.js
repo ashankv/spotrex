@@ -197,6 +197,7 @@ function outputSelectedTagsHtml() {
             // Remove [feat.]
             var modifiedName = selectedTag.name.replace(/ *\([^)]*\) */g, "");
 
+            // Only apply margin if it isn't the first tag
             if (index === 0) {
                 return `<div class="chip relpos zstackchip">
                             <img src=${selectedTag.image} width="96" height="96"> </img>
@@ -453,6 +454,22 @@ $(document).ready(function() {
         if (event.keyCode == 13) {
             event.preventDefault();
             return false;
+        }
+    });
+
+    $(window).on('scroll', () => {
+        var top = $(window).scrollTop(),
+            divBottom = $('#playlist-name-card').offset().top + $('#playlist-name-card').outerHeight();
+        if (divBottom > top) {
+            $('#playlist-settings-card').css('position', 'relative');
+            console.log("scrolled into of view");
+            $('#playlist-settings-card').width($('#playlist-settings-card').width());
+
+        } else {
+            $('#playlist-settings-card').css('position', 'fixed');
+            $('#playlist-settings-card').css('top', 0);
+            // $('#playlist-settings-card').css('left', 0);
+            console.log("scrolled out of view");
         }
     });
 });

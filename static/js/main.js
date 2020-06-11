@@ -462,7 +462,7 @@ $(document).ready(function() {
         var top = $(window).scrollTop(),
             divBottom = $('#playlist-name-card').offset().top + $('#playlist-name-card').outerHeight();
         if (divBottom > top) {
-            // Scroll into of view
+            // Scroll into view
             $('#playlist-settings-card').css('position', 'relative');
             $('#playlist-settings-card').width($('#playlist-settings-card').width());
 
@@ -470,6 +470,7 @@ $(document).ready(function() {
             // Scroll out of view
             $('#playlist-settings-card').css('position', 'fixed');
             $('#playlist-settings-card').css('top', 0);
+            // $('#playlist-settings-card').width($('#playlist-settings-card').width());
         }
     });
 });

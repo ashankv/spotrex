@@ -1,9 +1,13 @@
+.abs-pos {
+    position: absolute;
+}
+
 .rel-pos {
     position: relative;
 }
 
 .zstack-li {
-    z-index: 2;
+    z-index: 10;
 }
 
 .zstack-chip {

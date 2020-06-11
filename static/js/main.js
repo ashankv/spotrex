@@ -460,7 +460,7 @@ $(document).ready(function() {
     // Pin sidebar on the left when scrolling
     $(window).on('scroll', () => {
 
-        $("#match-list").hide();
+        // $("#match-list").hide();
 
         var top = $(window).scrollTop(),
             divBottom = $('#playlist-name-card').offset().top + $('#playlist-name-card').outerHeight();
@@ -473,7 +473,6 @@ $(document).ready(function() {
             // Scroll out of view
             $('#playlist-settings-card').css('position', 'fixed');
             $('#playlist-settings-card').css('top', 0);
-            // $('#playlist-settings-card').width($('#playlist-settings-card').width());
         }
     });
 });

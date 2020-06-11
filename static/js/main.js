@@ -460,8 +460,6 @@ $(document).ready(function() {
     // Pin sidebar on the left when scrolling
     $(window).on('scroll', () => {
 
-        // $("#match-list").hide();
-
         var top = $(window).scrollTop(),
             divBottom = $('#playlist-name-card').offset().top + $('#playlist-name-card').outerHeight();
         if (divBottom > top) {

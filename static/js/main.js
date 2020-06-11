@@ -228,7 +228,7 @@ function outputRecommendationsHtml() {
                                 <img src="${track.image}" class="track" width="100" height="100"> </img>
                             </div>
 
-                            <div class="col-lg-9 pt-3 text-left">
+                            <div class="col-lg-10 pt-3 text-left">
                                 <h5> ${track.name} </h5>
                                 <p> ${track.artists.map(artist => artist.name).join(", ")} </p>
                             </div>
@@ -459,6 +459,9 @@ $(document).ready(function() {
 
     // Pin sidebar on the left when scrolling
     $(window).on('scroll', () => {
+
+        $("#match-list").hide();
+
         var top = $(window).scrollTop(),
             divBottom = $('#playlist-name-card').offset().top + $('#playlist-name-card').outerHeight();
         if (divBottom > top) {

@@ -10,19 +10,14 @@
     position: fixed;
 }
 
-.relpos {
+.rel-pos {
     position: relative;
 }
 
-.zstackli {
+.zstack-li {
     z-index: 2;
 }
 
-.zstackchip {
+.zstack-chip {
     z-index: 1;
-}
-
-.row.no-gutter {
-  margin-left: 0;
-  margin-right: 0;
 }

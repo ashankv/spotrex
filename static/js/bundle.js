@@ -461,17 +461,21 @@ $(document).ready(function() {
     // Pin sidebar on the left when scrolling
     $(window).on('scroll', () => {
 
-        var top = $(window).scrollTop(),
-            divBottom = $('#playlist-name-card').offset().top + $('#playlist-name-card').outerHeight();
-        if (divBottom > top) {
-            // Scroll into view
-            $('#playlist-settings-card').css('position', 'relative');
-            $('#playlist-settings-card').width($('#playlist-settings-card').width());
+        console.log(recommendationList.childElementCount);
+        if (recommendationList.childElementCount != 0) {
+            console.log("scrolling");
+            var top = $(window).scrollTop(),
+                divBottom = $('#playlist-name-card').offset().top + $('#playlist-name-card').outerHeight();
+            if (divBottom > top) {
+                // Scroll into view
+                $('#playlist-settings-card').css('position', 'relative');
+                $('#playlist-settings-card').width($('#playlist-settings-card').width());
 
-        } else {
-            // Scroll out of view
-            $('#playlist-settings-card').css('position', 'fixed');
-            $('#playlist-settings-card').css('top', 0);
+            } else {
+                // Scroll out of view
+                $('#playlist-settings-card').css('position', 'fixed');
+                $('#playlist-settings-card').css('top', 0);
+            }
         }
     });
 });

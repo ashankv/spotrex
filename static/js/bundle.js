@@ -223,7 +223,7 @@ function outputRecommendationsHtml() {
 
     if (currentPlaylist.length > 0) {
         html = currentPlaylist.map(track => {
-            return `<button class="list-group-item list-group-item-action" id="rec-item">
+            return `<button class="list-group-item list-group-item-action border-top-0 border-left-0 border-right-0" id="rec-item">
                         <div class="row">
                             <div class="col-lg-2" >
                                 <img src="${track.image}" class="track" width="100" height="100"> </img>
@@ -461,7 +461,7 @@ $(document).ready(function() {
     // Pin sidebar on the left when scrolling
     $(window).on('scroll', () => {
 
-        console.log(recommendationList.childElementCount);
+        // Pin sidebar only if there are 0 recommendations
         if (recommendationList.childElementCount != 0) {
             console.log("scrolling");
             var top = $(window).scrollTop(),

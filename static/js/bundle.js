@@ -177,7 +177,7 @@ function outputSearchResultHtml(matches) {
     if (matches.length > 0) {
         html = matches.map(match => {
             return `<button class="list-group-item list-group-item-action d-flex border-top-0 border-left-0 border-right-0" id="search-result">
-                        <img src=${match.image} class="search" width="40" height="40"> </img>
+                        <img src=${match.image} class="track" width="40" height="40"> </img>
                         <div class="pt-2 pl-2 text-left"> <p>${match.name}</p> </div>
                     </button>`
         }).join('');

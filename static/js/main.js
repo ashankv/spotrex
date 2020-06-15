@@ -229,7 +229,7 @@ function outputRecommendationsHtml() {
                             </div>
 
                             <div class="col-lg-10 pt-3 text-left">
-                                <h5> ${track.name} </h5>
+                                <h5 class="bold-font"> ${track.name} </h5>
                                 <p> ${track.artists.map(artist => artist.name).join(", ")} </p>
                             </div>
                         </div>

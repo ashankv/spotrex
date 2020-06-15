@@ -1,14 +1,27 @@
+.bold-font {
+    font-family: CustomBold;
+}
+
+.regular-font {
+    font-family: CustomRegular;
+}
+
+.light-font {
+    font-family: CustomLight;
+}
+
+
 @font-face {
-  font-family: LatoBold;
+  font-family: CustomBold;
   src: url("/static/css/fonts/Lato/Lato-Bold.ttf");
 }
 
 @font-face {
-  font-family: LatoRegular;
+  font-family: CustomRegular;
   src: url("/static/css/fonts/Lato/Lato-Regular.ttf");
 }
 
 @font-face {
-  font-family: LatoLight;
+  font-family: CustomLight;
   src: url("/static/css/fonts/Lato/Lato-Light.ttf");
 }

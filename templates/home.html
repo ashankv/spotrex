@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<div class="container-fluid pl-5 pr-5 mt-5" id="top-container">
+<div class="container-fluid pl-5 pr-5 mt-5 regular-font" id="top-container">
 
     <div class="row">
 
@@ -10,10 +10,12 @@
         <!-- Input -->
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="input-group">
-                <input type="text" class="form-control form-control-lg card-shadow" placeholder="Search for artists" autocomplete="off" id="search"> </input>
-                <div class="input-group-append">
-                    <button class="btn btn-secondary dropdown-toggle btn-lg bg-info card-shadow" style="width: 8rem;" id="dropdown-btn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Artists</button>
-                    <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuButton">
+                <!-- <span class="border border-white"> -->
+                <input type="text" class="form-control form-control-lg shadow border-white" placeholder="Search for artists" autocomplete="off" id="search"> </input>
+                <!-- </span> -->
+                <div class="input-group-append shadow">
+                    <button class="btn btn-secondary dropdown-toggle btn-lg bg-info shadow border-info" style="width: 8rem;" id="dropdown-btn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Artists</button>
+                    <div class="dropdown-menu dropdown-menu-left shadow" aria-labelledby="dropdownMenuButton">
                         <h6 class="dropdown-header">Search For:</h6>
                         <a class="dropdown-item" id="dropdown-artist" href="#">Artists</a>
                         <a class="dropdown-item" id="dropdown-track" href="#">Tracks</a>

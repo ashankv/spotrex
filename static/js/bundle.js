@@ -444,6 +444,12 @@ $(document).ready(function() {
                         request.post(addToPlaylistOptions, function(error, response, body) {
                             if (!error && response.statusCode === 201) {
                                 console.log('Successfully created the playlist: ' + playlistName);
+
+                                $('#spinner').hide();
+                                $('#create-playlist-text').text('Created!');
+                                $('#create-playlist-text').show();
+                                $('#checkmark').show();
+                                $('#create-playlist-button').prop('disabled', true);
                             } else {
                                 console.log(error);
                             }

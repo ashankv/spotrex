@@ -386,6 +386,10 @@ $(document).ready(function() {
 
     $('#create-playlist-button').click(() => {
 
+        // $('#create-playlist-button').text('');
+        $('#create-playlist-text').hide();
+        $('#spinner').show();
+
         var playlistName = $('#playlist-name-form').val();
         var userID = "";
 

@@ -13,7 +13,7 @@
                 <!-- <span class="border border-white"> -->
                 <input type="text" class="form-control form-control-lg shadow border-white" placeholder="Search for artists" autocomplete="off" id="search"> </input>
                 <!-- </span> -->
-                <div class="input-group-append shadow">
+                <div class="input-group-append rounded shadow">
                     <button class="btn btn-secondary dropdown-toggle btn-lg bg-info shadow border-info" style="width: 8rem;" id="dropdown-btn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Artists</button>
                     <div class="dropdown-menu dropdown-menu-left shadow" aria-labelledby="dropdownMenuButton">
                         <h6 class="dropdown-header">Search For:</h6>
@@ -54,7 +54,11 @@
                         <input id="playlist-name-form" class="form-control form-control-sm" type="text" id="playlist-name-form" onclick="this.select();" value="SpotRex Generated Playlist">
                     </form>
 
-                    <button type="button" id="create-playlist-button" class="mt-3 btn btn-primary btn-sm btn-block" disabled="true">Create Playlist</button>
+                    <button type="button" id="create-playlist-button" class="mt-3 btn btn-primary btn-sm btn-block" disabled="true">
+                        <span id="create-playlist-text"> Create Playlist </span>
+                        <i class="fa fa-circle-o-notch fa-spin fa-md" id="spinner" style="display: none;"></i>
+                        <i class="fa fa-check fa-draw fa-md" id="checkmark" style="display: none;"></i>
+                    </button>
                 </div>
             </div>
 

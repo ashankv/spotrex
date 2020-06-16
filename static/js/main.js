@@ -282,6 +282,13 @@ $(document).ready(function() {
 
         turnOnSlidersAndButtons();
 
+        // Reset create playlist button
+        $('#spinner').hide();
+        $('#checkmark').hide();
+        $('#create-playlist-text').text('Create Playlist');
+        $('#create-playlist-text').show();
+        $('#create-playlist-button').prop('disabled', false);
+
         var tagName = $(this).find("p").text();
 
         if (selectedTags.find(match => match.name === tagName)) {
@@ -326,6 +333,13 @@ $(document).ready(function() {
 
         var tagIndex = $(this).parent().index();
         var tagToRemove = selectedTags[tagIndex];
+
+        // Reset create playlist button
+        $('#spinner').hide();
+        $('#checkmark').hide();
+        $('#create-playlist-text').text('Create Playlist');
+        $('#create-playlist-text').show();
+        $('#create-playlist-button').prop('disabled', false);
 
         console.log(tagToRemove.name + " removed");
 
@@ -386,7 +400,7 @@ $(document).ready(function() {
 
     $('#create-playlist-button').click(() => {
 
-        // $('#create-playlist-button').text('');
+        // Show loading for create playlist button
         $('#create-playlist-text').hide();
         $('#spinner').show();
 
@@ -444,6 +458,7 @@ $(document).ready(function() {
                             if (!error && response.statusCode === 201) {
                                 console.log('Successfully created the playlist: ' + playlistName);
 
+                                // Display checkmark on create playlist button
                                 $('#spinner').hide();
                                 $('#create-playlist-text').text('Created!');
                                 $('#create-playlist-text').show();

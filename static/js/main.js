@@ -400,15 +400,15 @@ $(document).ready(function() {
 
     $('#create-playlist-button').click(() => {
 
-        // Show loading for create playlist button
-        $('#create-playlist-text').hide();
-        $('#spinner').show();
-
-        var playlistName = $('#playlist-name-form').val();
-        var userID = "";
-
         // Need to fetch user ID
         if (currentPlaylist.length !== 0) {
+
+            // Show loading for create playlist button
+            $('#create-playlist-text').hide();
+            $('#spinner').show();
+
+            var playlistName = $('#playlist-name-form').val();
+            var userID = "";
 
             var getMeOptions = {
                 uri: 'https://api.spotify.com/v1/me',
@@ -627,6 +627,14 @@ const fetchPlaylistRecommendation = async () => {
             });
 
             console.log(currentPlaylist);
+
+            // Disable create playlist button if there are no recommendations
+            if (currentPlaylist.length === 0) {
+                $('#create-playlist-button').prop('disabled', true);
+            } else {
+                $('#create-playlist-button').prop('disabled', false);
+            }
+
             outputRecommendationsHtml();
         }
     });

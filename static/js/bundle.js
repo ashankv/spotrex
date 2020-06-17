@@ -255,12 +255,7 @@ function outputRecommendationsHtml() {
 let timeout = null;
 
 search.addEventListener('keyup', () => {
-
-    // clearTimeout(timeout)
-
-    // timeout = setTimeout(() => {
     fetchSearchMatches(search.value);
-    // }, 500);
 });
 
 // JQuery
@@ -473,6 +468,11 @@ $(document).ready(function() {
                 });
             });
         }
+    });
+
+    // Logout button
+    $("#user-chip").bind('click', '.closebtn', () => {
+        window.location.replace("/");
     });
 
     // Prevent form from submitting when enter is pressed

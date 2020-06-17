@@ -12,6 +12,8 @@ CLIENT_SECRET = "929bccc2b1ef4747849b63b50a1d6bc2"
 REDIRECT_URI = "https://localhost:5000/callback"
 
 access_token = None
+user_img = None
+user_name = None
 
 @app.route("/")
 def root():
@@ -50,6 +52,14 @@ def callback():
         refresh_token = json_response['refresh_token']
         expires_in = json_response['expires_in']
 
+        get_me_resp = requests.get(url='https://api.spotify.com/v1/me', headers={'Authorization': 'Bearer ' + access_token}).json()
+
+        global user_name
+        global user_img
+
+        user_name = get_me_resp['display_name']
+        user_img = get_me_resp['images'][0]['url'] if len(get_me_resp['images']) > 0 else ''
+
         return redirect(url_for("home"))
 
     return redirect_uri(url_for("error"))
@@ -58,13 +68,15 @@ def callback():
 def home():
 
     global access_token
+    global user_name
+    global user_img
 
     print('TYPE: ', type(access_token))
     if access_token == None:
         return redirect(url_for("login"))
 
-    data = {'access_token': access_token}
-    print('ACCESS TOKEN:', access_token)
+    data = {'access_token': access_token, 'user_img': user_img, 'user_name': user_name}
+    print('DATA:', data)
 
     return render_template("home.html", data=data)
 

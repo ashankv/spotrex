@@ -225,11 +225,11 @@ function outputRecommendationsHtml() {
         html = currentPlaylist.map(track => {
             return `<button class="list-group-item list-group-item-action border-top-0 border-left-0 border-right-0" id="rec-item">
                         <div class="row">
-                            <div class="col-lg-2" >
+                            <div class="col-lg-1 col-lg-test1">
                                 <img src="${track.image}" class="track" width="100" height="100"> </img>
                             </div>
 
-                            <div class="col-lg-10 pt-3 text-left">
+                            <div class="col-lg-11 col-lg-test2 pt-3 text-left pl-5">
                                 <h5 class="bold-font"> ${track.name} </h5>
                                 <p> ${track.artists.map(artist => artist.name).join(", ")} </p>
                             </div>
@@ -490,7 +490,7 @@ $(document).ready(function() {
         if (recommendationList.childElementCount != 0) {
             console.log("scrolling");
             var top = $(window).scrollTop(),
-                divBottom = $('#playlist-name-card').offset().top + $('#playlist-name-card').outerHeight();
+                divBottom = $('#playlist-name-card').offset().top + $('#playlist-name-card').innerHeight();
             if (divBottom > top) {
                 // Scroll into view
                 $('#playlist-settings-card').css('position', 'relative');

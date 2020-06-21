@@ -493,7 +493,9 @@ $(document).ready(function() {
             if (divBottom > top) {
                 // Scroll into view
                 $('#playlist-settings-card').css('position', 'relative');
-                $('#playlist-settings-card').width($('#playlist-settings-card').width());
+                $('#playlist-settings-card').width($('#playlist-name-card').width());
+                // $('#playlist-settings-card').css('top', 0);
+
 
             } else {
                 // Scroll out of view
@@ -501,6 +503,10 @@ $(document).ready(function() {
                 $('#playlist-settings-card').css('top', 0);
             }
         }
+    });
+
+    $(window).on('resize', () => {
+        $('#playlist-settings-card').width($('#playlist-name-card').width());
     });
 });
 

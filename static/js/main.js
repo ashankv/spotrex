@@ -507,6 +507,11 @@ $(document).ready(function() {
 
     $(window).on('resize', () => {
         $('#playlist-settings-card').width($('#playlist-name-card').width());
+
+       //  var screenWidth = $(window).width();
+       // $('#recommendation-list').css('width', screenWidth + 'px');
+
+        console.log(getViewport());
     });
 });
 
@@ -734,3 +739,12 @@ trackRecQueryParams = {
     'min_speechiness': vocalSlider.noUiSlider.get()[0],
     'max_speechiness': vocalSlider.noUiSlider.get()[1],
 };
+
+function getViewport () {
+    const width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    if (width <= 576) return 'xs'
+    if (width <= 768) return 'sm'
+    if (width <= 992) return 'md'
+    if (width <= 1200) return 'lg'
+    return 'lg'
+}

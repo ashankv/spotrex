@@ -43,10 +43,10 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="column-wrapper">
 
         <!-- Sidebar -->
-        <div class="col-lg-3 col-md-5 mt-3 ">
+        <div class="column-left mt-3 ">
             <div class="card shadow border-0" id="playlist-name-card" style="width: 19.6rem;">
                 <div class="card-body">
                     <div class="bold-font">Playlist Name</div>
@@ -63,7 +63,9 @@
                     </button>
                 </div>
             </div>
+        <!-- </div> -->
 
+        <!-- <div class="column-right mt-3"> -->
             <ul class="list-group mt-3 shadow rounded" id="playlist-settings-card">
 
                 <li class="list-group-item border-top-0 border-left-0 border-right-0">
@@ -149,14 +151,15 @@
             </ul>
         </div>
 
-        <div class="col-lg-9 mt-3">
+        <div class="column-right ml-4 mt-3">
             <div class="row">
                 <div class="col-lg-8">
-                    <h5 id="recommendation-header" class="bold-font" style="display: none; width: 100%;">Your Recommendations</h5>
+                    <h5 id="recommendation-header" class="bold-font" style="display: none;">Your Recommendations</h5>
                 </div>
 
                 <div class="col-lg-4 text-right" style="display: none;" id="play-info">28 tracks, 1 hr 45 min</div>
             </div>
+
             <div class="list-group shadow rounded" id="recommendation-list"></div>
         </div>
     </div>

@@ -526,6 +526,10 @@ $(document).ready(function() {
                 $("#body-col-wrapper").toggleClass("column-wrapper row");
                 $("#body-left-col").toggleClass("column-left col-md-12");
                 $("#body-right-col").toggleClass("column-right ml-4 col-md-12");
+            } else if (newSize == 'lg') {
+                $("#body-col-wrapper").toggleClass("column-wrapper row");
+                $("#body-left-col").toggleClass("column-left col-md-12");
+                $("#body-right-col").toggleClass("column-right ml-4 col-md-12");
             }
 
             currentSize = newSize;

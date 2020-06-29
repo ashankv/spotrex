@@ -18,6 +18,8 @@ var selectedGenres = [];
 var trackRecQueryParams = {};
 var currentPlaylist = [];
 
+var currentSize = getViewport();
+
 // Fetch artists from Spotify
 const fetchSearchMatches = async (searchText) => {
 
@@ -490,17 +492,23 @@ $(document).ready(function() {
             console.log("scrolling");
             var top = $(window).scrollTop(),
                 divBottom = $('#playlist-name-card').offset().top + $('#playlist-name-card').innerHeight();
-            if (divBottom > top) {
-                // Scroll into view
+
+            if (currentSize === "lg") {
+                if (divBottom > top) {
+                    // Scroll into view
+                    $('#playlist-settings-card').css('position', 'relative');
+                    $('#playlist-settings-card').width($('#playlist-name-card').width());
+                    // $('#playlist-settings-card').css('top', 0);
+
+
+                } else {
+                    // Scroll out of view
+                    $('#playlist-settings-card').css('position', 'fixed');
+                    $('#playlist-settings-card').css('top', 0);
+                }
+            } else {
                 $('#playlist-settings-card').css('position', 'relative');
                 $('#playlist-settings-card').width($('#playlist-name-card').width());
-                // $('#playlist-settings-card').css('top', 0);
-
-
-            } else {
-                // Scroll out of view
-                $('#playlist-settings-card').css('position', 'fixed');
-                $('#playlist-settings-card').css('top', 0);
             }
         }
     });
@@ -510,8 +518,18 @@ $(document).ready(function() {
 
        //  var screenWidth = $(window).width();
        // $('#recommendation-list').css('width', screenWidth + 'px');
+        var newSize = getViewport();
+        console.log(newSize);
 
-        console.log(getViewport());
+        if (newSize !== currentSize) {
+            if (newSize == 'md') {
+                $("#body-col-wrapper").toggleClass("column-wrapper row");
+                $("#body-left-col").toggleClass("column-left col-md-12");
+                $("#body-right-col").toggleClass("column-right ml-4 col-md-12");
+            }
+
+            currentSize = newSize;
+        }
     });
 });
 

@@ -43,11 +43,11 @@
         </div>
     </div>
 
-    <div class="column-wrapper">
+    <div class="column-wrapper" id="body-col-wrapper">
 
         <!-- Sidebar -->
-        <div class="column-left mt-3 ">
-            <div class="card shadow border-0" id="playlist-name-card" style="width: 19.6rem;">
+        <div class="column-left mt-3" id="body-left-col">
+            <div class="card shadow border-0" id="playlist-name-card">
                 <div class="card-body">
                     <div class="bold-font">Playlist Name</div>
                     <form class="mt-1">
@@ -151,13 +151,13 @@
             </ul>
         </div>
 
-        <div class="column-right ml-4 mt-3">
+        <div class="column-right ml-4 mt-3" id="body-right-col">
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-8 col-md-8">
                     <h5 id="recommendation-header" class="bold-font" style="display: none;">Your Recommendations</h5>
                 </div>
 
-                <div class="col-lg-4 text-right" style="display: none;" id="play-info">28 tracks, 1 hr 45 min</div>
+                <div class="col-lg-4 col-md-4 text-right" style="display: none;" id="play-info">28 tracks, 1 hr 45 min</div>
             </div>
 
             <div class="list-group shadow rounded" id="recommendation-list"></div>

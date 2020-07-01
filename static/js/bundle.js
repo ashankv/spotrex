@@ -523,14 +523,18 @@ $(document).ready(function() {
         console.log(newSize);
 
         if (newSize !== currentSize) {
-            if (newSize == 'md') {
+            if (newSize === 'md' && currentSize === 'lg') {
                 $("#body-col-wrapper").toggleClass("column-wrapper row");
                 $("#body-left-col").toggleClass("column-left col-md-12");
                 $("#body-right-col").toggleClass("column-right ml-4 col-md-12");
-            } else if (newSize == 'lg') {
+                $('#playlist-settings-card').width($('#playlist-name-card').width());
+                console.log("MEDIUM SIZE");
+            } else if (newSize === 'lg') {
                 $("#body-col-wrapper").toggleClass("column-wrapper row");
                 $("#body-left-col").toggleClass("column-left col-md-12");
                 $("#body-right-col").toggleClass("column-right ml-4 col-md-12");
+                $('#playlist-settings-card').width($('#playlist-name-card').width());
+                console.log("LARGE SIZE");
             }
 
             currentSize = newSize;

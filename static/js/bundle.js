@@ -528,13 +528,11 @@ $(document).ready(function() {
                 $("#body-left-col").toggleClass("column-left col-md-12");
                 $("#body-right-col").toggleClass("column-right ml-4 col-md-12");
                 $('#playlist-settings-card').width($('#playlist-name-card').width());
-                console.log("MEDIUM SIZE");
             } else if (newSize === 'lg') {
                 $("#body-col-wrapper").toggleClass("column-wrapper row");
                 $("#body-left-col").toggleClass("column-left col-md-12");
                 $("#body-right-col").toggleClass("column-right ml-4 col-md-12");
                 $('#playlist-settings-card').width($('#playlist-name-card').width());
-                console.log("LARGE SIZE");
             }
 
             currentSize = newSize;

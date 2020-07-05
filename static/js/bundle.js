@@ -226,12 +226,12 @@ function outputRecommendationsHtml() {
     if (currentPlaylist.length > 0) {
         html = currentPlaylist.map(track => {
             return `<button class="list-group-item list-group-item-action border-top-0 border-left-0 border-right-0" id="rec-item">
-                        <div class="row">
-                            <div class="col-lg-1 col-lg-test1">
+                        <div class="column-wrapper">
+                            <div class="col-left-recs">
                                 <img src="${track.image}" class="track" width="100" height="100"> </img>
                             </div>
 
-                            <div class="col-lg-11 col-lg-test2 pt-3 text-left pl-5">
+                            <div class="col-right-recs ml-3 pt-3 text-left">
                                 <h5 class="bold-font"> ${track.name} </h5>
                                 <p> ${track.artists.map(artist => artist.name).join(", ")} </p>
                             </div>

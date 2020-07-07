@@ -557,7 +557,6 @@ function updateAudioPlayerSong() {
             var name = body.item.name;
             var artists = body.item.artists.map((artist) => artist.name).join(', ');
 
-
             $('#curr-song-img').attr("src", imgURL);
             $('#curr-song-name').text(name);
             $('#curr-song-artist').text(artists);

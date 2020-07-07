@@ -26,7 +26,7 @@ def error():
 @app.route("/login")
 def login():
 
-    scope = 'user-read-private user-read-email playlist-modify-public'
+    scope = 'user-read-private user-read-email playlist-modify-public user-read-playback-state'
 
     auth_params = {'response_type': 'code', 'client_id': CLIENT_ID, 'scope': scope, 'redirect_uri': REDIRECT_URI, }
     auth_url = 'https://accounts.spotify.com/authorize?' + urlgen.urlencode(auth_params)

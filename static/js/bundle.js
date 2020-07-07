@@ -21,6 +21,8 @@ var currentPlaylist = [];
 
 var currentSize = getViewport();
 
+updateAudioPlayerSong();
+
 // Fetch artists from Spotify
 const fetchSearchMatches = async (searchText) => {
 
@@ -539,6 +541,30 @@ $(document).ready(function() {
         }
     });
 });
+
+function updateAudioPlayerSong() {
+
+    var getPlayerOptions = {
+        uri: 'https://api.spotify.com/v1/me/player/currently-playing',
+        headers: {'Authorization': 'Bearer ' + accessToken },
+        json: true
+    }
+
+    request.get(getPlayerOptions, (error, response, body) => {
+        if (!error && response.statusCode === 200) {
+            console.log("PLAYER SUCCEEDED");
+            console.log(body);
+            var imgURL = body.item.album.images[0].url;
+            var name = body.item.name;
+            var artists = body.item.artists.map((artist) => artist.name).join(', ');
+
+
+            $('#curr-song-img').attr("src", imgURL);
+            $('#curr-song-name').text(name);
+            $('#curr-song-artist').text(artists);
+        }
+    });
+}
 
 // Slider Initialization
 var numberSlider = document.getElementById("number-slider");

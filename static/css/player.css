@@ -1,0 +1,27 @@
+i.control-play:hover {
+    transform: scale(1.1);
+    color: #444566;
+    text-shadow: 0 0 5px gray;
+}
+
+i.control-play:active {
+    color: #656797;
+}
+
+i.control-play {
+    transition: transform .2s;
+}
+
+i.control-skip:hover {
+    transform: scale(1.3);
+    color: #444566;
+    text-shadow: 0 0 3px gray;
+}
+
+i.control-skip:active {
+    color: #656797;
+}
+
+i.control-skip {
+    transition: transform .2s;
+}

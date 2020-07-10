@@ -478,6 +478,16 @@ $(document).ready(function() {
         window.location.replace("/");
     });
 
+    // Player controls
+    $("#play-btn").click(() => {
+        var iconName = $("#play-icon").text();
+        $("#play-icon").text(iconName == "play_circle_outline" ? "pause_circle_outline" : "play_circle_outline");
+    });
+
+
+
+
+
     // Prevent form from submitting when enter is pressed
     $(window).keydown((event) => {
         if (event.keyCode == 13) {

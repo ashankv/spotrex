@@ -479,6 +479,16 @@ $(document).ready(function() {
         window.location.replace("/");
     });
 
+    // Player controls
+    $("#play-btn").click(() => {
+        var iconName = $("#play-icon").text();
+        $("#play-icon").text(iconName == "play_circle_outline" ? "pause_circle_outline" : "play_circle_outline");
+    });
+
+
+
+
+
     // Prevent form from submitting when enter is pressed
     $(window).keydown((event) => {
         if (event.keyCode == 13) {
@@ -557,7 +567,6 @@ function updateAudioPlayerSong() {
             var imgURL = body.item.album.images[0].url;
             var name = body.item.name;
             var artists = body.item.artists.map((artist) => artist.name).join(', ');
-
 
             $('#curr-song-img').attr("src", imgURL);
             $('#curr-song-name').text(name);

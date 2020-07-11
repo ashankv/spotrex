@@ -481,12 +481,19 @@ $(document).ready(function() {
     // Player controls
     $("#play-btn").click(() => {
         var iconName = $("#play-icon").text();
+
+        if (iconName === "play_circle_outline") {
+            resumeSong();
+        } else {
+            pauseSong();
+        }
+
         $("#play-icon").text(iconName == "play_circle_outline" ? "pause_circle_outline" : "play_circle_outline");
     });
 
-
-
-
+    $("#play-playlist-btn").click(() => {
+        playRecommendationPlaylist();
+    });
 
     // Prevent form from submitting when enter is pressed
     $(window).keydown((event) => {
@@ -501,7 +508,6 @@ $(document).ready(function() {
 
         // Pin sidebar only if there are 0 recommendations
         if (recommendationList.childElementCount != 0) {
-            console.log("scrolling");
             var top = $(window).scrollTop(),
                 divBottom = $('#playlist-name-card').offset().top + $('#playlist-name-card').innerHeight();
 
@@ -528,8 +534,6 @@ $(document).ready(function() {
     $(window).on('resize', () => {
         $('#playlist-settings-card').width($('#playlist-name-card').width());
 
-       //  var screenWidth = $(window).width();
-       // $('#recommendation-list').css('width', screenWidth + 'px');
         var newSize = getViewport();
         console.log(newSize);
 
@@ -551,6 +555,51 @@ $(document).ready(function() {
     });
 });
 
+function pauseSong() {
+    var pauseSongOptions = {
+        uri: 'https://api.spotify.com/v1/me/player/pause',
+        headers: {'Authorization': 'Bearer ' + accessToken },
+        json: true
+    }
+
+    request.put(pauseSongOptions, (error, response, body) => {
+        if (!error && response.statusCode === 204) {
+            updateAudioPlayerSong();
+        }
+    });
+}
+
+function resumeSong() {
+    var playSongOptions = {
+        uri: 'https://api.spotify.com/v1/me/player/play',
+        headers: {'Authorization': 'Bearer ' + accessToken },
+        json: true
+    }
+
+    request.put(playSongOptions, (error, response, body) => {
+        if (!error && response.statusCode === 204) {
+            updateAudioPlayerSong();
+        }
+    });
+}
+
+function playRecommendationPlaylist() {
+    var playSongOptions = {
+        uri: 'https://api.spotify.com/v1/me/player/play',
+        body: {
+            uris: currentPlaylist.map(track => track.uri)
+        },
+        headers: {'Authorization': 'Bearer ' + accessToken },
+        json: true
+    }
+
+    request.put(playSongOptions, (error, response, body) => {
+        if (!error && response.statusCode === 204) {
+            updateAudioPlayerSong();
+        }
+    });
+}
+
 function updateAudioPlayerSong() {
 
     var getPlayerOptions = {
@@ -561,6 +610,7 @@ function updateAudioPlayerSong() {
 
     request.get(getPlayerOptions, (error, response, body) => {
         if (!error && response.statusCode === 200) {
+            console.log(body);
             var imgURL = body.item.album.images[0].url;
             var name = body.item.name;
             var artists = body.item.artists.map((artist) => artist.name).join(', ');
@@ -568,6 +618,7 @@ function updateAudioPlayerSong() {
             $('#curr-song-img').attr("src", imgURL);
             $('#curr-song-name').text(name);
             $('#curr-song-artist').text(artists);
+            $("#play-icon").text(body.is_playing ? "pause_circle_outline" : "play_circle_outline");
         }
     });
 }

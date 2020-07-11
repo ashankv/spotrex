@@ -249,7 +249,7 @@ function outputRecommendationsHtml() {
         $('#play-info').hide();
     }
 
-    $("#recommendation-header").show();
+    $("#recommendation-container").show();
 
     recommendationList.innerHTML = html;
 }
@@ -365,7 +365,7 @@ $(document).ready(function() {
             currentPlaylist = [];
             outputRecommendationsHtml();
             turnOffSlidersAndButtons();
-            $("#recommendation-header").hide();
+            $("#recommendation-container").hide();
             $("#play-info").hide();
         }
 
@@ -561,8 +561,6 @@ function updateAudioPlayerSong() {
 
     request.get(getPlayerOptions, (error, response, body) => {
         if (!error && response.statusCode === 200) {
-            console.log("PLAYER SUCCEEDED");
-            console.log(body);
             var imgURL = body.item.album.images[0].url;
             var name = body.item.name;
             var artists = body.item.artists.map((artist) => artist.name).join(', ');

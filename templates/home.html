@@ -153,8 +153,11 @@
 
         <div class="column-right ml-4 mt-3" id="body-right-col">
             <div class="row">
-                <div class="col-lg-8 col-md-8 col-sm-8">
-                    <h5 id="recommendation-header" class="bold-font" style="display: none;">Your Recommendations</h5>
+                <div class="col-lg-8 col-md-8 col-sm-8 d-flex" id="recommendation-container" style="display: none !important;">
+                    <h5 id="recommendation-header" class="bold-font">Your Recommendations</h5>
+                    <button type="button" class="btn btn-default p-0 m-0 ml-2" id="play-playlist-btn" style="width: 24px; height: 24px;">
+                        <i class="material-icons md-dark control-play" id="play-icon" style="font-size:24px">play_circle_filled</i>
+                    </button>
                 </div>
 
                 <div class="col-lg-4 col-md-4 col-sm-4 text-right" style="display: none;" id="play-info">28 tracks, 1 hr 45 min</div>
@@ -167,6 +170,5 @@
 </div>
 
 <script type="text/javascript"> var accessToken = '{{ data.access_token }}' </script>
-<script type="module" src="{{ url_for('static', filename='js/bundle.js') }}"> </script>
 
 {% endblock %}

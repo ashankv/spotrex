@@ -491,6 +491,16 @@ $(document).ready(function() {
         $("#play-icon").text(iconName == "play_circle_outline" ? "pause_circle_outline" : "play_circle_outline");
     });
 
+    $("#prev-btn").click(() => {
+        console.log("clicked previous btn");
+        skipToPreviousSong();
+    });
+
+    $("#skip-btn").click(() => {
+        console.log("clicked next btn");
+        skipToNextSong();
+    });
+
     $("#play-playlist-btn").click(() => {
         playRecommendationPlaylist();
     });
@@ -578,6 +588,38 @@ function resumeSong() {
 
     request.put(playSongOptions, (error, response, body) => {
         if (!error && response.statusCode === 204) {
+            console.log("UPDATING AUDIO PLAYER");
+            updateAudioPlayerSong();
+        }
+    });
+}
+
+function skipToNextSong() {
+    var skipSongOptions = {
+        uri: 'https://api.spotify.com/v1/me/player/next',
+        headers: {'Authorization': 'Bearer ' + accessToken },
+        json: true
+    }
+
+    request.post(skipSongOptions, (error, response, body) => {
+        if (!error && response.statusCode === 204) {
+            console.log("UPDATING AUDIO PLAYER");
+            updateAudioPlayerSong();
+        }
+    });
+}
+
+function skipToPreviousSong() {
+    var previousSongOptions = {
+        uri: 'https://api.spotify.com/v1/me/player/previous',
+        headers: {'Authorization': 'Bearer ' + accessToken },
+        json: true
+    }
+
+    request.post(previousSongOptions, (error, response, body) => {
+        console.log(response.statusCode);
+        if (!error && response.statusCode === 204) {
+            console.log("UPDATING AUDIO PLAYER");
             updateAudioPlayerSong();
         }
     });
@@ -595,6 +637,7 @@ function playRecommendationPlaylist() {
 
     request.put(playSongOptions, (error, response, body) => {
         if (!error && response.statusCode === 204) {
+            console.log("UPDATING AUDIO PLAYER");
             updateAudioPlayerSong();
         }
     });
@@ -609,8 +652,12 @@ function updateAudioPlayerSong() {
     }
 
     request.get(getPlayerOptions, (error, response, body) => {
+
+        console.log(response.statusCode);
+        console.log(response);
+        console.log(body);
+
         if (!error && response.statusCode === 200) {
-            console.log(body);
             var imgURL = body.item.album.images[0].url;
             var name = body.item.name;
             var artists = body.item.artists.map((artist) => artist.name).join(', ');

@@ -20,7 +20,8 @@ var currentPlaylist = [];
 
 var currentSize = getViewport();
 
-updateAudioPlayerSong();
+
+setInterval(updateAudioPlayerSong, 1000);
 
 // Fetch artists from Spotify
 const fetchSearchMatches = async (searchText) => {

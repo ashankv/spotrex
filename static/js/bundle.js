@@ -21,7 +21,8 @@ var currentPlaylist = [];
 
 var currentSize = getViewport();
 
-updateAudioPlayerSong();
+
+setInterval(updateAudioPlayerSong, 2000);
 
 // Fetch artists from Spotify
 const fetchSearchMatches = async (searchText) => {
@@ -111,6 +112,8 @@ const fetchSearchMatches = async (searchText) => {
 
             searchMatches = newMatches;
             outputSearchResultHtml(searchMatches);
+        } else {
+            console.log(response.statusCode);
         }
     });
 }
@@ -667,6 +670,8 @@ function updateAudioPlayerSong() {
             $('#curr-song-name').text(name);
             $('#curr-song-artist').text(artists);
             $("#play-icon").text(body.is_playing ? "pause_circle_outline" : "play_circle_outline");
+        } else {
+            console.log(response.statusCode);
         }
     });
 }

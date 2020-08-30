@@ -18,9 +18,12 @@ var selectedGenres = [];
 var trackRecQueryParams = {};
 var currentPlaylist = [];
 
+var currentDevices = [];
+var activeDevice = null;
+
 var currentSize = getViewport();
 
-
+updateAudioPlayerSong();
 setInterval(updateAudioPlayerSong, 1000);
 
 // Fetch artists from Spotify
@@ -591,7 +594,6 @@ function resumeSong() {
 
     request.put(playSongOptions, (error, response, body) => {
         if (!error && response.statusCode === 204) {
-            console.log("UPDATING AUDIO PLAYER");
             updateAudioPlayerSong();
         }
     });
@@ -654,11 +656,9 @@ function updateAudioPlayerSong() {
         json: true
     }
 
-    request.get(getPlayerOptions, (error, response, body) => {
+    getUserDevices();
 
-        console.log(response.statusCode);
-        console.log(response);
-        console.log(body);
+    request.get(getPlayerOptions, (error, response, body) => {
 
         if (!error && response.statusCode === 200) {
             var imgURL = body.item.album.images[0].url;
@@ -673,6 +673,29 @@ function updateAudioPlayerSong() {
             console.log(response.statusCode);
         }
     });
+}
+
+function getUserDevices() {
+
+    var getPlayerOptions = {
+        uri: 'https://api.spotify.com/v1/me/player/devices',
+        headers: {'Authorization': 'Bearer ' + accessToken },
+        json: true
+    }
+
+    request.get(getPlayerOptions, (error, response, body) => {
+        if (!error && response.statusCode === 200) {
+            currentDevices = body.devices;
+            activeDevice = currentDevices.find(device => device.is_active);
+            setActiveDevice(activeDevice);
+        } else {
+            console.log(response.statusCode);
+        }
+    });
+}
+
+function setActiveDevice(device) {
+    $('#device-text').text(device.name);
 }
 
 // Slider Initialization
@@ -900,7 +923,7 @@ trackRecQueryParams = {
     'max_speechiness': vocalSlider.noUiSlider.get()[1],
 };
 
-function getViewport () {
+function getViewport() {
     const width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     if (width <= 576) return 'xs'
     if (width <= 768) return 'sm'

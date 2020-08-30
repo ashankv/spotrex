@@ -25,3 +25,17 @@ i.control-skip:active {
 i.control-skip {
     transition: transform .2s;
 }
+
+i.control-device:hover {
+    transform: scale(1.3);
+    color: #444566;
+    text-shadow: 0 0 3px gray;
+}
+
+i.control-device:active {
+    color: #656797;
+}
+
+i.control-device {
+    transition: transform .2s;
+}
